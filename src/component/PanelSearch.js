@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { createHashHistory } from 'history';
-import { AutoComplete, Input, Rate, Checkbox } from 'antd';
+import { AutoComplete, Radio, Rate, Switch } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 
 import getData from '../getData'
+
+import './PanelSearch.css'
 
 
 function setDiff(diff) {
@@ -11,31 +13,46 @@ function setDiff(diff) {
 }
 
 function PanelSearch(props) {
-    const [options, setOptions] = useState([{
-        value: '111',
-    }, {
-        value: '222',
-    }]);
+    const [searchBy, setsearchBy] = useState({
+        diff: 0,
+    });
+
+    const [autoCompleteOptions, setAutoCompleteOptions] = useState([]);
+
+    function onSearchInput(val) {
+        let value = val.trim()
+        if (val.trim().length >= 1) {
+            let options = getData.getThemesByName(value).map(item => {
+                return {
+                    value: item.name
+                }
+            })
+            setAutoCompleteOptions(options)
+        } else {
+            setAutoCompleteOptions([])
+        }
+    }
+
     return (
         <>
             <div className="search_input_w">
                 <AutoComplete
-                    options={options}
+                    options={autoCompleteOptions}
                     prefix={<SearchOutlined />}
                     style={{
                         width: 200,
                     }}
                     // onSelect={onSelect}
                     // onSearch={onSearch}
+                    onChange={onSearchInput}
                     placeholder="请输入要搜索的套卡名"
                 >
                 </AutoComplete>
-                <Checkbox
-                    style={{marginLeft: '10px'}}
-                // onChange={}
-                >
-                    难度系数
-                </Checkbox>
+                <Switch
+                    checkedChildren="开" unCheckedChildren="关"
+                    style={{ margin: '0 10px' }}
+                />
+                难度系数
                 <Rate
                     defaultValue={0}
                     // disabled={true}
@@ -43,20 +60,17 @@ function PanelSearch(props) {
                 >
                 </Rate>
             </div>
-            <div className="search_input_w">
-                <Checkbox
-                    indeterminate={true}
-                // onChange={this.onCheckAllChange}
-                // checked={this.state.checkAll}
+            <div className="search_ctrl_w">
+                <Radio.Group
+                    // onChange={onChange}
+                    defaultValue="99"
                 >
-                    闪卡
-            </Checkbox>
-                <Checkbox
-                    indeterminate={true}
-                // onChange={this.onCheckAllChange}
-                // checked={this.state.checkAll}
-                >绝版卡
-            </Checkbox>
+                    <Radio.Button value="99">全部</Radio.Button>
+                    <Radio.Button value="0">普通卡</Radio.Button>
+                    <Radio.Button value="1">绝版卡</Radio.Button>
+                    <Radio.Button value="2">活动卡</Radio.Button>
+                    <Radio.Button value="9">闪卡</Radio.Button>
+                </Radio.Group>
             </div>
         </>
     )

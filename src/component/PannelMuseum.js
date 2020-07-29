@@ -54,7 +54,7 @@ function PanelMuseum(props) {
         </Tooltip>
       </span>
       <Modal
-        title="请搜索套卡"
+        title="搜索卡片主题"
         visible={searchModelVisible}
         footer={null}
         onOk={handleSearchOk}

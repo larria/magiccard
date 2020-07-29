@@ -1,0 +1,8 @@
+.search_input_w{
+    display: flex;
+    align-items: center;
+}
+.search_ctrl_w {
+    margin-top: 10px;
+    display: flex;
+}

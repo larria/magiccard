@@ -42,6 +42,14 @@ function getThemeById(id) {
     return themeList.find(item => item.id === id)
 }
 
+function getThemesByName(name) {
+    let themeList = getThemeList()
+    if (typeof name !== 'string') {
+        name = name.toString()
+    }
+    return themeList.filter(item => item.name.includes(name))
+}
+
 function getThemesByDiff(diff, fromThemeList) {
     let res = []
     let themeList 
@@ -131,6 +139,7 @@ function getCombineRuleByCardId(id) {
 export default {
     getThemeList,
     getThemeById,
+    getThemesByName,
     getThemesByDiff,
     getCardsByThemeId,
     getCardsByThemeIdAndSortByPrice,

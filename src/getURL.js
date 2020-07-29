@@ -1,6 +1,6 @@
 
-let BaseURL = 'https://appimg2.qq.com'
-// let BaseURL = 'https://larria.github.io/magiccard/assets'
+// let BaseURL = 'https://appimg2.qq.com'
+let BaseURL = 'https://larria.github.io/magiccard/assets'
 let fix = '.png'
 if (BaseURL.includes('qq.com')) {
     fix=''

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Divider, Radio, Button, Tooltip } from 'antd';
+import { Divider, Radio, Button, Modal, Tooltip } from 'antd';
 import { SearchOutlined, UnorderedListOutlined, InsertRowBelowOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 import { createHashHistory } from 'history';
 
 import getData from '../getData'
 // import getURL from '../getURL'
+import PanelSearch from './PanelSearch'
 import ThemePreview from './ThemePreview'
 import ThemeLogo from './ThemeLogo'
 import DiffStar from './DiffStar'
@@ -14,8 +15,9 @@ import './PanelMuseum.css'
 
 const { Title } = Typography;
 
-function PanelMuseum() {
-  const [showType, setShowType] = useState('byBlock')
+function PanelMuseum(props) {
+  const [showType, setShowType] = useState(props.showType)
+  const [searchModelVisible, setSearchModelVisible] = useState(false)
 
   useEffect(() => {
     console.timeEnd('render')
@@ -25,6 +27,18 @@ function PanelMuseum() {
     console.time('click')
     setShowType(e.target.value)
     console.timeEnd('click')
+  }
+
+  function onClickSearchButton() {
+    setSearchModelVisible(true)
+  }
+
+  function handleSearchOk() {
+    setSearchModelVisible(false)
+  }
+
+  function handleSearchCancel() {
+    setSearchModelVisible(false)
   }
   console.time('render')
 
@@ -36,9 +50,18 @@ function PanelMuseum() {
       </Radio.Group>
       <span className="cardlist_search">
         <Tooltip title="搜索">
-          <Button type="primary" shape="circle" icon={<SearchOutlined />} />
+          <Button type="primary" shape="circle" icon={<SearchOutlined />} onClick={onClickSearchButton} />
         </Tooltip>
       </span>
+      <Modal
+        title="请搜索套卡"
+        visible={searchModelVisible}
+        footer={null}
+        onOk={handleSearchOk}
+        onCancel={handleSearchCancel}
+      >
+        <PanelSearch></PanelSearch>
+      </Modal>
       {(showType === 'byBlock' && <CardListByBlock />)}
       {(showType === 'byList' && <CardListByList />)}
     </>
@@ -109,6 +132,11 @@ function CardListByList() {
 function _toTheme(theme_id) {
   let history = createHashHistory();
   history.push(`/theme_card/${theme_id}`)
+}
+
+PanelMuseum.defaultProps = {
+  themesList: getData.getThemeList(),
+  showType: 'byBlock'
 }
 
 export default PanelMuseum;

@@ -42,9 +42,14 @@ function getThemeById(id) {
     return themeList.find(item => item.id === id)
 }
 
-function getThemesByDiff(diff) {
+function getThemesByDiff(diff, fromThemeList) {
     let res = []
-    let themeList = getThemeList()
+    let themeList 
+    if (fromThemeList) {
+        themeList = fromThemeList
+    } else {
+        themeList = getThemeList()
+    }
     diff = diff.toString()
     res =  themeList.filter(item => {
         return diff === item.diff && item.name !== '道具卡'

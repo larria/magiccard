@@ -1,0 +1,24 @@
+.theme_logo_w {
+    display: flex;
+}
+
+.theme_logo_big_w {
+    display: flex;
+}
+
+.theme_logo {
+    width: 23px;
+    height: 23px;
+}
+
+.theme_logo_big {
+    width: 56px;
+    height: 56px;
+}
+
+.theme_logo_name {
+    margin: 0;
+    margin-left: 10px;
+    /* text-align: center; */
+    font-size: 16px;
+}

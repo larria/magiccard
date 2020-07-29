@@ -1,0 +1,21 @@
+.theme_preview_w{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.theme_preview {
+    display: inline-block;
+    width: 120px;
+    height: 150px;
+    cursor: pointer;
+}
+
+span.theme_preview_name {
+    margin: 0;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 16px;
+}

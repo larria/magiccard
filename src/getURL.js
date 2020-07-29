@@ -1,28 +1,33 @@
 
-let BaseURL = 'https://appimg2.qq.com'
+// let BaseURL = 'https://appimg2.qq.com'
+let BaseURL = window.location.host + '/assets'
+let fix = '.png'
+if (BaseURL.includes('qq.com')) {
+    fix=''
+}
 
 function getCardSmall (cardId) {
-    return `${BaseURL}/card/img/card/${cardId}_56`
+    return `${BaseURL}/card/img/card/${cardId}_56${fix}`
 }
 
 function getCard (cardId) {
-    return `${BaseURL}/card/img/card/${cardId}`
+    return `${BaseURL}/card/img/card/${cardId}${fix}`
 }
 
 function getThemeBigLogo (themeId) {
-    return `${BaseURL}/card/img/theme/${themeId}_big_logo`
+    return `${BaseURL}/card/img/theme/${themeId}_big_logo${fix}`
 }
 
 function getThemeLogo (themeId) {
-    return `${BaseURL}/card/img/theme/${themeId}_logo`
+    return `${BaseURL}/card/img/theme/${themeId}_logo${fix}`
 }
 
 function getThemeBackGround (themeId) {
-    return `${BaseURL}/card/img/theme/${themeId}`
+    return `${BaseURL}/card/img/theme/${themeId}${fix}`
 }
 
 function getThemeMuseum (themeId) {
-    return `${BaseURL}/card/img/theme/${themeId}_museum`
+    return `${BaseURL}/card/img/theme/${themeId}_museum${fix}`
 }
 
 export default {

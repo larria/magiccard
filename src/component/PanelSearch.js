@@ -12,7 +12,7 @@ function PanelSearch(props) {
     // 搜索条件
     const [searchBy, setSearchBy] = useState({})
     // 根据输入条件找到的搜索结果
-    const [searchResultThemeList, setSearchResultThemeList] = useState(getData.getThemeList())
+    const [searchResultThemeList, setSearchResultThemeList] = useState(props.themesList)
 
     // 更新搜索条件
     function updateSearchBy(searchKey, searchVal) {
@@ -20,7 +20,7 @@ function PanelSearch(props) {
         if (_tempSearchBy[searchKey] !== searchVal) {
             _tempSearchBy[searchKey] = searchVal
             setSearchBy(_tempSearchBy)
-            setSearchResultThemeList(getData.getThemesBySearch(_tempSearchBy))
+            setSearchResultThemeList(getData.getThemesBySearch(_tempSearchBy, props.themesList))
         }
     }
 
@@ -30,7 +30,7 @@ function PanelSearch(props) {
         if (searchKey in _tempSearchBy) {
             delete _tempSearchBy[searchKey]
             setSearchBy(_tempSearchBy)
-            setSearchResultThemeList(getData.getThemesBySearch(_tempSearchBy))
+            setSearchResultThemeList(getData.getThemesBySearch(_tempSearchBy, props.themesList))
         }
     }
 

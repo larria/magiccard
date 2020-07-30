@@ -42,4 +42,9 @@
 .cards_by_price_w .card_wrap {
     margin: 10px 5px;
     cursor: pointer;
+    transition: all ease 0.3s;
+}
+
+.cards_by_price_w .card_wrap:hover {
+    transform: scale(1.05, 1.05) rotate(2deg)
 }

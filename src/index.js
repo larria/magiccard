@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // import './index.css';
-// import App from './App';
-// import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from './serviceWorker';
 import 'antd/dist/antd.css'
 import { Layout, Menu, Breadcrumb } from 'antd';
 import {
@@ -51,7 +50,7 @@ const { SubMenu } = Menu;
 
 class MagicCard extends React.Component {
   state = {
-    collapsed: false,
+    collapsed: true,
   };
 
   onCollapse = collapsed => {
@@ -141,3 +140,6 @@ function _getThemeCards({ match }) {
 }
 
 ReactDOM.render(<MagicCard />, document.getElementById('root'));
+
+
+serviceWorker.register();

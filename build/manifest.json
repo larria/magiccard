@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Magic Card",
+  "name": "Magic Card APP",
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,12 +10,12 @@
     {
       "src": "logo_small.jpeg",
       "type": "image/jpeg",
-      "sizes": "192x192"
+      "sizes": "64x64"
     },
     {
       "src": "logo.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "75*75"
     }
   ],
   "start_url": ".",

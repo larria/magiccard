@@ -19,9 +19,7 @@ import {
   Link,
   Redirect,
 } from "react-router-dom";
-import {
-  createHashHistory
-} from 'history';
+import { createHashHistory } from 'history';
 
 import getData from './getData'
 import getURL from './getURL'
@@ -55,7 +53,6 @@ class MagicCard extends React.Component {
       history.replace('/register')
     }
     // console.log(history.location.pathname)
-    console.log(history)
   }
 
   render() {
@@ -125,10 +122,10 @@ class MagicCard extends React.Component {
                   </Route>
                 </Switch>
                 <Content style={{ margin: '0 16px' }}>
-                  <Breadcrumb style={{ margin: '16px 0' }}>
+                  {/* <Breadcrumb style={{ margin: '16px 0' }}>
                     <Breadcrumb.Item>Main</Breadcrumb.Item>
                     <Breadcrumb.Item>Theme</Breadcrumb.Item>
-                  </Breadcrumb>
+                  </Breadcrumb> */}
                   <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
                     <Switch>
                       <Route exact path="/museum">
@@ -141,6 +138,10 @@ class MagicCard extends React.Component {
                       </Route>
                       <Route exact path="/">
                         <Redirect to="/home" />
+                      </Route>
+                      <Route exact path="/home">
+                        {local.getLocUserName()}
+                        <img src={local.getLocAvatar()} alt=""/>
                       </Route>
                     </Switch>
                   </div>

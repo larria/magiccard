@@ -26,3 +26,51 @@ export function getLocUser() {
     }
     return res
 }
+
+export function getLocUserName() {
+    let res = null
+    let locObj = getLocObj()
+    if (locObj) {
+        return locObj.user.userName
+    }
+    return res
+}
+
+export function getLocAvatar() {
+    let res = null
+    let locObj = getLocObj()
+    if (locObj) {
+        return locObj.user.avatar
+    }
+    return res
+}
+
+export function setLocUser(userName) {
+    let locObj = getLocObj()
+    if (!locObj) {
+        locObj = {}
+    }
+    if (locObj.user) {
+        locObj.user.userName = userName
+    } else {
+        locObj.user = {
+            userName: userName
+        }
+    }
+    localStorage.setItem(LOC_KEY_NAME, JSON.stringify(locObj))
+}
+
+export function setLocalAvatar(avatar) {
+    let locObj = getLocObj()
+    if (!locObj) {
+        locObj = {}
+    }
+    if (locObj.user) {
+        locObj.user.avatar = avatar
+    } else {
+        locObj.user = {
+            avatar: avatar
+        }
+    }
+    localStorage.setItem(LOC_KEY_NAME, JSON.stringify(locObj))
+}

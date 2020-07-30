@@ -55,7 +55,7 @@ function CardListByBlock(props) {
                         </div>
                     )
                 } else {
-                    return (<></>)
+                    return
                 }
             })}
         </div>
@@ -91,7 +91,7 @@ function CardListByList(props) {
                         </div>
                     )
                 } else {
-                    return (<></>)
+                    return
                 }
             })}
         </div>

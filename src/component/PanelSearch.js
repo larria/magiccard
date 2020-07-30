@@ -39,7 +39,7 @@ function PanelSearch(props) {
         let val = e.target.value
         let str = val.trim()
         if (str.length >= 1) {
-            updateSearchBy('name', new RegExp(str, 'i'))
+            updateSearchBy('name', str)
         } else {
             deleteSearchBy('name')
         }
@@ -72,10 +72,7 @@ function PanelSearch(props) {
                     onChange={onSearchInput}
                 />
                 <div className="search_diff_w">
-                    <Switch
-                        checkedChildren="星级" unCheckedChildren="星级"
-                        style={{ margin: '0 10px' }}
-                    />
+                    <span style={{ marginLeft: '20px', fontSize: '16px' }}>星级</span>
                     <Rate
                         style={{ marginLeft: '10px' }}
                         defaultValue={0}

@@ -37,6 +37,11 @@ function getThemeList() {
 // 通过对象条件搜索卡片主题
 function getThemesBySearch(searchObj, fromThemeList) {
     let themeList
+    let searchBy = JSON.parse(JSON.stringify(searchObj))
+
+    if ('name' in searchBy) {
+        searchBy.name = new RegExp(searchBy.name, 'i')
+    }
     if (fromThemeList) {
         themeList = fromThemeList
     } else {
@@ -44,13 +49,13 @@ function getThemesBySearch(searchObj, fromThemeList) {
     }
     return themeList.filter(item => {
         let matched = true
-        for (let key in searchObj) {
-            if (searchObj[key] instanceof RegExp) {
-                if (!searchObj[key].test(item[key])) {
+        for (let key in searchBy) {
+            if (searchBy[key] instanceof RegExp) {
+                if (!searchBy[key].test(item[key])) {
                     matched = false
                     break
                 }
-            } else if (searchObj[key] !== item[key]) {
+            } else if (searchBy[key] !== item[key]) {
                 matched = false
                 break
             }

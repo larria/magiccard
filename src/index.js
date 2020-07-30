@@ -141,7 +141,7 @@ class MagicCard extends React.Component {
                       </Route>
                       <Route exact path="/home">
                         {local.getLocUserName()}
-                        <img src={local.getLocAvatar()} alt=""/>
+                        <img src={local.getLocAvatar()} alt="" />
                       </Route>
                     </Switch>
                   </div>

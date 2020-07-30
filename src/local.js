@@ -31,7 +31,12 @@ export function getLocUserName() {
     let res = null
     let locObj = getLocObj()
     if (locObj) {
-        return locObj.user.userName
+        try {
+            return locObj.user.userName
+        } catch (error) {
+            console.log('本地数据有误')
+            return null
+        }
     }
     return res
 }
@@ -40,7 +45,12 @@ export function getLocAvatar() {
     let res = null
     let locObj = getLocObj()
     if (locObj) {
-        return locObj.user.avatar
+        try {
+            return locObj.user.avatar
+        } catch (error) {
+            console.log('本地数据有误')
+            return null
+        }
     }
     return res
 }

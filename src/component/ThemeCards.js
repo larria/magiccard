@@ -2,7 +2,6 @@ import React from 'react';
 import { message } from 'antd';
 import * as utils from '../utils';
 import getData from '../getData'
-import getURL from '../getURL'
 import Card from './Card'
 import DiffStar from './DiffStar'
 
@@ -12,6 +11,7 @@ message.config({
     maxCount: 1
 })
 
+// 主题卡片集列表
 class ThemeCards extends React.Component {
     constructor(props) {
         super(props);

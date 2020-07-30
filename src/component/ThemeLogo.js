@@ -1,5 +1,4 @@
 import React from 'react';
-import getData from '../getData'
 import getURL from '../getURL'
 
 import './ThemeLogo.css'

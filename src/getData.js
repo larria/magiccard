@@ -34,6 +34,31 @@ function getThemeList() {
     return res
 }
 
+// 通过对象条件搜索卡片主题
+function getThemesBySearch(searchObj, fromThemeList) {
+    let themeList
+    if (fromThemeList) {
+        themeList = fromThemeList
+    } else {
+        themeList = getThemeList()
+    }
+    return themeList.filter(item => {
+        let matched = true
+        for (let key in searchObj) {
+            if (searchObj[key] instanceof RegExp) {
+                if (!searchObj[key].test(item[key])) {
+                    matched = false
+                    break
+                }
+            } else if (searchObj[key] !== item[key]) {
+                matched = false
+                break
+            }
+        }
+        return matched
+    })
+}
+
 function getThemeById(id) {
     let themeList = getThemeList()
     if (typeof id !== 'string') {
@@ -42,8 +67,13 @@ function getThemeById(id) {
     return themeList.find(item => item.id === id)
 }
 
-function getThemesByName(name) {
-    let themeList = getThemeList()
+function getThemesByName(name, fromThemeList) {
+    let themeList
+    if (fromThemeList) {
+        themeList = fromThemeList
+    } else {
+        themeList = getThemeList()
+    }
     if (typeof name !== 'string') {
         name = name.toString()
     }
@@ -52,7 +82,7 @@ function getThemesByName(name) {
 
 function getThemesByDiff(diff, fromThemeList) {
     let res = []
-    let themeList 
+    let themeList
     if (fromThemeList) {
         themeList = fromThemeList
     } else {
@@ -138,6 +168,7 @@ function getCombineRuleByCardId(id) {
 
 export default {
     getThemeList,
+    getThemesBySearch,
     getThemeById,
     getThemesByName,
     getThemesByDiff,

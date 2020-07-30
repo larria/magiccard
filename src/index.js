@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import './index.css';
 import * as serviceWorker from './serviceWorker';
+import './index.css';
 import 'antd/dist/antd.css'
 import { Layout, Menu, Breadcrumb } from 'antd';
 import {
@@ -32,19 +32,6 @@ import ThemeCards from './component/ThemeCards'
 // console.log(getData.getCombineRuleByCardId(13688));
 // console.log(getURL.getCardSmall(13688));
 
-/* ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-); */
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-// serviceWorker.unregister();
-
-// ReactDOM.render(<DatePicker />, document.getElementById('root'));
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
@@ -63,25 +50,32 @@ class MagicCard extends React.Component {
       <Router>
         <Layout style={{ minHeight: '100vh' }}>
           <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
-            <div className="logo" />
+            <div className="logo_main"></div>
             <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-              <Menu.Item key="1" icon={<PieChartOutlined />}>
-                Main
-            </Menu.Item>
-              <Menu.Item key="2" icon={<DesktopOutlined />}>
-                Option
-            </Menu.Item>
-              <SubMenu key="sub1" icon={<UserOutlined />} title="User">
-                <Menu.Item key="3">Tom</Menu.Item>
-                <Menu.Item key="4">Bill</Menu.Item>
+              <Menu.Item key="1" icon={<DesktopOutlined />}>
+                <Link to="/">首页</Link>
+              </Menu.Item>
+              <SubMenu key="sub1" icon={<UserOutlined />} title="好友">
+                <Menu.Item key="3">心月</Menu.Item>
+                <Menu.Item key="4">泠泠弦上</Menu.Item>
                 <Menu.Item key="5">Alex</Menu.Item>
               </SubMenu>
-              <SubMenu key="sub2" icon={<TeamOutlined />} title="Team">
-                <Menu.Item key="6">Team 1</Menu.Item>
-                <Menu.Item key="8">Team 2</Menu.Item>
+              <SubMenu key="sub2" icon={<TeamOutlined />} title="卡友">
+                <Menu.Item key="6">3646785456</Menu.Item>
+                <Menu.Item key={Math.random()}>3646785450</Menu.Item>
+                <Menu.Item key={Math.random()}>3646785450</Menu.Item>
+                <Menu.Item key={Math.random()}>3646785450</Menu.Item>
+                <Menu.Item key={Math.random()}>3646785450</Menu.Item>
+                <Menu.Item key={Math.random()}>3646785450</Menu.Item>
+                <Menu.Item key={Math.random()}>3646785450</Menu.Item>
+                <Menu.Item key={Math.random()}>3646785450</Menu.Item>
               </SubMenu>
-              <Menu.Item key="9" icon={<FileOutlined />} />
-              <Menu.Item key="10" icon={<SettingOutlined />} />
+              <Menu.Item key="9" icon={<FileOutlined />}>
+                <Link to="/museum">博物馆</Link>
+              </Menu.Item>
+              <Menu.Item key="10" icon={<SettingOutlined />}>
+                <Link to="/settings">设置</Link>
+              </Menu.Item>
             </Menu>
           </Sider>
           <Layout className="site-layout">

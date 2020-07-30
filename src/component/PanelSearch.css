@@ -2,7 +2,19 @@
     display: flex;
     align-items: center;
 }
+.search_input{
+    max-width: 50%;
+}
+.search_diff_w{
+    display: flex;
+    align-items: flex-end;
+}
 .search_ctrl_w {
     margin-top: 10px;
     display: flex;
+}
+.search_result_w{
+    max-height: 50vh;
+    padding-left: 3%;
+    overflow-y: auto;
 }

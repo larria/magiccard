@@ -54,7 +54,8 @@ function PageRegister(props) {
             local.setLocUser(userName)
             local.setLocalAvatar(avatar)
             let history = createHashHistory()
-            history.replace('/home')
+            // history.replace('/home')
+            history.replace('/museaum')
         } else {
             console.log(`个人信息尚未完善`)
         }

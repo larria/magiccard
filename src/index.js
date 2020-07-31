@@ -28,6 +28,8 @@ import * as local from './local'
 import PannelMuseum from './component/PannelMuseum'
 import ThemeCards from './component/ThemeCards'
 import PageRegister from './component/PageRegister'
+import PanelHome from './component/PanelHome'
+import PanelSettings from './component/PanelSettings'
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -43,19 +45,24 @@ class MagicCard extends React.Component {
   };
 
   componentDidMount() {
-    let loc = local.getLocObj()
-    let userInfo = local.getLocUser()
-    let history = createHashHistory()
-    if (!loc) {
-      local.initLoc()
-    }
-    if (!userInfo) {
-      history.replace('/register')
-    }
     // console.log(history.location.pathname)
   }
 
   render() {
+    {
+      // 如果没有本地数据，先初始化
+      let loc = local.getLocObj()
+      if (!loc) {
+        local.initLoc()
+      }
+      let userName = local.getLocUserName()
+      let avatar = local.getLocAvatar()
+      // 如果没有用户信息，先前往注册
+      if (userName === null || avatar === null) {
+        let history = createHashHistory()
+        history.replace('/register')
+      }
+    }
     return (
       <Router>
         <Switch>
@@ -78,7 +85,7 @@ class MagicCard extends React.Component {
                     <Menu.Item key="5">Alex</Menu.Item>
                   </SubMenu>
                   <SubMenu key="sub2" icon={<TeamOutlined />} title="卡友">
-                    <Menu.Item key="6">3646785456</Menu.Item>
+                    <Menu.Item key={Math.random()}>3646785456</Menu.Item>
                     <Menu.Item key={Math.random()}>3646785450</Menu.Item>
                     <Menu.Item key={Math.random()}>3646785450</Menu.Item>
                     <Menu.Item key={Math.random()}>3646785450</Menu.Item>
@@ -131,17 +138,16 @@ class MagicCard extends React.Component {
                       <Route exact path="/museum">
                         <PannelMuseum />
                       </Route>
-                      <Route exact path="/topics">
-                        topics
-                  </Route>
                       <Route path="/theme_card/:theme_id" component={_getThemeCards}>
                       </Route>
                       <Route exact path="/">
                         <Redirect to="/home" />
                       </Route>
                       <Route exact path="/home">
-                        {local.getLocUserName()}
-                        <img src={local.getLocAvatar()} alt="" />
+                        <PanelHome />
+                      </Route>
+                      <Route exact path="/settings">
+                        <PanelSettings></PanelSettings>
                       </Route>
                     </Switch>
                   </div>

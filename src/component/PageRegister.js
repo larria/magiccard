@@ -7,20 +7,26 @@ import './PageRegister.css'
 
 import * as local from '../local'
 import {
-    HashRouter as Router,
-    Switch,
-    Route,
-    Link,
-    Redirect,
+    // HashRouter as Router,
+    // Switch,
+    // Route,
+    // Link,
+    // Redirect,
 } from "react-router-dom"
 import { createHashHistory } from 'history'
 
 function PageRegister(props) {
+    // 如果已经有个人信息，则前往主页
+    if (typeof local.getLocUserName() === 'string' && typeof local.getLocAvatar() === 'string') {
+        let history = createHashHistory()
+        history.replace('/home')
+    }
+
     let [userName, setUserName] = useState('')
     let [avatar, setAvatar] = useState(null)
     let [ableToSubmit, setAbleToSubmit] = useState(true)
 
-    // 输入框
+    // 昵称输入框
     function handleInputChange(e) {
         let str = e.target.value.trim()
         setUserName(str)
@@ -54,6 +60,7 @@ function PageRegister(props) {
                         <Input
                             placeholder="请输入昵称"
                             autoFocus={true}
+                            size="large"
                             prefix={<UserOutlined />}
                             onChange={handleInputChange}
                         />

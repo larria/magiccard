@@ -22,7 +22,12 @@ export function getLocUser() {
     let res = null
     let locObj = getLocObj()
     if (locObj) {
-        return locObj.user
+        try {
+            return locObj.user
+        } catch (error) {
+            console.log('本地数据有误')
+            return null
+        }
     }
     return res
 }

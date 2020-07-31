@@ -25,11 +25,11 @@ import getData from './getData'
 import getURL from './getURL'
 import * as local from './local'
 
-import PannelMuseum from './component/PannelMuseum'
-import ThemeCards from './component/ThemeCards'
-import PageRegister from './component/PageRegister'
-import PanelHome from './component/PanelHome'
-import PanelSettings from './component/PanelSettings'
+import PannelMuseum from './components/PannelMuseum'
+import ThemeCards from './components/ThemeCards'
+import PageRegister from './components/PageRegister'
+import PanelHome from './components/PanelHome'
+import PanelSettings from './components/PanelSettings'
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;

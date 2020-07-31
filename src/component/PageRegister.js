@@ -17,16 +17,18 @@ import { createHashHistory } from 'history'
 
 function PageRegister(props) {
     // 如果已经有个人信息，则前往主页
-    if (typeof local.getLocUserName() === 'string' && typeof local.getLocAvatar() === 'string') {
-        let history = createHashHistory()
-        history.replace('/home')
+    if (props.checkRegistered) {
+        if (typeof local.getLocUserName() === 'string' && typeof local.getLocAvatar() === 'string') {
+            let history = createHashHistory()
+            history.replace('/home')
+        }
     }
 
     let [userName, setUserName] = useState('')
     let [avatar, setAvatar] = useState(null)
     let [ableToSubmit, setAbleToSubmit] = useState(true)
 
-    // 昵称输入框
+    // 昵称输入框输入处理
     function handleInputChange(e) {
         let str = e.target.value.trim()
         setUserName(str)
@@ -38,6 +40,7 @@ function PageRegister(props) {
             setAbleToSubmit(true)
         }
     }
+    // 选择头像后的处理
     function handleAvatarSelect(e) {
         let url = e.target.src
         setAvatar(url)
@@ -45,11 +48,16 @@ function PageRegister(props) {
             setAbleToSubmit(false)
         }
     }
+    // 提交时的处理
     function handleSubmit() {
-        local.setLocUser(userName)
-        local.setLocalAvatar(avatar)
-        let history = createHashHistory()
-        history.replace('/home')
+        if (userName.length && avatar.length) {
+            local.setLocUser(userName)
+            local.setLocalAvatar(avatar)
+            let history = createHashHistory()
+            history.replace('/home')
+        } else {
+            console.log(`个人信息尚未完善`)
+        }
     }
     return (
         <>
@@ -94,6 +102,7 @@ function PageRegister(props) {
 }
 
 PageRegister.defaultProps = {
+    checkRegistered: true
 }
 
 export default PageRegister;

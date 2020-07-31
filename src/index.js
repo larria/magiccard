@@ -58,8 +58,8 @@ class MagicCard extends React.Component {
       let userName = local.getLocUserName()
       let avatar = local.getLocAvatar()
       // 如果没有用户信息，先前往注册
-      if (userName === null || avatar === null) {
-        let history = createHashHistory()
+      let history = createHashHistory()
+      if (userName === null || avatar === null && !history.location.pathname.includes('/museum')) {
         history.replace('/register')
       }
     }

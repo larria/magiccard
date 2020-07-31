@@ -54,8 +54,7 @@ function PageRegister(props) {
             local.setLocUser(userName)
             local.setLocalAvatar(avatar)
             let history = createHashHistory()
-            // history.replace('/home')
-            history.replace('/museaum')
+            history.replace('/home')
         } else {
             console.log(`个人信息尚未完善`)
         }
@@ -65,6 +64,7 @@ function PageRegister(props) {
             <div className="register_w">
                 <img className="register_welcome_img" src="https://larria.github.io/magiccard/assets/style/imgs/moka_girl.png" alt="" />
                 <div className="register_form">
+                    <h3>您的昵称</h3>
                     <div>
                         <Input
                             placeholder="请输入昵称"

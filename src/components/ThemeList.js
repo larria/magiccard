@@ -54,9 +54,8 @@ function CardListByBlock(props) {
                             <Divider></Divider>
                         </div>
                     )
-                } else {
-                    return
                 }
+                return false
             })}
         </div>
     )
@@ -90,9 +89,8 @@ function CardListByList(props) {
                             <Divider></Divider>
                         </div>
                     )
-                } else {
-                    return
                 }
+                return false
             })}
         </div>
     )

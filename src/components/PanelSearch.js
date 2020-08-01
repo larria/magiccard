@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createHashHistory } from 'history';
-import { Input, Radio, Rate, Switch, Result, Divider } from 'antd';
+import { Input, Radio, Rate, Result, Divider } from 'antd';
 import { SearchOutlined, LoadingOutlined } from '@ant-design/icons';
 
 import getData from '../getData'

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import './index.css';
 import 'antd/dist/antd.css'
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu } from 'antd';
 import {
   DesktopOutlined,
   FileOutlined,
@@ -21,8 +21,8 @@ import {
 } from "react-router-dom";
 import { createHashHistory } from 'history';
 
-import getData from './getData'
-import getURL from './getURL'
+// import getData from './getData'
+// import getURL from './getURL'
 import * as local from './local'
 
 import PannelMuseum from './components/PannelMuseum'
@@ -59,8 +59,11 @@ class MagicCard extends React.Component {
       let avatar = local.getLocAvatar()
       // 如果没有用户信息，先前往注册
       let history = createHashHistory()
-      if (userName === null || avatar === null && !history.location.pathname.includes('/museum')) {
-        history.replace('/register')
+      if (userName === null || avatar === null) {
+        // museum可无需用户信息访问
+        if (!history.location.pathname.includes('/museum')) {
+          history.replace('/register')
+        }
       }
     }
     return (
@@ -129,10 +132,6 @@ class MagicCard extends React.Component {
                   </Route>
                 </Switch>
                 <Content style={{ margin: '0 16px' }}>
-                  {/* <Breadcrumb style={{ margin: '16px 0' }}>
-                    <Breadcrumb.Item>Main</Breadcrumb.Item>
-                    <Breadcrumb.Item>Theme</Breadcrumb.Item>
-                  </Breadcrumb> */}
                   <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
                     <Switch>
                       <Route exact path="/museum">

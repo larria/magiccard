@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Input, Divider, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import { connect } from 'react-redux';
 
 import { avatarsURLList } from '../getConfig'
 import './PageRegister.css'
 
-import * as local from '../local'
 import {
     // HashRouter as Router,
     // Switch,
@@ -18,22 +18,22 @@ import { createHashHistory } from 'history'
 function PageRegister(props) {
     // 如果已经有个人信息，则前往主页
     if (props.checkRegistered) {
-        if (typeof local.getLocUserName() === 'string' && typeof local.getLocAvatar() === 'string') {
+        if (typeof props.userName === 'string' && typeof props.avatar === 'string') {
             let history = createHashHistory()
             history.replace('/home')
         }
     }
 
-    let [userName, setUserName] = useState('')
-    let [avatar, setAvatar] = useState(null)
+    let [tempUserName, settempUserName] = useState('')
+    let [tempAvatar, settempAvatar] = useState(null)
     let [ableToSubmit, setAbleToSubmit] = useState(true)
 
     // 昵称输入框输入处理
     function handleInputChange(e) {
         let str = e.target.value.trim()
-        setUserName(str)
+        settempUserName(str)
         if (str.length > 0) {
-            if (avatar) {
+            if (tempAvatar) {
                 setAbleToSubmit(false)
             }
         } else {
@@ -43,18 +43,18 @@ function PageRegister(props) {
     // 选择头像后的处理
     function handleAvatarSelect(e) {
         let url = e.target.src
-        setAvatar(url)
-        if (userName.length) {
+        settempAvatar(url)
+        if (tempUserName.length) {
             setAbleToSubmit(false)
         }
     }
     // 提交时的处理
     function handleSubmit() {
-        if (userName.length && avatar.length) {
-            local.setLocUser(userName)
-            local.setLocalAvatar(avatar)
-            let history = createHashHistory()
-            history.replace('/home')
+        if (tempUserName.length && tempAvatar.length) {
+            props.setUserName(tempUserName)
+            props.setAvatar(tempAvatar)
+            // let history = createHashHistory()
+            // history.replace('/home')
         } else {
             console.log(`个人信息尚未完善`)
         }
@@ -85,9 +85,9 @@ function PageRegister(props) {
                                     src={url}
                                     alt=""
                                     onClick={handleAvatarSelect}
-                                    style={avatar === url ? {
+                                    style={tempAvatar === url ? {
                                         boxShadow: '0 0 5px #1088e9'
-                                    } : avatar && {
+                                    } : tempAvatar && {
                                         opacity: '0.5'
                                     }}
                                 />
@@ -106,4 +106,29 @@ PageRegister.defaultProps = {
     checkRegistered: true
 }
 
-export default PageRegister;
+const mapStateToProps = (state) => {
+    return {
+        userName: state.userName,
+        avatar: state.avatar
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setUserName: (name) => {
+            let action = {
+                type: 'setUserName',
+                name: name
+            }
+            dispatch(action);
+        },
+        setAvatar: (avatar) => {
+            let action = {
+                type: 'setAvatar',
+                avatarURL: avatar
+            }
+            dispatch(action);
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PageRegister);

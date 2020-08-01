@@ -1,0 +1,44 @@
+.user_w {
+    display: flex;
+    width: 70px;
+    height: 70px;
+    align-items: center;
+}
+
+.user_w img {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border: 5px solid #ccc;
+    border-radius: 100%;
+}
+.user_w .user_name {
+    margin: 0 0 0 10px;
+}
+.user_state_w{
+    display: flex;
+}
+
+.user_exp_icon {
+    display: inline-block;
+    width: 52px;
+    height: 52px;
+    background: url(https://larria.github.io/magiccard/assets/style/imgs/icon.png) -60px -64px no-repeat;
+    zoom: 1;
+}
+
+.user_gold_icon {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background: url(https://larria.github.io/magiccard/assets/style/imgs/money_icon.png) -5px -6px no-repeat;
+    zoom: 1;
+}
+
+.user_power_icon {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background: url(https://larria.github.io/magiccard/assets/style/imgs/money_icon.png) -65px -6px no-repeat;
+    zoom: 1;
+}

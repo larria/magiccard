@@ -3,7 +3,54 @@ import cardInfoXML from './data'
 let dom = document.createElement('data')
 dom.innerHTML = cardInfoXML
 
-function getThemeList() {
+// 格式化数据
+const DATA_FORMATTED = function () {
+    let res = {
+        THEME: {},
+        CARD : {},
+        COMB : {}
+    }
+    // 卡片主题
+    let $themes = dom.querySelectorAll('theme')
+    $themes.forEach(($item) => {
+        // <theme id="235" name="鹊桥相会" diff="3" time="1344914792" pages="2" version="1" gift="740|739|738|737" flashTheme="0" type="2" color="0xfa5745" new_type="0" gallery_type="49"  onsale_time="0" rank_end_time="0" ></theme>
+        let itemData = {}
+        let attrs = $item.attributes
+        for (let key of attrs) {
+            itemData[key.name] = key.value
+        }
+        res.THEME[attrs.id.value] = itemData
+    })
+
+    // 卡片
+    let $card = dom.querySelectorAll('card')
+    $card.forEach(($item) => {
+        // <theme id="235" name="鹊桥相会" diff="3" time="1344914792" pages="2" version="1" gift="740|739|738|737" flashTheme="0" type="2" color="0xfa5745" new_type="0" gallery_type="49"  onsale_time="0" rank_end_time="0" ></theme>
+        let itemData = {}
+        let attrs = $item.attributes
+        for (let key of attrs) {
+            itemData[key.name] = key.value
+        }
+        res.CARD[attrs.id.value] = itemData
+    })
+
+    // 卡片合成
+    let $comb = dom.querySelectorAll('comb')
+    $comb.forEach(($item) => {
+        // <theme id="235" name="鹊桥相会" diff="3" time="1344914792" pages="2" version="1" gift="740|739|738|737" flashTheme="0" type="2" color="0xfa5745" new_type="0" gallery_type="49"  onsale_time="0" rank_end_time="0" ></theme>
+        let itemData = {}
+        let attrs = $item.attributes
+        for (let key of attrs) {
+            itemData[key.name] = key.value
+        }
+        res.COMB[attrs.id.value] = itemData
+    })
+    // console.log(res.comb)
+    return res
+}()
+
+// 获取全部主题，已废弃
+/* function getThemeList() {
     let res = []
     let $themes = dom.querySelectorAll('theme')
     $themes.forEach(($item) => {
@@ -14,24 +61,29 @@ function getThemeList() {
             itemData[key.name] = key.value
         }
         res.push(itemData)
-        /* res.push({
-            id: $item.getAttribute('id'),
-            name: $item.getAttribute('name'),
-            diff: $item.getAttribute('diff'),
-            time: $item.getAttribute('time'),
-            pages: $item.getAttribute('pages'),
-            version: $item.getAttribute('version'),
-            gift: $item.getAttribute('gift'),
-            flashTheme: $item.getAttribute('flashTheme'),
-            type: $item.getAttribute('type'),
-            color: $item.getAttribute('color'),
-            new_type: $item.getAttribute('new_type'),
-            gallery_type: $item.getAttribute('gallery_type'),
-            onsale_time: $item.getAttribute('onsale_time'),
-            rank_end_time: $item.getAttribute('rank_end_time'),
-        }) */
+        // res.push({
+        //     id: $item.getAttribute('id'),
+        //     name: $item.getAttribute('name'),
+        //     diff: $item.getAttribute('diff'),
+        //     time: $item.getAttribute('time'),
+        //     pages: $item.getAttribute('pages'),
+        //     version: $item.getAttribute('version'),
+        //     gift: $item.getAttribute('gift'),
+        //     flashTheme: $item.getAttribute('flashTheme'),
+        //     type: $item.getAttribute('type'),
+        //     color: $item.getAttribute('color'),
+        //     new_type: $item.getAttribute('new_type'),
+        //     gallery_type: $item.getAttribute('gallery_type'),
+        //     onsale_time: $item.getAttribute('onsale_time'),
+        //     rank_end_time: $item.getAttribute('rank_end_time'),
+        // })
     })
     return res
+} */
+
+// 获取全部主题
+function getThemeList () {
+    return Object.values(DATA_FORMATTED.THEME)
 }
 
 // 通过对象条件搜索卡片主题
@@ -65,24 +117,10 @@ function getThemesBySearch(searchObj, fromThemeList) {
 }
 
 function getThemeById(id) {
-    let themeList = getThemeList()
     if (typeof id !== 'string') {
         id = id.toString()
     }
-    return themeList.find(item => item.id === id)
-}
-
-function getThemesByName(name, fromThemeList) {
-    let themeList
-    if (fromThemeList) {
-        themeList = fromThemeList
-    } else {
-        themeList = getThemeList()
-    }
-    if (typeof name !== 'string') {
-        name = name.toString()
-    }
-    return themeList.filter(item => item.name.includes(name))
+    return DATA_FORMATTED.THEME[id]
 }
 
 function getThemesByDiff(diff, fromThemeList) {
@@ -175,7 +213,6 @@ export default {
     getThemeList,
     getThemesBySearch,
     getThemeById,
-    getThemesByName,
     getThemesByDiff,
     getCardsByThemeId,
     getCardsByThemeIdAndSortByPrice,

@@ -70,6 +70,7 @@ function PageRegister(props) {
                             placeholder="请输入昵称"
                             autoFocus={true}
                             size="large"
+                            maxLength={8}
                             prefix={<UserOutlined />}
                             onChange={handleInputChange}
                         />

@@ -1,0 +1,27 @@
+.baglist_w {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.baglist_w li{
+    list-style: none;
+}
+
+.baglist_card {
+    margin: 5px;
+}
+
+.baglist_card_pop {
+    display: flex;
+    flex-direction: column;
+}
+
+.baglist_card_empty {
+    margin: 5px;
+    width: 120px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url(https://larria.github.io/magiccard/assets/style/imgs/card_frames.png) -0px -178px no-repeat;
+}

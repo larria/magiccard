@@ -7,8 +7,8 @@ dom.innerHTML = cardInfoXML
 const DATA_FORMATTED = function () {
     let res = {
         THEME: {},
-        CARD : {},
-        COMB : {}
+        CARD: {},
+        COMB: {}
     }
     // 卡片主题
     let $themes = dom.querySelectorAll('theme')
@@ -82,7 +82,7 @@ const DATA_FORMATTED = function () {
 } */
 
 // 获取全部主题
-function getThemeList () {
+function getThemeList() {
     return Object.values(DATA_FORMATTED.THEME)
 }
 
@@ -132,7 +132,7 @@ function getThemesByDiff(diff, fromThemeList) {
         themeList = getThemeList()
     }
     diff = diff.toString()
-    res =  themeList.filter(item => {
+    res = themeList.filter(item => {
         return diff === item.diff && item.name !== '道具卡'
     })
     return res
@@ -173,11 +173,29 @@ function getCardsByThemeIdAndSortByPrice(id) {
 }
 
 function getCardById(id) {
-    let res = {}
-    let $card = dom.querySelector(`card[id="${id}"]`)
-    let attrs = $card.attributes
-    for (let key of attrs) {
-        res[key.name] = key.value
+    if (typeof id !== 'string') {
+        id = id.toString()
+    }
+    return DATA_FORMATTED.CARD[id]
+}
+
+// 从可以获取的卡中随机抽取num张
+function getCardsRandomFromCanGet(num) {
+    let res = []
+    num = parseInt(num, 10)
+    let ids = Object.keys(DATA_FORMATTED.CARD)
+    while (num > 0) {
+        let randomCardIdx = Math.floor(Math.random() * ids.length)
+        let randomCardId = ids[randomCardIdx]
+        let card = DATA_FORMATTED.CARD[randomCardId]
+        // 有的卡对应不到主题，如theme_id为664的卡
+        if (DATA_FORMATTED.THEME[card.theme_id]) {
+            // 是普通卡或正在做活动的活动卡
+            if (DATA_FORMATTED.THEME[card.theme_id].type === '0' || DATA_FORMATTED.THEME[card.theme_id].type === '3') {
+                res.push(card.id)
+                num--
+            }
+        }
     }
     return res
 }
@@ -185,7 +203,7 @@ function getCardById(id) {
 function getCombineRulesByThemeId(id) {
     let res = []
     let $combs = dom.querySelectorAll(`comb[theme_id="${id}"]`)
-    $combs.forEach(function($item, idx) {
+    $combs.forEach(function ($item, idx) {
         let itemData = {}
         let attrs = $item.attributes
         for (let key of attrs) {
@@ -217,6 +235,7 @@ export default {
     getCardsByThemeId,
     getCardsByThemeIdAndSortByPrice,
     getCardById,
+    getCardsRandomFromCanGet,
     getCombineRulesByThemeId,
     getCombineRuleByCardId
 }

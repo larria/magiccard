@@ -5,6 +5,8 @@ import getData from '../getData'
 import Card from './Card'
 import DiffStar from './DiffStar'
 
+import getURL from '../getURL'
+
 import './ThemeCards.css'
 
 message.config({
@@ -105,6 +107,7 @@ class ThemeCards extends React.Component {
         return (
             <>
                 <h2 className="cards_of_theme_title">
+                    <img className="cards_of_theme_logo" src={getURL.getThemeLogo(themeData.id)} alt=""/>
                     {themeData.name}
                 </h2>
                 <span className="cards_of_theme_diff">

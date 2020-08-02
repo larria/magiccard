@@ -91,6 +91,7 @@ function PanelSearch(props) {
                     <Radio.Button value="0">普通卡</Radio.Button>
                     <Radio.Button value="1">绝版卡</Radio.Button>
                     <Radio.Button value="2">活动卡</Radio.Button>
+                    <Radio.Button value="3">活动卡2</Radio.Button>
                     <Radio.Button value="9">闪卡</Radio.Button>
                 </Radio.Group>
             </div>

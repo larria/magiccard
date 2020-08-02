@@ -7,6 +7,9 @@ import rdr_avatar from './reducers/rdr_avatar';
 import rdr_exp from './reducers/rdr_exp';
 import rdr_gold from './reducers/rdr_gold';
 import rdr_power from './reducers/rdr_power';
+import rdr_rep_stat from './reducers/rdr_rep_stat';
+import rdr_bag_list from './reducers/rdr_bag_list';
+import rdr_chest_list from './reducers/rdr_chest_list';
 
 
 const reducer = combineReducers({
@@ -15,6 +18,9 @@ const reducer = combineReducers({
     exp: rdr_exp,
     gold: rdr_gold,
     power: rdr_power,
+    repStat: rdr_rep_stat,
+    bagList: rdr_bag_list,
+    chestList: rdr_chest_list
 });
 
 const persistConfig = {

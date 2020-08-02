@@ -1,6 +1,7 @@
 import React from 'react'
 
 import User from './User'
+import Repertory from './Repertory'
 
 import './PanelHome.css'
 
@@ -8,9 +9,8 @@ function PanelHome(props) {
     return (
         <>
             <User />
-            <p>炉子</p>
-            <p>背包</p>
-            <p>卡箱</p>
+            <h2>炉子</h2>
+            <Repertory></Repertory>
         </>
     );
 }

@@ -44,9 +44,11 @@ class Card extends React.Component {
             return (
                 <div className="card_wrap" onClick={this.props.onCardClick} style={this._getHighlightStyle()}>
                     <div className="card" style={{
-                        background: `url(${getURL.getThemeBackGround(this.state.cardInfo.theme_id)})`
+                        backgroundImage: `url(${getURL.getThemeBackGround(this.state.cardInfo.theme_id)})`
                     }}>
                         <img className="card_img" src={getURL.getCard(this.props.id)} alt="" />
+                        {this.props.showPrice && <span className="card_price">{this.state.cardInfo.price}</span>}
+                        {this.props.showNameInBigCard && <span className="card_name_in_card">{this.state.cardInfo.name}</span>}
                     </div>
                     {this.props.showName && <span className="card_name">{this.state.cardInfo.name}</span>}
                 </div>
@@ -68,7 +70,9 @@ Card.defaultProps = {
     id: '3660',
     isSmall: false,
     showName: false,
+    showNameInBigCard: false,
     highlightType: false,
+    showPrice: false,
     onCardClick: () => {
     }
 }

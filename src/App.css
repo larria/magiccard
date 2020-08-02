@@ -12,14 +12,19 @@ code {
     monospace;
 }
 
-.logo_main{
+.logo_main {
   height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.logo_main img{
+.logo_main img {
   width: 40px;
   border-radius: 10px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
 }

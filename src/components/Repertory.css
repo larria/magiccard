@@ -1,0 +1,23 @@
+.repertory_w {
+    display: flex;
+    flex-direction: row;
+    -webkit-user-select: none;
+}
+
+.repertory_icon {
+    display: inline-block;
+    width: 204px;
+    height: 221px;
+    background: url(https://larria.github.io/magiccard/assets/style/imgs/main_view.png) -220px -346px no-repeat;
+    cursor: pointer;
+    transition: all ease 0.3s;
+    zoom: 1;
+}
+
+.repertory_icon:hover {
+    transform: scale(1.05, 1.05)
+}
+
+.repertory_icon:active {
+    transform: scale(1, 1)
+}

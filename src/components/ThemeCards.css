@@ -2,19 +2,27 @@
     margin: 0;
     padding: 0;
 }
-.cards_of_theme_title{
+
+.cards_of_theme_title {
     display: inline-block;
 }
-.cards_of_theme_diff{
+
+.cards_of_theme_logo {
+    margin-right: 5px;
+}
+
+.cards_of_theme_diff {
     margin-left: 20px;
     display: inline-block;
     font-size: 20px;
 }
-.cards_of_theme_type{
+
+.cards_of_theme_type {
     margin-left: 20px;
     display: inline-block;
     font-size: 14px;
 }
+
 .cards_item {
     display: flex;
     align-items: center;

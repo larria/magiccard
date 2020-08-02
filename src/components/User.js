@@ -1,30 +1,39 @@
 import React, { useMemo } from 'react'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 
 import './User.css'
 
 function User(props) {
+
+    // 用户等级
     const computeLevel = useMemo(() => {
-        console.log('memo 触发')
-        return () => props.exp / 10
+        return () => {
+            return Math.floor(Math.pow(props.exp / 10, 1 / 3))
+        }
     }, [props.exp])
     return (
         <>
             <div className="user_w">
-                <img src={props.avatar} alt="" />
-                <h2 className="user_name">{props.userName}</h2>
+                <div className="user_name_avatar_w">
+                    <img className="user_avatar" src={props.avatar} alt="" />
+                    <div className="user_name_w">
+                        <h2 className="user_name">{props.userName}</h2>
+                        <span className="user_lvl">等级：{computeLevel()}</span>
+                    </div>
+                </div>
+                <div className="user_exp_w">
+                    <span className="user_exp_icon"></span>
+                    <span className="user_state_text">经验值：{props.exp}</span>
+                </div>
+                <div className="user_gold_w">
+                    <span className="user_gold_icon"></span>
+                    <span className="user_state_text">金币：{props.gold}</span>
+                </div>
+                <div className="user_power_w">
+                    <span className="user_power_icon"></span>
+                    <span className="user_state_text">魔力：{props.power}</span>
+                </div>
             </div>
-            <div className="user_state_w">
-                <div className="user_exp_icon"></div>
-                <div className="user_power_icon"></div>
-                <div className="user_gold_icon"></div>
-            </div>
-            <p>经验值：{props.exp}</p>
-            <p>等级：{computeLevel()}</p>
-            <button onClick={e => props.addExp(10)}>点击增加经验值</button>
-            <p>金币：{props.gold}</p>
-            <p>魔力：{props.power}</p>
-            <button onClick={e => props.setUserName('Larria' + Date.now().toString().slice(9))}>点击改名</button>
         </>
     )
 }
@@ -53,6 +62,13 @@ const mapDispatchToProps = (dispatch) => {
         addExp: (exp) => {
             let action = {
                 type: 'addExp',
+                exp: exp
+            }
+            dispatch(action);
+        },
+        setExp: (exp) => {
+            let action = {
+                type: 'setExp',
                 exp: exp
             }
             dispatch(action);

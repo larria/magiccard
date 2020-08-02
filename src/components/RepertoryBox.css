@@ -1,0 +1,17 @@
+.repertory_box_w {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #000;
+}
+
+.repertory_box_cont{
+    display: flex;
+}
+
+.repertory_chest_w, .repertory_bag_w {
+    min-width: 40vw;
+    min-height: 40vh;
+    background-color: tomato;
+}
+
+.repertory_chest_w{ margin-left: 10px;}

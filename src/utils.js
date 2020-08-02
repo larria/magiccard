@@ -14,3 +14,20 @@ export function getTimeFormat(endTime) {
     result = `${h.toString().padStart(2, '0')}:${min.toString().padStart(2, '0')}:${secondTime.toString().padStart(2, '0')}`
     return result
 }
+
+export function getlvl(exp) {
+    let res = Math.floor(Math.pow(exp / 10, 1 / 3))
+    return res
+}
+
+export function getRenderExp(exp) {
+    let resNum, res
+    let expNum = parseInt(exp, 10)
+    if (expNum > 10000) {
+        resNum = (expNum / 10000).toFixed(1)
+        res = resNum + '万'
+    } else {
+        res = exp.toString()
+    }
+    return res
+}

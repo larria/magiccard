@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button, Popover } from 'antd';
+// import { Button } from 'antd';
 
 import Card from './Card'
 
@@ -10,13 +10,6 @@ import './BagList.css'
 
 function BagList(props) {
 
-    const _popContent = (
-        <div className="baglist_card_pop">
-            <Button type="primary" shape="round">卖出</Button>
-            <Button type="primary" shape="round" style={{ marginTop: '10px' }}>放入卡箱</Button>
-            <Button type="primary" shape="round" style={{ marginTop: '10px' }}>查看主题</Button>
-        </div>
-    );
     return (
         <>
             <ul className="baglist_w">
@@ -26,15 +19,14 @@ function BagList(props) {
                         if (props.bagList[index]) {
                             res = (
                                 <li key={index}>
-                                    <Popover content={_popContent} title={null}>
-                                        <div className="baglist_card">
-                                            <Card
-                                                showPrice={true}
-                                                showNameInBigCard={true}
-                                                id={props.bagList[index]}
-                                            />
-                                        </div>
-                                    </Popover>
+                                    <div className="baglist_card">
+                                        <Card
+                                            showPrice={true}
+                                            showNameInBigCard={true}
+                                            id={props.bagList[index]}
+                                        />
+                                        {props.onHoverRet && <div className="baglist_card_hover">{props.onHoverRet(index)}</div>}
+                                    </div>
                                 </li>)
                         } else {
                             res = (
@@ -53,6 +45,7 @@ function BagList(props) {
 }
 
 BagList.defaultProps = {
+    onHoverRet: null
 }
 
 const mapStateToProps = (state) => {
@@ -71,7 +64,7 @@ const mapDispatchToProps = (dispatch) => {
         addACardToBag: () => {
             let card_id = getData.getCardsRandomFromCanGet(1)
             let action = {
-                type: 'addCard',
+                type: 'bag_list/addCard',
                 card_id
             }
             dispatch(action);

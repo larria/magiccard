@@ -192,8 +192,10 @@ function getCardsRandomFromCanGet(num) {
         if (DATA_FORMATTED.THEME[card.theme_id]) {
             // 是普通卡或正在做活动的活动卡
             if (DATA_FORMATTED.THEME[card.theme_id].type === '0' || DATA_FORMATTED.THEME[card.theme_id].type === '3') {
-                res.push(card.id)
-                num--
+                if (card.price === '10') {
+                    res.push(card.id)
+                    num--
+                }
             }
         }
     }

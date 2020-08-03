@@ -8,7 +8,6 @@ class Card extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            cardInfo: getData.getCardById(props.id),
         };
         this.onCardClick = this.onCardClick.bind(this)
         this._getHighlightStyle = this._getHighlightStyle.bind(this)
@@ -40,17 +39,18 @@ class Card extends React.Component {
     }
 
     render() {
+        const cardInfo = getData.getCardById(this.props.id)
         if (!this.props.isSmall) {
             return (
                 <div className="card_wrap" onClick={this.props.onCardClick} style={this._getHighlightStyle()}>
                     <div className="card" style={{
-                        backgroundImage: `url(${getURL.getThemeBackGround(this.state.cardInfo.theme_id)})`
+                        backgroundImage: `url(${getURL.getThemeBackGround(cardInfo.theme_id)})`
                     }}>
                         <img className="card_img" src={getURL.getCard(this.props.id)} alt="" />
-                        {this.props.showPrice && <span className="card_price">{this.state.cardInfo.price}</span>}
-                        {this.props.showNameInBigCard && <span className="card_name_in_card">{this.state.cardInfo.name}</span>}
+                        {this.props.showPrice && <span className="card_price">{cardInfo.price}</span>}
+                        {this.props.showNameInBigCard && <span className="card_name_in_card">{cardInfo.name}</span>}
                     </div>
-                    {this.props.showName && <span className="card_name">{this.state.cardInfo.name}</span>}
+                    {this.props.showName && <span className="card_name">{cardInfo.name}</span>}
                 </div>
             );
         } else {
@@ -59,7 +59,7 @@ class Card extends React.Component {
                     <div className="card_small">
                         <img className="card_img_small" src={getURL.getCardSmall(this.props.id)} alt="" />
                     </div>
-                    {this.props.showName && <span className="card_name_small">{this.state.cardInfo.name}</span>}
+                    {this.props.showName && <span className="card_name_small">{cardInfo.name}</span>}
                 </div>
             );
         }

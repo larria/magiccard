@@ -4,14 +4,21 @@
     border: 1px solid #000;
 }
 
-.repertory_box_cont{
+.repertory_baglist_btn_w{
+    position: absolute;
+    z-index: 2;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     display: flex;
+    justify-content: space-evenly;
 }
 
 .repertory_chest_w, .repertory_bag_w {
-    min-width: 40vw;
-    min-height: 40vh;
+    width: 56vw;
+    max-height: 40vh;
+    overflow-y: auto;
     background-color: tomato;
 }
 
-.repertory_chest_w{ margin-left: 10px;}
+.repertory_chest_w{ }

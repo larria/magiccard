@@ -1,14 +1,30 @@
 .baglist_w {
     display: flex;
     flex-wrap: wrap;
+    /* justify-content: space-evenly; */
 }
 
 .baglist_w li{
+    position: relative;
+    z-index: 1;
     list-style: none;
+    cursor: pointer;
+}
+
+.baglist_w li .baglist_card_hover{
+    display: none;
+}
+
+.baglist_w li:hover .baglist_card_hover{
+    display: block;
 }
 
 .baglist_card {
     margin: 5px;
+    transition: all ease 0.3s;
+}
+.baglist_card:hover{
+    transform: scale(1.05, 1.05)
 }
 
 .baglist_card_pop {

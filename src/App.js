@@ -47,21 +47,19 @@ class App extends React.Component {
     }
 
     render() {
-        {
-            // 如果没有本地数据，先初始化
-            // let loc = local.getLocObj()
-            // if (!loc) {
-            //     local.initLoc()
-            // }
-            // let userName = local.getLocUserName()
-            // let avatar = local.getLocAvatar()
-            // 如果没有用户信息，先前往注册
-            if (this.props.userName === null || this.props.avatar === null) {
-                let history = createHashHistory()
-                // museum可无需用户信息访问
-                if (!history.location.pathname.includes('/museum')) {
-                    history.replace('/register')
-                }
+        // 如果没有本地数据，先初始化
+        // let loc = local.getLocObj()
+        // if (!loc) {
+        //     local.initLoc()
+        // }
+        // let userName = local.getLocUserName()
+        // let avatar = local.getLocAvatar()
+        // 如果没有用户信息，先前往注册
+        if (this.props.userName === null || this.props.avatar === null) {
+            let history = createHashHistory()
+            // museum可无需用户信息访问
+            if (!history.location.pathname.includes('/museum')) {
+                history.replace('/register')
             }
         }
         return (

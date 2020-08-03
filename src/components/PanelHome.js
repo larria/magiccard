@@ -9,7 +9,7 @@ function PanelHome(props) {
     return (
         <>
             <User />
-            <h2>炉子</h2>
+            <h2>stove</h2>
             <Repertory></Repertory>
         </>
     );

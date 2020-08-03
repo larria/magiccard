@@ -7774,7 +7774,7 @@ let cardInfoXML = `<cardInfos>
 <theme id="285" name="一秀十年" diff="2" time="1375891200" pages="1" version="1" gift="942|941|940|939" flashTheme="0" type="1" color="0xffcc33" new_type="0" gallery_type="17"  onsale_time="0" rank_end_time="0" ></theme>
 <theme id="286" name="山河社稷图" diff="2" time="1377100800" pages="1" version="1" gift="946|945|944|943" flashTheme="0" type="1" color="0x0" new_type="0" gallery_type="17"  onsale_time="0" rank_end_time="0" ></theme>
 <theme id="287" name="北京故事" diff="4" time="1377705600" pages="0" version="1" gift="950|949|948|947" flashTheme="0" type="0" color="0x0" new_type="0" gallery_type="49"  onsale_time="0" rank_end_time="0" ></theme>
-<theme id="288" name="光魅皮影" diff="2" time="1378310400" pages="3" version="1" gift="954|953|952|951" flashTheme="0" type="3" color="0x0" new_type="0" gallery_type="49"  onsale_time="0" rank_end_time="0" ></theme>
+<theme id="288" name="光魅皮影" diff="2" time="1378310400" pages="3" version="1" gift="954|953|952|951" flashTheme="0" type="2" color="0x0" new_type="0" gallery_type="49"  onsale_time="0" rank_end_time="0" ></theme>
 <theme id="289" name="斗战神" diff="2" time="1378915200" pages="0" version="1" gift="958|957|956|955" flashTheme="0" type="0" color="0x0" new_type="0" gallery_type="17"  onsale_time="0" rank_end_time="0" ></theme>
 <theme id="290" name="七雄Q传" diff="2" time="1379347200" pages="0" version="1" gift="962|961|960|959" flashTheme="0" type="0" color="0x0" new_type="0" gallery_type="17"  onsale_time="0" rank_end_time="0" ></theme>
 <theme id="291" name="圣域西藏" diff="5" time="1380038400" pages="0" version="1" gift="966|965|964|963" flashTheme="0" type="0" color="0x0" new_type="0" gallery_type="49"  onsale_time="0" rank_end_time="0" ></theme>

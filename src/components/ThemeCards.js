@@ -74,10 +74,10 @@ class ThemeCards extends React.Component {
         let themeData = getData.getThemeById(this.props.theme_id)
         let typeName = '普通卡'
         // 0：普通卡套
-        // 1：绝版卡套（绝版卡）
-        // 2：特殊卡套（可合成，基础牌只能抽取）
-        // 3：特殊卡套（可合成，基础牌只能抽取，和2的区别暂时不明）
-        // 5：特殊卡套（只能抽取不能合成，和1的区别暂时不明）
+        // 1：已下架卡套
+        // 2：特殊卡套（可合成，基础牌只能抽取，已下架）
+        // 3：特殊卡套（可合成，基础牌只能抽取，正在运作）
+        // 5：绝版卡套
         // 9：闪卡套
         console.log(this.props.theme_id, themeData, themeData.type)
         switch (themeData.type) {
@@ -85,16 +85,16 @@ class ThemeCards extends React.Component {
                 typeName = '普通卡'
                 break
             case '1':
-                typeName = '绝版卡'
+                typeName = '已下架卡'
                 break
             case '2':
-                typeName = '活动卡（可合成，基础牌只能抽取）'
+                typeName = '活动卡（可合成，基础牌只能抽取，已下架）'
                 break
             case '3':
-                typeName = '活动卡（可合成，基础牌只能抽取）'
+                typeName = '活动卡（可合成，基础牌只能抽取，正在运作）'
                 break
             case '5':
-                typeName = '活动卡（只能抽取不能合成）'
+                typeName = '绝版卡'
                 break
             case '9':
                 typeName = '闪卡'

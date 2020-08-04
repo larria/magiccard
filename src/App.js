@@ -76,12 +76,14 @@ class App extends React.Component {
                                 </div>
                                 <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
                                     <Menu.Item key="1" icon={<DesktopOutlined />}>
-                                        <Link to="/home">首页</Link>
+                                        <Link to="/home">我的</Link>
                                     </Menu.Item>
                                     <SubMenu key="sub1" icon={<UserOutlined />} title="好友">
                                         <Menu.Item key="3">心月</Menu.Item>
                                         <Menu.Item key="4">泠泠弦上</Menu.Item>
-                                        <Menu.Item key="5">Alex</Menu.Item>
+                                        <Menu.Item key="5">Lynn</Menu.Item>
+                                        <Menu.Item key="6">蜂蜜小黄鱼</Menu.Item>
+                                        <Menu.Item key="7">落雪无痕</Menu.Item>
                                     </SubMenu>
                                     <SubMenu key="sub2" icon={<TeamOutlined />} title="卡友">
                                         <Menu.Item key={Math.random()}>3646785456</Menu.Item>

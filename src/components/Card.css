@@ -18,7 +18,7 @@
     width: 120px;
     height: 150px;
     justify-content: center;
-    background-color: #1890ff;
+    background-color: lightblue;
 }
 
 .card_img {
@@ -29,17 +29,18 @@
 
 .card_price {
     position: absolute;
-    bottom: 1px;
-    right: 1px;
+    bottom: 5px;
+    right: 10px;
     height: 19px;
     line-height: 19px;
     padding: 0 3px;
-    border-radius: 3px;
+    border-radius: 100%;
     color: #000;
     font-weight: bold;
+    font-size: 12px;
     text-shadow: 0 0 4px #fff;
     /* background-color: #1890ff; */
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.5);
     /* animation: glow 1.5s ease infinite alternate; */
 }
 

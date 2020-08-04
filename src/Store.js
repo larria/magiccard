@@ -10,6 +10,7 @@ import rdr_power from './reducers/rdr_power';
 import rdr_rep_stat from './reducers/rdr_rep_stat';
 import rdr_bag_list from './reducers/rdr_bag_list';
 import rdr_chest_list from './reducers/rdr_chest_list';
+import rdr_draw_stat from './reducers/rdr_draw_stat';
 
 
 const reducer = combineReducers({
@@ -20,7 +21,8 @@ const reducer = combineReducers({
     power: rdr_power,
     repStat: rdr_rep_stat,
     bagList: rdr_bag_list,
-    chestList: rdr_chest_list
+    chestList: rdr_chest_list,
+    drawStat: rdr_draw_stat,
 });
 
 const persistConfig = {

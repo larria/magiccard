@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Tabs, Button, Tooltip, Modal } from 'antd';
 import { SearchOutlined, MoneyCollectOutlined, LoginOutlined, LogoutOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import Card from './Card'
+import BagCtrl from './BagCtrl'
 import BagList from './BagList'
 import ChestList from './ChestList'
 
@@ -14,6 +15,7 @@ const { TabPane } = Tabs;
 const { confirm } = Modal;
 
 function RepertoryBox(props) {
+
     // 换卡箱内卡片鼠标移入时添加
     function onBagHoverRet(bagCardIndex) {
         return (
@@ -80,24 +82,29 @@ function RepertoryBox(props) {
 
     // 从换卡箱卖一张卡
     function toSellACardFromBag(bagCardIndex) {
-        confirm({
-            title: '确认要卖出？',
-            icon: <ExclamationCircleOutlined />,
-            content: <Card
-                showPrice={true}
-                showNameInBigCard={true}
-                id={props.bagList[bagCardIndex]} />,
-            onOk() {
-                let cardId = props.bagList[bagCardIndex]
-                let cardInfo = getData.getCardById(cardId)
-                props.sellACardFromBag(bagCardIndex, cardInfo)
-            },
-            onCancel() {
-                console.log('已取消');
-            },
-            okText: '确认',
-            cancelText: '取消'
-        });
+        let cardId = props.bagList[bagCardIndex]
+        let cardInfo = getData.getCardById(cardId)
+        let themeInfo = getData.getThemeById(cardInfo.theme_id)
+        if (cardInfo.price === '10' && themeInfo.type === '0') {
+            props.sellACardFromBag(bagCardIndex, cardInfo)
+        } else {
+            confirm({
+                title: '确认要卖出？',
+                icon: <ExclamationCircleOutlined />,
+                content: <Card
+                    showPrice={true}
+                    showNameInBigCard={true}
+                    id={props.bagList[bagCardIndex]} />,
+                onOk() {
+                    props.sellACardFromBag(bagCardIndex, cardInfo)
+                },
+                onCancel() {
+                    console.log('已取消');
+                },
+                okText: '确认',
+                cancelText: '取消'
+            });
+        }
     }
 
     // 从换卡箱移到保险箱
@@ -130,39 +137,30 @@ function RepertoryBox(props) {
         }
     }
 
-    // 随机抽一张卡
-    function drawACardToBag() {
-        if (props.bagList.length < props.repStat.bagSlotNum) {
-            props.addACardToBag()
-        }
-    }
-
     return (
         <>
             <div className="repertory_box_w">
-                <div className="repertory_ctrl">
-                    <button onClick={props.handleClickClose}>关闭</button>
-                </div>
+                <span className="repertory_box_close_btn" onClick={props.handleClickClose}>关闭</span>
                 {/* <Tabs defaultActiveKey="1" onChange={callback}> */}
-                <Tabs defaultActiveKey="bag">
+                <Tabs
+                    defaultActiveKey="bag"
+                    tabBarStyle={{ marginLeft: '20px', marginBottom: '0', fontWeight: 'bolder' }}>
                     <TabPane tab="换卡箱" key="bag">
+                        <div className="repertory_bag_ctrl">
+                            <span className="repertory_bag_state">卡位：{props.bagList.length}/{props.repStat.bagSlotNum}</span>
+                            <BagCtrl />
+                        </div>
                         <div className="repertory_bag_w">
-                            <h3>换卡箱<span>{props.bagList.length}/{props.repStat.bagSlotNum}</span></h3>
-                            <div className="repertory_bag_ctrl">
-                                <button onClick={drawACardToBag}>抽一张卡</button>
-                                <button>一键抽卡</button>
-                                <button>一键卖朴素卡</button>
-                            </div>
                             <BagList onHoverRet={onBagHoverRet}
                             />
                         </div>
                     </TabPane>
                     <TabPane tab="保险箱" key="chest">
-                        <div className="repertory_chest_w">
-                            <h3>保险箱<span>{props.chestList.length}/{props.repStat.chestSlotNum}</span></h3>
-                            <div className="repertory_chest_ctrl">
-                                xxxx
+                        <div className="repertory_chest_ctrl">
+                            <span className="repertory_chest_state">卡位：{props.chestList.length}/{props.repStat.chestSlotNum}</span>
+                            <span className="repertory_chest_info">这里是安全区，其他玩家无法换走您存放在此处的卡片</span>
                         </div>
+                        <div className="repertory_chest_w">
                             <ChestList onHoverRet={onChestHoverRet}></ChestList>
                         </div>
                     </TabPane>
@@ -183,17 +181,16 @@ const mapStateToProps = (state) => {
         power: state.power,
         repStat: state.repStat,
         bagList: state.bagList,
-        chestList: state.chestList,
-        lastDrawTime: state.lastDrawTime
+        chestList: state.chestList
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
         addACardToBag: () => {
-            let card_id = getData.getCardsRandomFromCanGet(1)
+            let cardId = getData.getCardsRandomFromCanGet(1)[0]
             let action = {
-                type: 'bag_list/addCard',
-                card_id
+                type: 'bag_list/addOneCard',
+                cardId
             }
             dispatch(action);
         },
@@ -209,30 +206,44 @@ const mapDispatchToProps = (dispatch) => {
                 index: bagCardIndex
             });
         },
+        addGold: (goldToAdd) => {
+            // 增加金币
+            dispatch({
+                type: 'addGold',
+                gold: goldToAdd
+            });
+        },
+        updateBagList: (cardList) => {
+            // 更新换卡箱列表
+            dispatch({
+                type: 'bag_list/updateCard',
+                cardList
+            });
+        },
         moveACardFromBagToChest: (bagCardIndex, toMoveCardInfo) => {
             // 从换卡箱移除卡片
             dispatch({
-                type: 'bag_list/removeCard',
+                type: 'bag_list/removeOneCard',
                 index: bagCardIndex
             });
             // 往保险箱放入卡片
             dispatch({
-                type: 'chest_list/addCard',
-                card_id: toMoveCardInfo.id
+                type: 'chest_list/addOneCard',
+                cardId: toMoveCardInfo.id
             });
         },
         moveACardFromChestToBag: (chestCardIndex, toMoveCardInfo) => {
             // 从保险箱移除卡片
             dispatch({
-                type: 'chest_list/removeCard',
+                type: 'chest_list/removeOneCard',
                 index: chestCardIndex
             });
             // 往换卡箱放入卡片
             dispatch({
-                type: 'bag_list/addCard',
-                card_id: toMoveCardInfo.id
+                type: 'bag_list/addOneCard',
+                cardId: toMoveCardInfo.id
             });
-        }
+        },
     }
 }
 

@@ -78,11 +78,11 @@ function PageRegister(props) {
                     <Divider></Divider>
                     <h3>请选择头像</h3>
                     <div className="register_avatar_w">
-                        {avatarsURLList.map((url, index) => {
+                        {avatarsURLList.map(url => {
                             return (
                                 <img
                                     className="register_avatar"
-                                    key={index}
+                                    key={Math.random()}
                                     src={url}
                                     alt=""
                                     onClick={handleAvatarSelect}

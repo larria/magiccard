@@ -1,11 +1,16 @@
 export default (state = [], action) => {
     switch (action.type) {
-        case 'bag_list/addCard': {
+        case 'bag_list/addOneCard': {
             let cards = [...state]
-            cards.push(action.card_id)
+            cards.push(action.cardId)
             return cards;
         }
-        case 'bag_list/removeCard': {
+        case 'bag_list/addCards': {
+            let cards = [...state]
+            cards = cards.concat(action.cardList)
+            return cards;
+        }
+        case 'bag_list/removeOneCard': {
             let cards = [...state]
             cards.splice(action.index, 1)
             return cards;

@@ -152,6 +152,7 @@ function getCardsByThemeId(id) {
     return res
 }
 
+// 返回一套主题里按面值分类的卡片二维数组
 function getCardsByThemeIdAndSortByPrice(id) {
     let res = []
     let cards = getCardsByThemeId(id)
@@ -190,9 +191,10 @@ function getCardsRandomFromCanGet(num) {
         let card = DATA_FORMATTED.CARD[randomCardId]
         // 有的卡对应不到主题，如theme_id为664的卡
         if (DATA_FORMATTED.THEME[card.theme_id]) {
-            // 是普通卡或正在做活动的活动卡
-            if (DATA_FORMATTED.THEME[card.theme_id].type === '0' || DATA_FORMATTED.THEME[card.theme_id].type === '3') {
-                if (card.price === '10') {
+            // 是普通卡或活动卡
+            if (DATA_FORMATTED.THEME[card.theme_id].type === '0' || DATA_FORMATTED.THEME[card.theme_id].type === '2') {
+                // 如果该卡片不能合成，认定为基础素材卡，可以抽得
+                if (!getCombineRuleByCardId(card.id)) {
                     res.push(card.id)
                     num--
                 }
@@ -217,16 +219,10 @@ function getCombineRulesByThemeId(id) {
 }
 
 function getCombineRuleByCardId(id) {
-    let res = {}
-    let $comb = dom.querySelector(`comb[id="${id}"]`)
-    if ($comb) {
-        let attrs = $comb.attributes
-        for (let key of attrs) {
-            res[key.name] = key.value
-        }
-        return res
+    if (typeof id !== 'string') {
+        id = id.toString()
     }
-    return null
+    return DATA_FORMATTED.COMB[id]
 }
 
 export default {

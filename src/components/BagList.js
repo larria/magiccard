@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import Card from './Card'
 
-import getData from '../getData'
+// import getData from '../getData'
 
 import './BagList.css'
 
@@ -18,7 +18,7 @@ function BagList(props) {
                         let res
                         if (props.bagList[index]) {
                             res = (
-                                <li key={index}>
+                                <li key={Math.random()}>
                                     <div className="baglist_card">
                                         <Card
                                             showPrice={true}
@@ -30,7 +30,7 @@ function BagList(props) {
                                 </li>)
                         } else {
                             res = (
-                                <li key={index}>
+                                <li key={Math.random()}>
                                     <div className="baglist_card_empty">
                                         <span>空卡位</span>
                                     </div>
@@ -61,14 +61,6 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        addACardToBag: () => {
-            let card_id = getData.getCardsRandomFromCanGet(1)
-            let action = {
-                type: 'bag_list/addCard',
-                card_id
-            }
-            dispatch(action);
-        }
     }
 }
 

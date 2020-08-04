@@ -54,5 +54,5 @@
 }
 
 .cards_by_price_w .card_wrap:hover {
-    transform: scale(1.05, 1.05) rotate(2deg)
+    transform: scale(1.05, 1.05);
 }

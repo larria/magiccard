@@ -29,7 +29,7 @@ import PageRegister from './components/PageRegister'
 import PanelHome from './components/PanelHome'
 import PanelSettings from './components/PanelSettings'
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
 class App extends React.Component {
@@ -149,7 +149,6 @@ class App extends React.Component {
                                         </Switch>
                                     </div>
                                 </Content>
-                                <Footer style={{ textAlign: 'center' }}>Created by Larkin, 2020</Footer>
                             </Layout>
                         </Layout>
                     </Route>

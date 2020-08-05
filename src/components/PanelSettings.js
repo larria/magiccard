@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
+import './PanelSettings.css'
+
 function PanelSettings(props) {
     const [friendsNum, setFriendsNum] = useState(5)
 
@@ -14,16 +16,18 @@ function PanelSettings(props) {
     }
     return (
         <>
-            <h2>TODO</h2>
-            <h3>个人信息</h3>
-            <p>修改个人昵称与头像</p>
-            <p onClick={handleClick}>设置好友数量: {friendsNum}</p>
-            <h3>数据管理</h3>
-            <p>下载个人数据</p>
-            <button onClick={e => props.addExp(10)}>增加经验值</button>
-            <button onClick={e => props.setExp(0)}>经验值清零</button>
-            <button onClick={e => props.setUserName('Larria' + Date.now().toString().slice(9))}>点击改名</button>
-            <button onClick={resetLocal}>清空数据</button>
+            <div className="settings_w">
+                <h2>TODO</h2>
+                <h3>个人信息</h3>
+                <p>修改个人昵称与头像</p>
+                <p onClick={handleClick}>设置好友数量: {friendsNum}</p>
+                <h3>数据管理</h3>
+                <p>下载个人数据</p>
+                <button onClick={e => props.addExp(10)}>增加经验值</button>
+                <button onClick={e => props.setExp(0)}>经验值清零</button>
+                <button onClick={e => props.setUserName('Larria' + Date.now().toString().slice(9))}>点击改名</button>
+                <button onClick={resetLocal}>清空数据</button>
+            </div>
         </>
     )
 }

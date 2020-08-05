@@ -1,0 +1,12 @@
+.home_w{
+    position: relative;
+    z-index: 1;
+}
+
+.home_cont{
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

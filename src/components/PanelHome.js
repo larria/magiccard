@@ -1,6 +1,7 @@
 import React from 'react'
 
 import User from './User'
+import Stove from './Stove'
 import Repertory from './Repertory'
 
 import './PanelHome.css'
@@ -8,9 +9,13 @@ import './PanelHome.css'
 function PanelHome(props) {
     return (
         <>
-            <User />
-            <h2>stove</h2>
-            <Repertory></Repertory>
+            <div className="home_w">
+                <User />
+                <div className="home_cont">
+                    <Stove></Stove>
+                    <Repertory></Repertory>
+                </div>
+            </div>
         </>
     );
 }

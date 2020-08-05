@@ -28,3 +28,8 @@ code {
   width: 40px;
   border-radius: 10px;
 }
+
+.root {
+  background: url(https://larria.github.io/magiccard/assets/style/imgs/rep_bg1.png) 0 0 no-repeat;
+  background-size: 100% auto;
+}

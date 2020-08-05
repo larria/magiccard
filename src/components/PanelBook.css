@@ -1,0 +1,20 @@
+.book_w {
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 5px #fff;
+}
+
+.booklist{
+    display: flex;
+}
+.booklist:before{
+    content: ' ';
+    display: block;
+    width: 37px;
+    /* height: 100%; */
+    height: 47px;
+    background: url(https://larria.github.io/magiccard/assets/style/imgs/split_lines.png) 0px 0px repeat-y;
+}
+
+.booklist li{
+    list-style: none;
+}

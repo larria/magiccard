@@ -12,8 +12,8 @@ function PanelHome(props) {
             <div className="home_w">
                 <User />
                 <div className="home_cont">
-                    <Stove></Stove>
-                    <Repertory></Repertory>
+                    <Stove />
+                    <Repertory />
                 </div>
             </div>
         </>

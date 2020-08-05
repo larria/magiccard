@@ -27,6 +27,7 @@ import PannelMuseum from './components/PannelMuseum'
 import ThemeCards from './components/ThemeCards'
 import PageRegister from './components/PageRegister'
 import PanelHome from './components/PanelHome'
+import PanelBook from './components/PanelBook'
 import PanelSettings from './components/PanelSettings'
 
 const { Header, Content, Sider } = Layout;
@@ -132,19 +133,22 @@ class App extends React.Component {
                                 <Content style={{ margin: '0 16px' }}>
                                     <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
                                         <Switch>
-                                            <Route exact path="/museum">
-                                                <PannelMuseum />
-                                            </Route>
-                                            <Route path="/theme_card/:theme_id" component={_getThemeCards}>
-                                            </Route>
                                             <Route exact path="/">
                                                 <Redirect to="/home" />
                                             </Route>
                                             <Route exact path="/home">
                                                 <PanelHome />
                                             </Route>
+                                            <Route exact path="/home/book">
+                                                <PanelBook />
+                                            </Route>
+                                            <Route exact path="/museum">
+                                                <PannelMuseum />
+                                            </Route>
                                             <Route exact path="/settings">
-                                                <PanelSettings></PanelSettings>
+                                                <PanelSettings />
+                                            </Route>
+                                            <Route path="/theme_card/:theme_id" component={_getThemeCards}>
                                             </Route>
                                         </Switch>
                                     </div>

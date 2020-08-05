@@ -25,6 +25,9 @@ function Repertory(props) {
                 }}>
                     <RepertoryBox handleClickClose={_close}></RepertoryBox>
                 </div>
+                {/* <div className="repertory_box_mask" style={{
+                    display: open ? 'flex' : 'none'
+                }}></div> */}
             </div>
         </>
     )

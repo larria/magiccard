@@ -102,16 +102,16 @@ function PanelSearch(props) {
                     // title="暂未找到匹配卡牌"
                     subTitle="暂未找到匹配卡牌"
                 />}
-                {searchResultThemeList.length !== 0 && <ThemeList themesList={searchResultThemeList}>
-                </ThemeList>}
+                {searchResultThemeList.length !== 0 && <ThemeList themesList={searchResultThemeList} handleThemeLogoClick={props.handleClickResultTheme} />}
             </div>
         </>
     )
 }
 
 PanelSearch.defaultProps = {
+    withUserInfo: false,
     themesList: getData.getThemeList(),
-    onGetResult: (theme_id) => {
+    handleClickResultTheme: (theme_id) => {
         let history = createHashHistory();
         history.push(`/theme_card/${theme_id}`)
     }

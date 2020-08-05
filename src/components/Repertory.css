@@ -21,3 +21,13 @@
 .repertory_icon:active {
     transform: scale(1, 1)
 }
+
+.repertory_box_mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100vw;
+    height: 100vh;
+    background-color: #eee;
+}

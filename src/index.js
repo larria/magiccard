@@ -13,4 +13,4 @@ ReactDOM.render(
     </PersistGate>
   </Provider>, document.getElementById('root'));
 
-serviceWorker.register();
+serviceWorker.unregister();

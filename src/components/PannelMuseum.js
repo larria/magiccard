@@ -50,6 +50,7 @@ function PanelMuseum(props) {
       <Modal
         title="搜索卡片主题"
         visible={searchModelVisible}
+        width={650}
         footer={null}
         onOk={handleSearchOk}
         onCancel={handleSearchCancel}

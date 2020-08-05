@@ -17,8 +17,8 @@ function ThemeList(props) {
 
     return (
         <>
-            {(props.showType === 'byBlock' && <CardListByBlock themesList={props.themesList} />)}
-            {(props.showType === 'byList' && <CardListByList themesList={props.themesList} />)}
+            {(props.showType === 'byBlock' && <CardListByBlock {...props} />)}
+            {(props.showType === 'byList' && <CardListByList {...props} />)}
             <BackTop>
                 <div className="back_to_top"><UpOutlined /></div>
             </BackTop>
@@ -44,7 +44,7 @@ function CardListByBlock(props) {
                                         <li key={item.id}>
                                             <ThemePreview
                                                 theme_id={item.id}
-                                                onCardThemeClick={_toTheme.bind(this, item.id)}
+                                                onCardThemeClick={props.handleThemeLogoClick.bind(this, item.id)}
                                                 showName={item.name}>
                                             </ThemePreview>
                                         </li>
@@ -79,7 +79,7 @@ function CardListByList(props) {
                                             <ThemeLogo
                                                 theme_id={item.id}
                                                 isBigLogo={false}
-                                                onThemeLogoClick={_toTheme.bind(this, item.id)}
+                                                onThemeLogoClick={props.handleThemeLogoClick.bind(this, item.id)}
                                                 showName={item.name}
                                             ></ThemeLogo>
                                         </li>
@@ -99,12 +99,11 @@ function CardListByList(props) {
 ThemeList.defaultProps = {
     themesList: getData.getThemeList(),
     // showType: 'byBlock',
-    showType: 'byList'
-}
-
-function _toTheme(theme_id) {
-    let history = createHashHistory();
-    history.push(`/theme_card/${theme_id}`)
+    showType: 'byList',
+    handleThemeLogoClick: (theme_id) => {
+        let history = createHashHistory();
+        history.push(`/theme_card/${theme_id}`)
+    }
 }
 
 export default ThemeList;

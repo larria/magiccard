@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
 import { connect } from 'react-redux'
+import { Progress } from 'antd'
 
 import './User.css'
 
@@ -8,7 +9,16 @@ function User(props) {
     // 用户等级
     const computeLevel = useMemo(() => {
         return () => {
-            return Math.floor(Math.pow(props.exp / 10, 1 / 3))
+            return Math.floor(Math.pow(props.exp / 100, 1 / 2))
+        }
+    }, [props.exp])
+    // 用户升级进度
+    const computeLevelProgress = useMemo(() => {
+        return () => {
+            let lvl = Math.floor(Math.pow(props.exp / 100, 1 / 2))
+            let nextLvlExp = 100 * Math.pow(lvl + 1, 2)
+            let thisLvStartExp = 100 * Math.pow(lvl, 2)
+            return 100 * (props.exp - thisLvStartExp) / (nextLvlExp - thisLvStartExp)
         }
     }, [props.exp])
     return (
@@ -17,21 +27,21 @@ function User(props) {
                 <div className="user_name_avatar_w">
                     <img className="user_avatar" src={props.avatar} alt="" />
                     <div className="user_name_w">
-                        <h2 className="user_name">{props.userName}</h2>
-                        <span className="user_lvl">等级：{computeLevel()}</span>
+                        <h2 className="user_name">{props.userName}<span className="user_lvl_text">Lv.{computeLevel()}</span></h2>
+                        <Progress percent={computeLevelProgress()} showInfo={false} />
                     </div>
                 </div>
-                <div className="user_exp_w">
+                {/* <div className="user_exp_w">
                     <span className="user_exp_icon"></span>
                     <span className="user_state_text">经验值：{props.exp}</span>
-                </div>
+                </div> */}
                 <div className="user_gold_w">
                     <span className="user_gold_icon"></span>
-                    <span className="user_state_text">金币：{props.gold}</span>
+                    <span className="user_state_text">{props.gold}</span>
                 </div>
                 <div className="user_power_w">
                     <span className="user_power_icon"></span>
-                    <span className="user_state_text">魔力：{props.power}</span>
+                    <span className="user_state_text">{props.power}</span>
                 </div>
             </div>
         </>

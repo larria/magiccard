@@ -17,7 +17,7 @@ const { confirm } = Modal;
 function RepertoryBox(props) {
 
     // 换卡箱内卡片鼠标移入时添加
-    function onBagHoverRet(bagCardIndex) {
+    function addBagHoverBtns(bagCardIndex) {
         return (
             <ul className="repertory_baglist_btn_w">
                 <li>
@@ -54,7 +54,7 @@ function RepertoryBox(props) {
     }
 
     // 保险内卡片鼠标移入时添加
-    function onChestHoverRet(chestCardIndex) {
+    function addChestHoverBtns(chestCardIndex) {
         return (
             <ul className="repertory_baglist_btn_w">
                 <li>
@@ -151,7 +151,7 @@ function RepertoryBox(props) {
                             <BagCtrl />
                         </div>
                         <div className="repertory_bag_w">
-                            <BagList onHoverRet={onBagHoverRet}
+                            <BagList onHoverRet={addBagHoverBtns}
                             />
                         </div>
                     </TabPane>
@@ -161,7 +161,7 @@ function RepertoryBox(props) {
                             <span className="repertory_chest_info">这里是安全区，其他玩家无法换走您存放在此处的卡片</span>
                         </div>
                         <div className="repertory_chest_w">
-                            <ChestList onHoverRet={onChestHoverRet}></ChestList>
+                            <ChestList onHoverRet={addChestHoverBtns}></ChestList>
                         </div>
                     </TabPane>
                 </Tabs>
@@ -202,7 +202,7 @@ const mapDispatchToProps = (dispatch) => {
             });
             // 从换卡箱移除卡片
             dispatch({
-                type: 'bag_list/removeCard',
+                type: 'bag_list/removeOneCard',
                 index: bagCardIndex
             });
         },

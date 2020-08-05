@@ -23,7 +23,7 @@ function PanelSettings(props) {
                 <p onClick={handleClick}>设置好友数量: {friendsNum}</p>
                 <h3>数据管理</h3>
                 <p>下载个人数据</p>
-                <button onClick={e => props.addExp(10)}>增加经验值</button>
+                <button onClick={e => props.addExp(100)}>增加经验值</button>
                 <button onClick={e => props.setExp(0)}>经验值清零</button>
                 <button onClick={e => props.setUserName('Larria' + Date.now().toString().slice(9))}>点击改名</button>
                 <button onClick={resetLocal}>清空数据</button>

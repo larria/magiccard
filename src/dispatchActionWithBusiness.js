@@ -28,25 +28,45 @@ export function setName() {
     })
 }
 
-export function addExp() {
+export function addExp(exp) {
     // const state = store.getState()
     store.dispatch({
         type: 'addExp',
-        exp: 100
+        exp: exp || 99
     })
 }
 
+// 给换卡箱放1、2套完整主题，用以测试自动检查主题合成
 export function updateBagListWithATheme() {
     // const state = store.getState()
     // let cards = getData.getCardsByThemeId()
     let cardList = []
-    for (let i = 29; i <= 49; i++){
+    for (let i = 29; i <= 49; i++) {
+        // 没有card id为34的卡
         if (i === 34) continue;
         cardList.push(i.toString())
     }
     store.dispatch({
         type: 'bag_list/updateCard',
         cardList
+    })
+}
+
+// 给已收集放入一个主题，测试用
+export function addAThemeToBook() {
+    store.dispatch({
+        type: 'book_stat/collectOneTheme',
+        themeId: '52',
+        collectAt: Date.now(),
+    })
+}
+
+// 放一张卡在炼卡炉
+export function addACardToStove(timeSamp) {
+    store.dispatch({
+        type: 'stove_list/putACardInStove',
+        cardId: '9113',
+        putInAtSamp: timeSamp || Date.now(),
     })
 }
 

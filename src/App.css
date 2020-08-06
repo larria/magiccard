@@ -31,5 +31,5 @@ code {
 
 #root .site-layout {
   background: url(https://larria.github.io/magiccard/assets/style/imgs/rep_bg1.png) 0 0 no-repeat;
-  background-size: auto 100%;
+  background-size: 100% 100%;
 }

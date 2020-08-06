@@ -21,3 +21,12 @@
 .stove_icon:active {
     transform: scale(1, 1)
 }
+
+.stovelist_w {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.7);
+}

@@ -7,19 +7,15 @@ import './User.css'
 function User(props) {
 
     // 用户等级
-    const computeLevel = useMemo(() => {
-        return () => {
-            return Math.floor(Math.pow(props.exp / 100, 1 / 2))
-        }
+    const level = useMemo(() => {
+        return Math.floor(Math.pow(props.exp / 100, 1 / 2))
     }, [props.exp])
     // 用户升级进度
-    const computeLevelProgress = useMemo(() => {
-        return () => {
-            let lvl = Math.floor(Math.pow(props.exp / 100, 1 / 2))
-            let nextLvlExp = 100 * Math.pow(lvl + 1, 2)
-            let thisLvStartExp = 100 * Math.pow(lvl, 2)
-            return 100 * (props.exp - thisLvStartExp) / (nextLvlExp - thisLvStartExp)
-        }
+    const levelProgress = useMemo(() => {
+        let lvl = Math.floor(Math.pow(props.exp / 100, 1 / 2))
+        let nextLvlExp = 100 * Math.pow(lvl + 1, 2)
+        let thisLvStartExp = 100 * Math.pow(lvl, 2)
+        return 100 * (props.exp - thisLvStartExp) / (nextLvlExp - thisLvStartExp)
     }, [props.exp])
     return (
         <>
@@ -27,8 +23,8 @@ function User(props) {
                 <div className="user_name_avatar_w">
                     <img className="user_avatar" src={props.avatar} alt="" />
                     <div className="user_name_w">
-                        <h2 className="user_name">{props.userName}<span className="user_lvl_text">Lv.{computeLevel()}</span></h2>
-                        <Progress percent={computeLevelProgress()} showInfo={false} />
+                        <h2 className="user_name">{props.userName}<span className="user_lvl_text">Lv.{level}</span></h2>
+                        <Progress percent={levelProgress} showInfo={false} />
                     </div>
                 </div>
                 {/* <div className="user_exp_w">

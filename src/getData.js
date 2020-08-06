@@ -138,6 +138,30 @@ function getThemesByDiff(diff, fromThemeList) {
     return res
 }
 
+// 获取条件之内的卡片列表
+function getThemesInclude(includeThemeIdObj, themeList) {
+    let res = []
+    if (!themeList) {
+        themeList = getThemeList()
+    }
+    res = themeList.filter(themeItem => {
+        return themeItem.id in includeThemeIdObj
+    })
+    return res
+}
+
+// 获取排除条件之外的卡片列表
+function getThemesExclude(excludeThemeIdObj, themeList) {
+    let res = []
+    if (!themeList) {
+        themeList = getThemeList()
+    }
+    res = themeList.filter(themeItem => {
+        return !(themeItem.id in excludeThemeIdObj)
+    })
+    return res
+}
+
 function getCardsByThemeId(id) {
     let res = []
     let $cards = dom.querySelectorAll(`card[theme_id="${id}"]`)
@@ -230,6 +254,8 @@ export default {
     getThemesBySearch,
     getThemeById,
     getThemesByDiff,
+    getThemesInclude,
+    getThemesExclude,
     getCardsByThemeId,
     getCardsByThemeIdAndSortByPrice,
     getCardById,

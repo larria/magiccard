@@ -33,7 +33,7 @@ function BagCtrl(props) {
             // 组件卸载
             time.removeTask('countDrawNum')
         }
-    });
+    }, []);
 
     // 抽一张卡进换卡箱
     function drawACardToBag() {

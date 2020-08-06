@@ -11,6 +11,9 @@ import rdr_rep_stat from './reducers/rdr_rep_stat';
 import rdr_bag_list from './reducers/rdr_bag_list';
 import rdr_chest_list from './reducers/rdr_chest_list';
 import rdr_draw_stat from './reducers/rdr_draw_stat';
+import rdr_book_stat from './reducers/rdr_book_stat';
+import rdr_stove_stat from './reducers/rdr_stove_stat';
+import rdr_stove_list from './reducers/rdr_stove_list';
 
 
 const reducer = combineReducers({
@@ -23,6 +26,9 @@ const reducer = combineReducers({
     bagList: rdr_bag_list,
     chestList: rdr_chest_list,
     drawStat: rdr_draw_stat,
+    bookStat: rdr_book_stat,
+    stoveStat: rdr_stove_stat,
+    stoveList: rdr_stove_list,
 });
 
 const persistConfig = {

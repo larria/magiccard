@@ -30,8 +30,8 @@ function PanelSettings(props) {
                 <button onClick={e => props.setUserName('Larria' + Date.now().toString().slice(9))}>点击改名</button>
                 <button onClick={e => dpa.updateBagListWithATheme()}>换卡箱变成一套</button>
                 <button onClick={e => dpa.addAThemeToBook()}>集齐册放一套卡</button>
-                <button onClick={e => dpa.addACardToStove()}>开始炼一张卡</button>
-                <button onClick={e => dpa.addACardToStove(Date.now() - (1000 * 3600 * 24 * 365))}>炼一张卡并立即完成</button>
+                <button onClick={e => dpa.addACardToStove(Date.now(), '38')}>开始炼一张卡</button>
+                <button onClick={e => dpa.addACardToStove(Date.now() - (1000 * 3600 * 24 * 365), '38')}>炼一张卡并立即完成</button>
                 <button onClick={resetLocal}>清空数据</button>
             </div>
         </>

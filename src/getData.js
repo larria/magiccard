@@ -138,6 +138,14 @@ function getThemesByDiff(diff, fromThemeList) {
     return res
 }
 
+// 获取卡牌所属的theme
+function getThemeByCardId(id) {
+    if (typeof id !== 'string') {
+        id = id.toString()
+    }
+    return DATA_FORMATTED.THEME[DATA_FORMATTED.CARD[id].theme_id]
+}
+
 // 获取条件之内的卡片列表
 function getThemesInclude(includeThemeIdObj, themeList) {
     let res = []
@@ -172,6 +180,20 @@ function getCardsByThemeId(id) {
             itemData[key.name] = key.value
         }
         res.push(itemData)
+    })
+    return res
+}
+
+function getCardIdsByThemeId(id) {
+    let res = []
+    let $cards = dom.querySelectorAll(`card[theme_id="${id}"]`)
+    $cards.forEach($item => {
+        let itemData = {}
+        let attrs = $item.attributes
+        for (let key of attrs) {
+            itemData[key.name] = key.value
+        }
+        res.push(itemData.id)
     })
     return res
 }
@@ -254,9 +276,11 @@ export default {
     getThemesBySearch,
     getThemeById,
     getThemesByDiff,
+    getThemeByCardId,
     getThemesInclude,
     getThemesExclude,
     getCardsByThemeId,
+    getCardIdsByThemeId,
     getCardsByThemeIdAndSortByPrice,
     getCardById,
     getCardsRandomFromCanGet,

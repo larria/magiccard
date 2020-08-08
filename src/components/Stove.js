@@ -20,7 +20,10 @@ function Stove(props) {
                 <span className="stove_icon" onClick={toggleOpen}></span>
                 {showStoveSlots && (
                     <div className="stovelist_w">
-                        <div className="stovelist_ctrl"></div>
+                        <div className="stovelist_ctrl">
+                            <h3>炼卡炉</h3>
+                            <span className="stovelist_close_btn" onClick={() => {setShowStoveSlots(false)}}>关闭</span>
+                        </div>
                         <StoveList />
                     </div>
                 )}

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Divider, Button } from 'antd';
+import { Modal, Button } from 'antd';
 
 import Card from './Card'
 
 import getData from '../getData'
 import * as time from '../time'
 import * as utils from '../utils'
+import * as dpa from '../dispatchActionWithBusiness'
 
 function StoveSlotWithCard(props) {
     const [slotTime, setSlotTime] = useState(_calcSlotTime())
@@ -50,6 +51,43 @@ function StoveSlotWithCard(props) {
             time.removeTask('updateStoveSlotsTime' + props.slotIndex)
         }
     }, []);
+
+    // 从卡炉内取出一张炼好的卡：
+    // 1. 检查换卡箱有无足够的位置，如有，将卡片放入换卡箱，并继续，否则提示
+    // 2. 根据炼好的卡所属的主题，检查换卡箱、保险箱的卡片加起来是否集齐了该套主题
+    //    2.1 如是，更新集卡册，并把已集成的套卡卡片从换卡箱、保险箱移除
+    //         2.1.1 更新炼炉槽位，如有排队中的卡牌，选择排在最前的开始炼制
+    //         2.1.2 增加（集齐套卡奖励的）金币
+    //         2.1.3 增加（炼成这张卡 + 集齐套卡奖励的）经验值
+    //    2.2 如否
+    //         2.2.1 增加（炼成这张卡的）经验值
+    // 3. 检查是否升级，根据不同的等级给予不同的（解锁炉子、换卡（保险）箱卡位上限、魔力）奖励
+    function handleGetCardBtn() {
+        if (props.repStat.bagSlotNum > props.bagList.length) {
+            // 从卡槽中删除这张卡片
+            let stoveList = JSON.parse(JSON.stringify(props.stoveList))
+            stoveList.splice(props.slotIndex, 1)
+            dpa.updateStoveList(stoveList)
+            // 如有排队中的卡则开始炼制
+            // 将卡片加入换卡箱
+            let cardId = props.stoveList[props.slotIndex].cardId
+            dpa.addACardToBagList(cardId)
+            let themeCollected = dpa.getCardFromStoveAndCheckTheme(props.slotIndex)
+            if (themeCollected) {
+    
+            } else {
+                let cardData = getData.getCardById(cardId)
+                let exp = parseInt(cardData.price, 10)
+                dpa.addExp(exp)
+            }
+        } else {
+            Modal.info({
+                title: '无法取出',
+                content: '换卡箱没有足够的位置，请先整理换卡箱',
+            });
+        }
+    }
+
     return (
         <>
             <div className="stoveslot stoveslot_card">
@@ -60,7 +98,7 @@ function StoveSlotWithCard(props) {
                         showPrice={true} />
                 </span>
             </div>
-            {slotTime === 'done' && (<Button type="primary" shape="round">取卡</Button>)}
+            {slotTime === 'done' && (<Button type="primary" shape="round" onClick={() => { handleGetCardBtn() }}>取卡</Button>)}
             {slotTime !== 'done' && (<span className="">{slotTime}</span>)}
         </>
     )

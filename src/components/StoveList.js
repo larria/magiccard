@@ -1,10 +1,11 @@
-import React, { useMemo, } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Button } from 'antd';
 
 // import getData from '../getData'
 // import * as time from '../time'
-// import * as utils from '../utils'
+import * as utils from '../utils'
+import * as dpa from '../dispatchActionWithBusiness'
 
 import './StoveList.css'
 import StoveSlotWithCard from './StoveSlotWithCard';
@@ -15,6 +16,13 @@ function StoveList(props) {
     const slotsNum = useMemo(() => {
         return props.stoveStat.maxStove + 2
     }, [props.stoveStat.maxStove])
+
+    // 初始化更新炉子状态
+    useEffect(() => {
+        let currentStoveList = JSON.parse(JSON.stringify(props.stoveList))
+        let slotListUpdated = utils.getUpdatedSlotList(currentStoveList, props.stoveStat.maxStove, Date.now())
+        dpa.updateStoveList(slotListUpdated)
+    }, [])
 
     return (
         <>

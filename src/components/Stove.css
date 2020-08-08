@@ -28,5 +28,26 @@
     left: 0;
     z-index: 2;
     display: flex;
-    background-color: rgba(255, 255, 255, 0.7);
+    flex-direction: column;
+    border: 1px solid #ccc;
+    background-color: rgba(255, 255, 255, .8);
+    box-shadow: 0 0 5px #fff;
+}
+
+.stovelist_ctrl {
+    position: relative;
+    display: flex;
+}
+
+.stovelist_ctrl h3 {
+    margin: 5px 0 0 10px;
+}
+
+.stovelist_close_btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 2;
+    padding: 5px 10px;
+    cursor: pointer;
 }

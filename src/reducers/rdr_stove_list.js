@@ -15,21 +15,48 @@ export default (state = [], action) => {
                     done: false
                 })
             }
+            // 将练完的卡排在前面
+            newState.sort((a, b) => {
+                let aa = a.done ? 1 : 0
+                let bb = b.done ? 1 : 0
+                // 如果状态一样，先入炉的排前面
+                if (aa === bb) {
+                    aa = a.putInAtSamp
+                    bb = b.putInAtSamp
+                }
+                return aa - bb
+            })
             return newState;
         }
         case 'stove_list/doneACard': {
             let newState = JSON.parse(JSON.stringify(state))
             newState[action.slotIndex].done = true
-            // 如果炼卡完成，需将练完的卡排在前面
+            // 将练完的卡排在前面
             newState.sort((a, b) => {
                 let aa = a.done ? 1 : 0
                 let bb = b.done ? 1 : 0
-                return bb - aa
+                // 如果状态一样，先入炉的排前面
+                if (aa === bb) {
+                    aa = a.putInAtSamp
+                    bb = b.putInAtSamp
+                }
+                return aa - bb
             })
             return newState;
         }
         case 'stove_list/updateSlotsList': {
             let newState = JSON.parse(JSON.stringify(action.slotsList))
+            // 将练完的卡排在前面
+            newState.sort((a, b) => {
+                let aa = a.done ? 1 : 0
+                let bb = b.done ? 1 : 0
+                // 如果状态一样，先入炉的排前面
+                if (aa === bb) {
+                    aa = a.putInAtSamp
+                    bb = b.putInAtSamp
+                }
+                return aa - bb
+            })
             return newState;
         }
         default:

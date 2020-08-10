@@ -26,6 +26,8 @@ function BagCtrl(props) {
                         props.updateDrawStatFromTime(parseInt(drawNumFromTime, 10))
                     }
                     setCanDrawLeftTime(utils.getTimeFormat(Math.max(0, DRAW_INTERVAL - ((Date.now() - props.drawStat.lastResetTimeAtSamp) / 1000))))
+                } else {
+                    time.removeTask('countDrawNum')
                 }
             }
         })
@@ -33,7 +35,7 @@ function BagCtrl(props) {
             // 组件卸载
             time.removeTask('countDrawNum')
         }
-    }, []);
+    }, [props.drawStat.lastDrawNumLeft]);
 
     // 抽一张卡进换卡箱
     function drawACardToBag() {

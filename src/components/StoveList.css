@@ -71,3 +71,8 @@
     font-size: 18px;
     color: #fff;
 }
+
+.stovelist li .ant-statistic-content-value, .stovelist li .ant-statistic {
+    line-height: 20px;
+    font-size: 14px;
+}

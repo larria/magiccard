@@ -136,11 +136,11 @@ export function addACardToStove(timeSamp, cardId = '9115') {
     store.dispatch({
         type: 'stove_list/putACardInStove',
         cardId,
-        putInAtSamp: timeSamp || Date.now(),
+        startToRefineAt: timeSamp || Date.now(),
     })
 }
 
-// 放一张卡在炼卡炉
+// 更新炉位列表
 export function updateStoveList(slotsList) {
     slotsList = [...slotsList]
     store.dispatch({

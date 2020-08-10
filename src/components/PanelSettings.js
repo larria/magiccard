@@ -32,6 +32,7 @@ function PanelSettings(props) {
                 <button onClick={e => dpa.addAThemeToBook()}>集齐册放一套卡</button>
                 <button onClick={e => dpa.addACardToStove(Date.now(), '38')}>开始炼一张卡</button>
                 <button onClick={e => dpa.addACardToStove(Date.now() - (1000 * 3600 * 24 * 365), '38')}>炼一张卡并立即完成</button>
+                <button onClick={e => dpa.addACardToStove(Date.now() - (1000 * 3500), '41')}>炼一张卡并即将完成</button>
                 <button onClick={resetLocal}>清空数据</button>
             </div>
         </>

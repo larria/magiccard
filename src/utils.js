@@ -36,68 +36,98 @@ export function getRenderExp(exp) {
     return res
 }
 
-// 基于新的时间点更新炉子列表状态
-export function getUpdatedSlotList(stoveList, maxStove, nowSamp) {
-    let resList = JSON.parse(JSON.stringify(stoveList))
-    let count = maxStove
-    let nextStartSampList = []
-    let i = 0
-    // 第一遍只处理原先在炼的炉位
-    while (count > 0 && resList[i]) {
-        // 如果该卡片原先没有完成
-        if (!resList[i].done) {
-            let cardId = resList[i].cardId
-            let putInAtSamp = resList[i].putInAtSamp
-            let combData = getData.getCombineRuleByCardId(cardId)
-            let costSamp = parseInt(combData.time, 10) * 1000
-            // 还没炼完，则仍在占用一个炉位
-            if (nowSamp - putInAtSamp - costSamp < 0) {
-                count--
+// 推测获得所有炉位在某特定时间的渲染状态
+export function getStoveState(slotsList, toTimeSamp) {
+    let res = []
+    let theSlotsList = JSON.parse(JSON.stringify(slotsList))
+
+    theSlotsList.forEach(slot => {
+        let costTime = parseInt(getData.getCombineRuleByCardId(slot.cardId).time) * 1000
+        let restTime = slot.startToRefineAt + costTime - toTimeSamp
+        let resItem = {
+            cardId: slot.cardId,
+            restTime,
+            startToRefineAt: slot.startToRefineAt
+        }
+        if (restTime > 0) {
+            if (slot.startToRefineAt > toTimeSamp) {
+                // 还在等待，没开始炼
+                resItem.state = 'queue'
             } else {
-                // 炼完了，则要把剩余时间用来炼下一张卡
-                resList[i].done = true
-                nextStartSampList.push(putInAtSamp + costSamp)
-                // 更早炼完的剩余时间，排到前面
-                nextStartSampList.sort((a, b) => a - b)
+                // 开始炼了，但还没炼完
+                resItem.state = 'refining'
             }
+        } else {
+            // 炼完了
+            resItem.state = 'refined'
         }
-        i++
-    }
-    let j = 0
-    // 第二遍用剩余时间处理后面排队的炉位
-    while (count > 0 && nextStartSampList.length > 0 && resList[i]) {
-        // 如果该卡片原先没有完成
-        if (!resList[j].done) {
-            let cardId = resList[j].cardId
-            resList[j].putInAtSamp = nextStartSampList[0]
-            let combData = getData.getCombineRuleByCardId(cardId)
-            let costSamp = parseInt(combData.time, 10) * 1000
-            // 更早炼完的剩余时间，排到前面
-            // 还没炼完，则仍在占用一个炉位
-            if (nowSamp - resList[j].putInAtSamp - costSamp < 0) {
-                nextStartSampList.shift()
-                count--
-            } else {
-                // 炼完了，则要把剩余时间用来炼下一张卡
-                resList[i].done = true
-                nextStartSampList[0] += costSamp
-                // 更早炼完的剩余时间，排到前面
-                nextStartSampList.sort((a, b) => a - b)
-            }
-            nextStartSampList.sort((a, b) => a - b)
-        }
-        j++
-    }
-    // 将练完的卡排在前面
-    resList.sort((a, b) => {
-        let aa = a.done ? 1 : 0
-        let bb = b.done ? 1 : 0
-        // 如果状态一样，先入炉的排前面
-        if (aa === bb) {
-            aa = a.putInAtSamp
-            bb = b.putInAtSamp
-        }
-        return aa - bb
+        res.push(resItem)
     })
-    return resList
+    // 重新排序
+    // 首先：炼完的排前面，其中都炼完的再按炼完的时间点排序，更早炼完的排更前面
+    // 其次：还没炼完的和还在等待的排后面，其中都没炼完的或还在等待，再按开始炼制的时间点排序，更早开始炼制排在前面
+    res.sort((a, b) => {
+        let aVal = a.state === 'refined' ? 1 : 1e20
+        let bVal = b.state === 'refined' ? 1 : 1e20
+        if (a.state === b.state) {
+            if (a.state === 'refined') {
+                aVal += a.restTime
+                bVal += b.restTime
+            } else {
+                aVal += a.startToRefineAt
+                bVal += b.startToRefineAt
+            }
+        }
+        return aVal - bVal
+    })
+    return res
+}
+
+// 往炼制列表再加一张卡时，获取其能开始炼制的时间
+export function getStartToRefineAt(slotsList, maxStove) {
+    let theSlotsList = JSON.parse(JSON.stringify(slotsList))
+    let count = parseInt(maxStove, 10)
+    // 已有数据列表按开始炼制的时间排序
+    theSlotsList.sort((a, b) => a.startToRefineAt - b.startToRefineAt)
+    let nowSamp = Date.now()
+    let refiningRefinedAtList = []
+    let queueCostList = []
+    theSlotsList.forEach(slot => {
+        let costTime = parseInt(getData.getCombineRuleByCardId(slot.cardId).time) * 1000
+        let refinedTime = slot.startToRefineAt + costTime
+        if (refinedTime > nowSamp) {
+            // 已完成的炉位不计入计算
+            if (slot.startToRefineAt < nowSamp) {
+                // 还未完成的炉位中
+                // 已经开始炼制的炉位，记录其炼完的时间点
+                refiningRefinedAtList.push(slot.startToRefineAt + costTime)
+                // 占用一个活跃炉子
+                count--
+            } else {
+                // 还在排队的炉位，记录其需要炼制的时间长度
+                queueCostList.push(costTime)
+            }
+        }
+    })
+    if (count > 0) {
+        // 还有剩余的活跃炉子，可即刻开始炼制新卡
+        return nowSamp
+    } else {
+        // 没有剩余的活跃炉子了，则要找出排队之后最早能开始的时间点
+        refiningRefinedAtList.sort((a, b) => a - b)
+        queueCostList.sort((a, b) => a - b)
+        while(queueCostList.length > 0) {
+            let earliestQueueCost = queueCostList.shift()
+            // 早完成的炉子用来炼制先等待的卡
+            refiningRefinedAtList[0] += earliestQueueCost
+            refiningRefinedAtList.sort((a, b) => a - b)
+        }
+        // 最早能空出来的炉位时间
+        return refiningRefinedAtList[0]
+    }
+}
+
+// 当同时炼卡的炉子数量上限改变（升级解锁了炉子、租了炉子、租的炉子到期）时，更新炉子数据列表（其中的开始炼制的时间startToRefineAt）
+export function getUpdatedStoveListByMaxStove(slotsList, fromMaxStove, toMaxStove) {
+    return
 }

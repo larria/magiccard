@@ -56,7 +56,7 @@
 
 .repertory_chest_w,
 .repertory_bag_w {
-    max-height: 50vh;
+    max-height: calc(100vh - 300px);
     overflow-y: auto;
     padding: 5px;
 }

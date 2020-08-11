@@ -14,6 +14,7 @@ import rdr_draw_stat from './reducers/rdr_draw_stat';
 import rdr_book_stat from './reducers/rdr_book_stat';
 import rdr_stove_stat from './reducers/rdr_stove_stat';
 import rdr_stove_list from './reducers/rdr_stove_list';
+import rdr_minifastshop from './reducers/rdr_minifastshop';
 
 
 const reducer = combineReducers({
@@ -29,6 +30,7 @@ const reducer = combineReducers({
     bookStat: rdr_book_stat,
     stoveStat: rdr_stove_stat,
     stoveList: rdr_stove_list,
+    minifastshop: rdr_minifastshop,
 });
 
 const persistConfig = {

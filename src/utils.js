@@ -37,7 +37,7 @@ export function getRenderExp(exp) {
 }
 
 // 推测获得所有炉位在某特定时间的渲染状态
-export function getStoveState(slotsList, toTimeSamp) {
+export function getStoveRenderState(slotsList, toTimeSamp) {
     let res = []
     let theSlotsList = JSON.parse(JSON.stringify(slotsList))
 
@@ -66,7 +66,7 @@ export function getStoveState(slotsList, toTimeSamp) {
     // 重新排序
     // 首先：炼完的排前面，其中都炼完的再按炼完的时间点排序，更早炼完的排更前面
     // 其次：还没炼完的和还在等待的排后面，其中都没炼完的或还在等待，再按开始炼制的时间点排序，更早开始炼制排在前面
-    res.sort((a, b) => {
+    /* res.sort((a, b) => {
         let aVal = a.state === 'refined' ? 1 : 1e20
         let bVal = b.state === 'refined' ? 1 : 1e20
         if (a.state === b.state) {
@@ -79,7 +79,7 @@ export function getStoveState(slotsList, toTimeSamp) {
             }
         }
         return aVal - bVal
-    })
+    }) */
     return res
 }
 
@@ -130,4 +130,72 @@ export function getStartToRefineAt(slotsList, maxStove) {
 // 当同时炼卡的炉子数量上限改变（升级解锁了炉子、租了炉子、租的炉子到期）时，更新炉子数据列表（其中的开始炼制的时间startToRefineAt）
 export function getUpdatedStoveListByMaxStove(slotsList, fromMaxStove, toMaxStove) {
     return
+}
+
+// 检查是否合成了主题
+export function checkThemeCollected(bagCardIds, chestCardIds, themeIds) {
+    debugger
+    let collectedThemeIds = []
+    if (!(themeIds instanceof Array)) {
+        console.log('themeIds:' + themeIds + '必须是数组');
+        return;
+    }
+    // 用set排重
+    let themeIdsSet = new Set(themeIds)
+    // bagCardIds = [...bagCardIds]
+    // chestCardIds = [...chestCardIds]
+    themeIdsSet.forEach(themeId => {
+        let cardOfThemesIdSet = new Set(getData.getCardIdsByThemeId(themeId))
+        // console.log(cardOfThemesIdSet)
+        let bagCardIdsTemp = [...bagCardIds]
+        let chestCardIdsTemp = [...chestCardIds]
+        // console.log([...cardOfThemesIdSet])
+        // console.log(...bagCardIdsTemp)
+        // console.log(...chestCardIdsTemp)
+        for (let i = bagCardIdsTemp.length - 1; i >= 0; i--) {
+            if (typeof bagCardIdsTemp[i] === 'string') {
+                let cardId = bagCardIdsTemp[i]
+                // 这张卡属于主题
+                if (cardOfThemesIdSet.has(cardId)) {
+                    // 从换卡箱中删除
+                    bagCardIdsTemp.splice(i, 1)
+                    // 从查找的主题中删除
+                    cardOfThemesIdSet.delete(cardId)
+                }
+            } else {
+                continue
+            }
+        }
+        for (let i = chestCardIdsTemp.length - 1; i >= 0; i--) {
+            if (typeof chestCardIdsTemp[i] === 'string') {
+                let cardId = chestCardIdsTemp[i]
+                // 这张卡属于主题
+                if (cardOfThemesIdSet.has(cardId)) {
+                    // 从保险箱中删除
+                    chestCardIdsTemp.splice(i, 1)
+                    // 从查找的主题中删除
+                    cardOfThemesIdSet.delete(cardId)
+                }
+            } else {
+                continue
+            }
+        }
+        // 如果查找的主题卡片列表清空了，说明集齐了
+        if (cardOfThemesIdSet.size === 0) {
+            // console.log(`检查出${themeId}集齐了`)
+            collectedThemeIds.push(themeId)
+            bagCardIds = bagCardIdsTemp
+            chestCardIds = chestCardIdsTemp
+        }
+    })
+    // 如果有集齐的主题，返回集齐的主题、集齐后的换卡箱、保险箱卡片列表
+    if (collectedThemeIds.length > 0) {
+        return {
+            collectedThemeIds,
+            bagCardIds,
+            chestCardIds
+        }
+    } else {
+        return false
+    }
 }

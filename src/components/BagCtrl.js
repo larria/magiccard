@@ -6,6 +6,9 @@ import { MoneyCollectOutlined, ExclamationCircleOutlined, DownloadOutlined } fro
 import getData from '../getData'
 import * as time from '../time'
 import * as utils from '../utils'
+import * as dpa from '../dispatchActionWithBusiness'
+
+import ThemePreview from './ThemePreview'
 
 const { confirm } = Modal;
 
@@ -35,15 +38,57 @@ function BagCtrl(props) {
             // 组件卸载
             time.removeTask('countDrawNum')
         }
-    }, [props.drawStat.lastDrawNumLeft]);
+    });
 
     // 抽一张卡进换卡箱
     function drawACardToBag() {
         if (props.bagList.length < props.repStat.bagSlotNum) {
             if (props.drawStat.lastDrawNumLeft > 0) {
-                props.addACardToBag()
+                let cardId = getData.getCardsRandomFromCanGet(1)[0]
+                // 检查是否合成了一套
+                let cardData = getData.getCardById(cardId)
+                let currentBagList = [...props.bagList, cardId]
+                let themeCollected = utils.checkThemeCollected(currentBagList, props.chestList, [cardData.theme_id])
+                if (themeCollected) {
+                    // 有合成主题
+                    // todo
+                    // collectedThemeIds,
+                    // bagCardIds,
+                    // chestCardIds
+                    Modal.success({
+                        title: `您合成了${themeCollected.collectedThemeIds.length}套主题`,
+                        content: (
+                            <>
+                                {
+                                    themeCollected.collectedThemeIds.map(theme_id => {
+                                        return (
+                                            <ThemePreview key={theme_id} theme_id={theme_id} />
+                                        )
+                                    })
+                                }
+                            </>),
+                        onOk() {
+                        }
+                    });
+                    dpa.updateBagList(themeCollected.bagCardIds)
+                    dpa.updateChestList(themeCollected.chestCardIds)
+                    let gold = 0
+                    let exp = 0
+                    themeCollected.collectedThemeIds.forEach(themeId => {
+                        let diffNum = parseInt(getData.getThemeById(themeId).diff)
+                        gold += (diffNum * diffNum * 100)
+                        exp += (diffNum * diffNum * 10)
+                        // 将合成的主题放入集卡册
+                        dpa.addAThemeToBook(themeId)
+                    })
+                    dpa.addGold(gold)
+                    dpa.addExp(exp)
+                } else {
+                    // 将卡片加入换卡箱
+                    dpa.addACardToBagList(cardId)
+                }
                 // 如果之前卡位已满，则重置下一次抽卡时间
-                props.drawCards(1, props.drawStat.lastDrawNumLeft === 16)
+                props.updateDrawStatFromDrawCards(1, props.drawStat.lastDrawNumLeft === 16)
             } else {
                 Modal.info({
                     title: '暂时没有抽卡次数',
@@ -64,8 +109,50 @@ function BagCtrl(props) {
     function drawCardsToBag() {
         let num = Math.min(props.repStat.bagSlotNum - props.bagList.length, props.drawStat.lastDrawNumLeft)
         if (num > 0) {
-            props.addCardsToBag(num)
-            props.drawCards(num, props.drawStat.lastDrawNumLeft === 16)
+            let cardList = getData.getCardsRandomFromCanGet(num)
+            // 检查是否合成了主题
+            let currentBagList = [...props.bagList, ...cardList]
+            let themeIds = cardList.map(cardId => getData.getCardById(cardId).theme_id)
+            let themeCollected = utils.checkThemeCollected(currentBagList, props.chestList, themeIds)
+            if (themeCollected) {
+                // 有合成主题
+                // todo
+                // collectedThemeIds,
+                // bagCardIds,
+                // chestCardIds
+                Modal.success({
+                    title: `您合成了${themeCollected.collectedThemeIds.length}套主题`,
+                    content: (
+                        <>
+                            {
+                                themeCollected.collectedThemeIds.map(theme_id => {
+                                    return (
+                                        <ThemePreview key={theme_id} theme_id={theme_id} />
+                                    )
+                                })
+                            }
+                        </>),
+                    onOk() {
+                    }
+                });
+                dpa.updateBagList(themeCollected.bagCardIds)
+                dpa.updateChestList(themeCollected.chestCardIds)
+                let gold = 0
+                let exp = 0
+                themeCollected.collectedThemeIds.forEach(themeId => {
+                    let diffNum = parseInt(getData.getThemeById(themeId).diff)
+                    gold += (diffNum * diffNum * 100)
+                    exp += (diffNum * diffNum * 10)
+                    // 将合成的主题放入集卡册
+                    dpa.addAThemeToBook(themeId)
+                })
+                dpa.addGold(gold)
+                dpa.addExp(exp)
+            } else {
+                // 将卡片加入换卡箱
+                props.addCardsToBag(cardList)
+            }
+            props.updateDrawStatFromDrawCards(num, props.drawStat.lastDrawNumLeft === 16)
         } else {
             Modal.info({
                 title: '换卡箱已满 或 没有抽卡次数',
@@ -120,7 +207,7 @@ function BagCtrl(props) {
             <div className="repertory_draw_stat">
                 {props.drawStat.lastDrawNumLeft < 16 && <span className="repertory_draw_time"> 下一张卡：{canDrawLeftTime}</span>}
             </div>
-            <span style={{flex: '1'}}></span>
+            <span style={{ flex: '1' }}></span>
             <Button className="repertory_bag_btn repertory_bag_btn_sell_all" type="primary" icon={<MoneyCollectOutlined />} size="small" onClick={sellAllNormalCards}>一键卖普卡</Button>
         </>
     )
@@ -136,21 +223,20 @@ const mapStateToProps = (state) => {
         power: state.power,
         repStat: state.repStat,
         bagList: state.bagList,
+        chestList: state.chestList,
         drawStat: state.drawStat
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        addACardToBag: () => {
-            let cardId = getData.getCardsRandomFromCanGet(1)[0]
+        addACardToBag: (cardId) => {
             let action = {
                 type: 'bag_list/addOneCard',
                 cardId
             }
             dispatch(action);
         },
-        addCardsToBag: (num) => {
-            let cardList = getData.getCardsRandomFromCanGet(num)
+        addCardsToBag: (cardList) => {
             let action = {
                 type: 'bag_list/addCards',
                 cardList
@@ -179,7 +265,7 @@ const mapDispatchToProps = (dispatch) => {
                 time: Date.now()
             });
         },
-        drawCards: (num, toReSetDrawTime) => {
+        updateDrawStatFromDrawCards: (num, toReSetDrawTime) => {
             // 抽取一定数量的卡片
             if (toReSetDrawTime) {
                 let now = Date.now()

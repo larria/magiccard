@@ -144,10 +144,9 @@ function RepertoryBox(props) {
                 {/* <Tabs defaultActiveKey="1" onChange={callback}> */}
                 <Tabs
                     defaultActiveKey="bag"
-                    tabBarStyle={{ marginLeft: '20px', marginBottom: '0', fontWeight: 'bolder' }}>
-                    <TabPane tab="换卡箱" key="bag">
+                    tabBarStyle={{ marginLeft: '20px', marginBottom: '0' }}>
+                    <TabPane tab={<><span className="repertory_box_title">换卡箱</span> {props.bagList.length}/{props.repStat.bagSlotNum}</>} key="bag">
                         <div className="repertory_bag_ctrl">
-                            <span className="repertory_bag_state">卡位：{props.bagList.length}/{props.repStat.bagSlotNum}</span>
                             <BagCtrl />
                         </div>
                         <div className="repertory_bag_w">
@@ -155,9 +154,8 @@ function RepertoryBox(props) {
                             />
                         </div>
                     </TabPane>
-                    <TabPane tab="保险箱" key="chest">
+                    <TabPane tab={<><span className="repertory_box_title">保险箱</span> {props.chestList.length}/{props.repStat.chestSlotNum}</>} key="chest">
                         <div className="repertory_chest_ctrl">
-                            <span className="repertory_chest_state">卡位：{props.chestList.length}/{props.repStat.chestSlotNum}</span>
                             <span className="repertory_chest_info">这里是安全区，其他玩家无法换走您存放在此处的卡片</span>
                         </div>
                         <div className="repertory_chest_w">

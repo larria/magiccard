@@ -123,7 +123,7 @@ function StoveList(props) {
                             return (
                                 <li key={Math.random()}>
                                     <StoveSlot slotType="blank" />
-                                    {firstBlankIndex === index && <Button type="primary" shape="round">炼卡</Button>}
+                                    {firstBlankIndex === index && <Button type="primary" shape="round" onClick={e => {props.showMiniShop()}}>炼卡</Button>}
                                 </li>)
                         }
                     } else {
@@ -148,16 +148,16 @@ const mapStateToProps = (state) => {
         stoveStat: state.stoveStat,
         stoveList: state.stoveList,
         repStat: state.repStat,
+        minifastshop: state.minifastshop
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        addACardToStove: function (cardId, stoveList, maxStove, nowSamp) {
-            // let costTime = parseInt(getData.getCombineRuleByCardId(cardId).time) * 1000
-            // dispatch({
-            //     type: 'stove_list/doneACard',
-            //     slotIndex
-            // })
+        showMiniShop: function () {
+            dispatch({
+                type: 'minifastshop/setShow',
+                isShow: true
+            })
         },
     }
 }

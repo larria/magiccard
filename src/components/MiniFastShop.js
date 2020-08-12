@@ -2,24 +2,35 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import './MiniFastShop.css'
+import MiniFastShopList from './MiniFastShopList'
+import ThemeLogo from './ThemeLogo'
 
 function MiniFastShop(props) {
     return (
         <>
-            {/* <div className="minifastshop_mask"></div> */}
-            <div className="minifastshop_w">
-                <h3 className="minifastshop_title">炼卡攻略</h3>
-                <p className="minifastshop_head">正在收集</p>
-                <p className="minifastshop_head">选择套卡</p>
-                <p className="minifastshop_head">主题卡片列表</p>
-            </div>
+            {props.minifastshop.isShow && (<div className="minifastshop_mask"></div>)}
+            {props.minifastshop.isShow && (
+                <div className="minifastshop_w">
+                    <h3 className="minifastshop_title">炼卡攻略</h3>
+                    <div className="minifastshop_ctrl">
+                        <p className="minifastshop_head">
+                            <span className="minifastshop_themelogo_txt">推荐主题</span>
+                            {props.minifastshop.reCommendedThemesList.map(themeId => {
+                                return (
+                                <span className="minifastshop_themelogo_w"><ThemeLogo key={themeId} theme_id={themeId}></ThemeLogo></span>
+                                )
+                            })}
+                        </p>
+                        <span className="minifastshop_close_btn" onClick={props.handleClickClose}>关闭</span>
+                    </div>
+                    <MiniFastShopList />
+                </div>
+            )}
         </>
     )
 }
 
 MiniFastShop.defaultProps = {
-    // 默认显示的主题
-    defaultThemeId: '40'
 }
 const mapStateToProps = (state) => {
     return {
@@ -34,10 +45,10 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        addACardToBag: (cardId) => {
+        handleClickClose: () => {
             let action = {
-                type: 'bag_list/addOneCard',
-                cardId
+                type: 'minifastshop/setShow',
+                isShow: false
             }
             dispatch(action);
         }

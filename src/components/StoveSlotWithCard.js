@@ -20,7 +20,7 @@ function StoveSlotWithCard(props) {
                         showPrice={true} />
                 </span>
             </div>
-            {props.state === 'queue' && (<span className="">等待</span>)}
+            {props.state === 'queue' && (<span className="">排队中...</span>)}
             {props.state === 'refined' && (<Button type="primary" shape="round" onClick={_ => props.onGetCard()}>取卡</Button>)}
             {props.state === 'refining' && (<Countdown value={Date.now() + props.restTime} onFinish={_ => props.onCardRefined()} />)}
         </>

@@ -8,7 +8,7 @@ export default (state = 8000, action) => {
             let gold = parseInt(action.gold, 10)
             return state + gold;
         }
-        case 'minusGold': {
+        case 'subGold': {
             let gold = parseInt(action.gold, 10)
             return state - gold;
         }

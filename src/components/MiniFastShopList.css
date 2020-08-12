@@ -1,0 +1,109 @@
+.minifastshop_list_w{
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 82px);
+    overflow-y: auto;
+}
+
+.minifastshop_list_head{
+    display: flex;
+}
+
+.minifastshop_list_title{
+    margin-right: 10px;
+}
+
+.minifastshop_list_info{
+    margin-left: 10px;
+}
+
+.minifastshop_list{
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.minifastshop_list .minifastshop_list_price_lvl{
+    margin: 0;
+    display: flex;
+    list-style: none;
+    min-height: 100px;
+}
+
+.minifastshop_list .minifastshop_list_price_lvl:nth-of-type(odd){
+    background-color: rgba(24, 144, 255, 0.1)
+}
+
+.minifastshop_list_price_lvl_info{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+}
+
+.minifastshop_list_price_lvl_list{
+    display: flex;
+    flex: 1;
+    justify-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.minifastshop_list_price_lvl_list li {
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    list-style: none;
+}
+
+.minifastshop_list_card_w{
+    position: relative;
+    z-index: 30;
+    margin-bottom: 5px;
+}
+
+.minifastshop_list_card_mask{
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 31;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    background-color: rgba(0, 0, 0, .5);
+    color: #fff;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.minifastshop_list_card_rep_num{
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 33;
+    display: flex;
+    width: 12px;
+    height: 12px;
+    line-height: 12px;
+    font-size: 10px;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.minifastshop_list_card_rep_num_bg{
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 32;
+    content: ' ';
+    width: 0;
+    height: 0;
+    border-top: 20px solid orange;
+    border-right: 20px solid transparent;
+}

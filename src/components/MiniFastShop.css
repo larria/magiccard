@@ -1,4 +1,4 @@
-.minifastshop_mask{
+.minifastshop_mask {
     position: absolute;
     z-index: 20;
     left: 0;
@@ -8,7 +8,7 @@
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-.minifastshop_w{
+.minifastshop_w {
     position: absolute;
     z-index: 21;
     left: 10%;
@@ -18,4 +18,44 @@
     background-color: rgba(255, 255, 255, 1);
     border: 1px solid #ccc;
     box-shadow: 0 0 5px #fff;
+}
+
+.minifastshop_title{
+    margin: 10px;
+}
+
+.minifastshop_ctrl {
+    margin: 0 10px;
+    display: flex;
+}
+
+.minifastshop_head{
+    display: flex;
+}
+
+.minifastshop_themelogo_w{
+    margin: 0 2px;
+    cursor: pointer;
+    transition: all ease 0.3s
+}
+
+.minifastshop_themelogo_w:hover{
+    opacity: 0.7;
+}
+
+.minifastshop_themelogo_txt{
+    margin-right: 10px;
+}
+
+.minifastshop_themelogo_w:nth-of-type(1){
+    margin-left: 10px;
+}
+
+.minifastshop_close_btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 2;
+    padding: 5px 10px;
+    cursor: pointer;
 }

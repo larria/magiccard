@@ -24,7 +24,7 @@ function DiffStar(props) {
 }
 
 DiffStar.defaultProps = {
-    diff: 1,
+    diff: '1',
     size: 20,
     color: '#eb2f96'
 }

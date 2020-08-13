@@ -8,6 +8,7 @@ import BagList from './BagList'
 import ChestList from './ChestList'
 
 import getData from '../getData'
+import * as dpa from '../dispatchActionWithBusiness'
 
 import './RepertoryBox.css'
 
@@ -26,7 +27,7 @@ function RepertoryBox(props) {
                             type="primary"
                             shape="circle"
                             icon={<MoneyCollectOutlined />}
-                            onClick={toSellACardFromBag.bind(this, bagCardIndex)}
+                            onClick={e => toSellACardFromBag(bagCardIndex)}
                         />
                     </Tooltip>
                 </li>
@@ -36,6 +37,7 @@ function RepertoryBox(props) {
                             type="primary"
                             shape="circle"
                             icon={<SearchOutlined />}
+                            onClick={e => toShowThemeInShop(bagCardIndex, 'bag')}
                         />
                     </Tooltip>
                 </li>
@@ -45,7 +47,7 @@ function RepertoryBox(props) {
                             type="primary"
                             shape="circle"
                             icon={<LoginOutlined />}
-                            onClick={toMoveACardFromBagToChest.bind(this, bagCardIndex)}
+                            onClick={e => toMoveACardFromBagToChest(bagCardIndex)}
                         />
                     </Tooltip>
                 </li>
@@ -63,6 +65,7 @@ function RepertoryBox(props) {
                             type="primary"
                             shape="circle"
                             icon={<SearchOutlined />}
+                            onClick={e => toShowThemeInShop(chestCardIndex, 'chest')}
                         />
                     </Tooltip>
                 </li>
@@ -78,6 +81,23 @@ function RepertoryBox(props) {
                 </li>
             </ul>
         )
+    }
+
+    // 在minishop中显示主题
+    function toShowThemeInShop(bagCardIndex, from) {
+        let cardList
+        if (from === 'bag') {
+            cardList = props.bagList
+        } else if (from === 'chest') {
+            cardList = props.chestList
+        } else {
+            console.log('toShowThemeInShop参数错误')
+            return
+        }
+        let cardId = cardList[bagCardIndex]
+        let cardInfo = getData.getCardById(cardId)
+        let themeId = getData.getThemeById(cardInfo.theme_id).id
+        dpa.showThemeInMiniShop(themeId)
     }
 
     // 从换卡箱卖一张卡

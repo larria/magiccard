@@ -3,7 +3,7 @@ import { Input, Divider, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 
-import { avatarsURLList } from '../getConfig'
+import { avatarsURLList } from '../config'
 import './PageRegister.css'
 
 import {

@@ -135,7 +135,6 @@ export function getUpdatedStoveListByMaxStove(slotsList, fromMaxStove, toMaxStov
 
 // 检查是否合成了主题
 export function checkThemeCollected(bagCardIds, chestCardIds, themeIds) {
-    debugger
     let collectedThemeIds = []
     if (!(themeIds instanceof Array)) {
         console.log('themeIds:' + themeIds + '必须是数组');

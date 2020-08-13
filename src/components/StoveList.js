@@ -19,9 +19,7 @@ function StoveList(props) {
     }, [props.stoveStat.maxStove])
 
     // 更新炉位render数据
-    const slotsRenderState = useMemo(() => {
-        return utils.getStoveRenderState(props.stoveList, Date.now())
-    }, [props.stoveList])
+    const slotsRenderState = utils.getStoveRenderState(props.stoveList, Date.now())
 
     // 第一个空的炉位，需要放唯一的炼卡button
     let firstBlankIndex = slotsRenderState.length < slotsNum ? slotsRenderState.length : -1
@@ -50,8 +48,7 @@ function StoveList(props) {
             let currentBagList = [...props.bagList, cardId]
             let themeCollected = utils.checkThemeCollected(currentBagList, props.chestList, [cardData.theme_id])
             if (themeCollected) {
-                // 有合成主题
-                // todo
+                // 有集齐主题所有的卡
                 // collectedThemeIds,
                 // bagCardIds,
                 // chestCardIds

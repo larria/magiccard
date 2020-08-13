@@ -1,29 +1,87 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { Tooltip } from 'antd'
 
 import './MiniFastShop.css'
 import MiniFastShopList from './MiniFastShopList'
 import ThemeLogo from './ThemeLogo'
+import getData from '../getData'
+import { defaultMiniThemeIdList } from '../config'
 
 function MiniFastShop(props) {
+    const recommendedThemesList = getRecommendedThemesList(defaultMiniThemeIdList)
+
+    function getRecommendedThemesList(defaultThemeList) {
+        let resSet = new Set()
+        if (props.minifastshop.showThemeId) {
+            resSet.add(props.minifastshop.showThemeId)
+        }
+        // 优先match炉子中有的主题
+        props.stoveList.forEach(slotData => {
+            resSet.add(getData.getThemeByCardId(slotData.cardId).id)
+        })
+        // 如果主题不够，从换卡箱和保险箱里取
+        if (resSet.size < 4) {
+            let repCardIdList = [...props.bagList, ...props.chestList]
+            let repThemeObj = {}
+            let repThemeList = []
+            repCardIdList.forEach(repCardId => {
+                let cardPrice = parseInt(getData.getCardById(repCardId).price, 10)
+                let themeData = getData.getThemeByCardId(repCardId)
+                let themeId = themeData.id
+                // 限制主题类型，不能是活动卡
+                if(themeData.type !== '2') {
+                    if (themeId in repThemeObj) {
+                        repThemeObj[themeId] += cardPrice
+                    } else {
+                        repThemeObj[themeId] = cardPrice
+                    }
+                }
+            })
+            // 根据换卡箱和保险箱的卡判断推荐的主题
+            for (let themeId in repThemeObj) {
+                repThemeList.push({
+                    themeId: themeId,
+                    priceTotal: repThemeObj[themeId]
+                })
+            }
+            repThemeList.sort((a, b) => b.priceTotal - a.priceTotal)
+            repThemeList.forEach(repThemeItem => {
+                resSet.add(repThemeItem.themeId)
+            })
+            defaultThemeList.forEach(themeId => {
+                resSet.add(themeId)
+            })
+        }
+        return [...resSet].slice(0, 4)
+    }
+    // todo 从换卡箱和保险箱查看主题bug
+    const [showThemeId, setShowThemeId] = useState(recommendedThemesList[0])
+
     return (
         <>
             {props.minifastshop.isShow && (<div className="minifastshop_mask"></div>)}
             {props.minifastshop.isShow && (
                 <div className="minifastshop_w">
-                    <h3 className="minifastshop_title">炼卡攻略</h3>
-                    <div className="minifastshop_ctrl">
-                        <p className="minifastshop_head">
+                    <div className="minifastshop_head">
+                        <h3 className="minifastshop_title">炼卡攻略</h3>
+                        <div className="minifastshop_ctrl">
                             <span className="minifastshop_themelogo_txt">推荐主题</span>
-                            {props.minifastshop.reCommendedThemesList.map(themeId => {
+                            {recommendedThemesList.map(themeId => {
                                 return (
-                                <span className="minifastshop_themelogo_w"><ThemeLogo key={themeId} theme_id={themeId}></ThemeLogo></span>
+                                    <span className="minifastshop_themelogo_w" key={themeId}>
+                                        <Tooltip title={getData.getThemeById(themeId).name}>
+                                            <span onClick={e => setShowThemeId(themeId)}>
+                                                <ThemeLogo key={themeId} theme_id={themeId} />
+                                            </span>
+                                        </Tooltip>
+                                    </span>
                                 )
                             })}
-                        </p>
-                        <span className="minifastshop_close_btn" onClick={props.handleClickClose}>关闭</span>
+                        </div>
                     </div>
-                    <MiniFastShopList />
+                    <MiniFastShopList showThemeId={showThemeId} />
+                    <span className="minifastshop_close_btn" onClick={props.handleClickClose}>关闭</span>
                 </div>
             )}
         </>
@@ -34,12 +92,9 @@ MiniFastShop.defaultProps = {
 }
 const mapStateToProps = (state) => {
     return {
-        exp: state.exp,
-        gold: state.gold,
-        power: state.power,
-        repStat: state.repStat,
         bagList: state.bagList,
         chestList: state.chestList,
+        stoveList: state.stoveList,
         minifastshop: state.minifastshop
     }
 }

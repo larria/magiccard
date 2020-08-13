@@ -36,6 +36,7 @@ const reducer = combineReducers({
 const persistConfig = {
     key: 'magic_card_v1',
     storage,
+    blacklist: ['minifastshop']
 }
 const persistedReducer = persistReducer(persistConfig, reducer)
 

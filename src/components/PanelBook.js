@@ -43,7 +43,7 @@ function PanelBook(props) {
                                     <ThemeList
                                         showType='byBlock'
                                         themesList={collectedThemeList.unCollected} />) :
-                                    (<p>您还没有集齐任何主题</p>)
+                                    (<p>您已经没有需要集齐的主题</p>)
                             }
                         </div>
                     </TabPane>

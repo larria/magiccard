@@ -51,7 +51,6 @@ function BagCtrl(props) {
                 let themeCollected = utils.checkThemeCollected(currentBagList, props.chestList, [cardData.theme_id])
                 if (themeCollected) {
                     // 有合成主题
-                    // todo
                     // collectedThemeIds,
                     // bagCardIds,
                     // chestCardIds
@@ -116,7 +115,6 @@ function BagCtrl(props) {
             let themeCollected = utils.checkThemeCollected(currentBagList, props.chestList, themeIds)
             if (themeCollected) {
                 // 有合成主题
-                // todo
                 // collectedThemeIds,
                 // bagCardIds,
                 // chestCardIds

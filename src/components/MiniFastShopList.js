@@ -9,9 +9,10 @@ import * as dpa from '../dispatchActionWithBusiness'
 
 import Card from './Card'
 import DiffStar from './DiffStar'
+import ThemePreview from './ThemePreview'
 
 function MiniFastShopList(props) {
-    let currentShowThemeId = props.minifastshop.reCommendedThemesList[0]
+    let currentShowThemeId = props.showThemeId
     let currentShowThemeData = getData.getThemeById(currentShowThemeId)
     let currentShowCardsOfTheme = getData.getCardsByThemeId(currentShowThemeId)
     let currentCardsSortByPrice = getData.getCardsByThemeIdAndSortByPrice(currentShowThemeId)
@@ -32,8 +33,46 @@ function MiniFastShopList(props) {
         if (props.gold >= cardData.price) {
             if (props.repStat.bagSlotNum > props.bagList.length) {
                 props.buyACardFromShop(cardData.price)
-                // todo 检查是否合成了一套卡
-                props.addACardToBag(cardId)
+                // 检查是否合成了一套卡
+                let currentBagList = [...props.bagList, cardId]
+                let themeCollected = utils.checkThemeCollected(currentBagList, props.chestList, [cardData.theme_id])
+                // 有集齐主题所有的卡
+                // collectedThemeIds,
+                // bagCardIds,
+                // chestCardIds
+                if (themeCollected) {
+                    Modal.success({
+                        title: `您合成了${themeCollected.collectedThemeIds.length}套主题`,
+                        content: (
+                            <>
+                                {
+                                    themeCollected.collectedThemeIds.map(theme_id => {
+                                        return (
+                                            <ThemePreview key={theme_id} theme_id={theme_id} />
+                                        )
+                                    })
+                                }
+                            </>),
+                        onOk() {
+                        }
+                    });
+                    dpa.updateBagList(themeCollected.bagCardIds)
+                    dpa.updateChestList(themeCollected.chestCardIds)
+                    // 集齐获得经验和金币
+                    let gold = 0
+                    let exp = 0
+                    themeCollected.collectedThemeIds.forEach(themeId => {
+                        let diffNum = parseInt(getData.getThemeById(themeId).diff)
+                        gold += (diffNum * diffNum * 100)
+                        exp += (diffNum * diffNum * 10)
+                        // 将合成的主题放入集卡册
+                        dpa.addAThemeToBook(themeId)
+                    })
+                    dpa.addGold(gold)
+                    dpa.addExp(exp)
+                } else {
+                    props.addACardToBag(cardId)
+                }
             } else {
                 Modal.info({
                     title: '换卡箱满了',
@@ -111,7 +150,7 @@ function MiniFastShopList(props) {
         }
 
         return (
-            <li>
+            <li key={cardData.id}>
                 <span className="minifastshop_list_card_w">
                     <Card id={cardData.id} isSmall={true} />
                     {cardNums.numsInRep !== 0 && (
@@ -177,6 +216,7 @@ function MiniFastShopList(props) {
 }
 
 MiniFastShopList.defaultProps = {
+    showThemeId: '40'
 }
 const mapStateToProps = (state) => {
     return {

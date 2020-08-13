@@ -19,11 +19,8 @@ function PanelSettings(props) {
     return (
         <>
             <div className="settings_w">
-                <h2>TODO</h2>
-                <h3>个人信息</h3>
                 <p>修改个人昵称与头像</p>
                 <p onClick={handleClick}>设置好友数量: {friendsNum}</p>
-                <h3>数据管理</h3>
                 <p>下载个人数据</p>
                 <button onClick={e => props.addExp(100)}>增加经验值</button>
                 <button onClick={e => props.setExp(0)}>经验值清零</button>
@@ -33,6 +30,7 @@ function PanelSettings(props) {
                 <button onClick={e => dpa.addACardToStove(Date.now(), '38')}>开始炼一张卡</button>
                 <button onClick={e => dpa.addACardToStove(Date.now() - (1000 * 3600 * 24 * 365), '38')}>炼一张卡并立即完成</button>
                 <button onClick={e => dpa.addACardToStove(Date.now() - (1000 * 3500), '41')}>炼一张卡并即将完成</button>
+                <button onClick={e => dpa.updateStoveList([])}>清除炼卡槽</button>
                 <button onClick={resetLocal}>清空数据</button>
             </div>
         </>

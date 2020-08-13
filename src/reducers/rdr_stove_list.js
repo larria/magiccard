@@ -13,7 +13,7 @@ export default (state = [], action) => {
                     startToRefineAt: action.startToRefineAt,
                 })
             }
-            // 将练完的卡排在前面
+            /* // 将练完的卡排在前面
             newState.sort((a, b) => {
                 let aa = a.done ? 1 : 0
                 let bb = b.done ? 1 : 0
@@ -23,22 +23,13 @@ export default (state = [], action) => {
                     bb = b.startToRefineAt
                 }
                 return aa - bb
-            })
+            }) */
             return newState;
         }
         case 'stove_list/updateSlotsList': {
             let newState = JSON.parse(JSON.stringify(action.slotsList))
-            // 将练完的卡排在前面
-            newState.sort((a, b) => {
-                let aa = a.done ? 1 : 0
-                let bb = b.done ? 1 : 0
-                // 如果状态一样，先入炉的排前面
-                if (aa === bb) {
-                    aa = a.startToRefineAt
-                    bb = b.startToRefineAt
-                }
-                return aa - bb
-            })
+            // 先入炉的排前面
+            newState.sort((a, b) => a.startToRefineAt - b.startToRefineAt)
             return newState;
         }
         default:

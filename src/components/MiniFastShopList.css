@@ -2,7 +2,7 @@
     margin: 0 10px;
     display: flex;
     flex-direction: column;
-    height: calc(100% - 82px);
+    max-height: calc(100vh - 270px);
     overflow-y: auto;
 }
 
@@ -19,7 +19,7 @@
 }
 
 .minifastshop_list{
-    margin: 0;
+    margin: 0 0 10px;
     display: flex;
     flex-direction: column;
 }

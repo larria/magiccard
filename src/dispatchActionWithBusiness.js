@@ -101,5 +101,17 @@ export function updateStoveList(slotsList) {
     })
 }
 
-// function _checkThemeCol(toAddCardIds) {
-// }
+// 在minishop中显示主题
+export function showThemeInMiniShop(showThemeId) {
+    showThemeId = showThemeId.toString()
+    store.dispatch({
+        type: 'minifastshop/setShowTheme',
+        showThemeId
+    })
+    setTimeout(() => {
+        store.dispatch({
+            type: 'minifastshop/setShow',
+            isShow: true
+        })
+    }, 200)
+}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useMemo} from 'react'
 import { connect } from 'react-redux'
 import { Modal, Button, Tooltip } from 'antd'
 
@@ -16,6 +16,33 @@ function MiniFastShopList(props) {
     let currentShowThemeData = getData.getThemeById(currentShowThemeId)
     let currentShowCardsOfTheme = getData.getCardsByThemeId(currentShowThemeId)
     let currentCardsSortByPrice = getData.getCardsByThemeIdAndSortByPrice(currentShowThemeId)
+
+    // 点击选中的卡片
+    const [selectedCardId, setSelectedCardId] = useState(null)
+
+    let fromSelectCardIdList = useMemo(() => {
+        if (selectedCardId) {
+            let combData = getData.getCombineRuleByCardId(selectedCardId)
+            if (combData) {
+                return combData.from.split(',')
+            }
+        }
+        return null
+    }, [selectedCardId])
+
+    function getCardStyle(cardId) {
+        if (selectedCardId && selectedCardId === cardId) {
+            return {
+                backgroundColor: 'gold'
+            }
+        }
+        if (fromSelectCardIdList && fromSelectCardIdList.includes(cardId)) {
+            return {
+                backgroundColor: 'tomato'
+            }
+        }
+        return {}
+    }
 
     // 已经获得的卡片个数
     function getCardInfoInRepAndStove(cardId) {
@@ -152,7 +179,7 @@ function MiniFastShopList(props) {
         return (
             <li key={cardData.id}>
                 <Tooltip title={cardData.name}>
-                    <span className="minifastshop_list_card_w">
+                    <span className="minifastshop_list_card_w" onClick={e => setSelectedCardId(cardData.id)} style={ getCardStyle(cardData.id) }>
                         <Card id={cardData.id} isSmall={true} />
                         {cardNums.numsInRep !== 0 && (
                             <>

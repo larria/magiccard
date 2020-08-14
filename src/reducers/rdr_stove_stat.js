@@ -8,6 +8,11 @@ export default (state = {
             newState.maxStove = parseInt(action.slotNum, 10)
             return newState;
         }
+        case 'stove_stat/addSlotsNum': {
+            let newState = {...state}
+            newState.maxStove = newState.maxStove += parseInt(action.slotNum, 10)
+            return newState;
+        }
         default:
             return state;
     }

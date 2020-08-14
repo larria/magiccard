@@ -1,8 +1,10 @@
 import React, { useMemo } from 'react'
 import { connect } from 'react-redux'
-import { Progress } from 'antd'
+import { Progress, Modal } from 'antd'
 
 import './User.css'
+import * as config from '../config'
+import * as dpa from '../dispatchActionWithBusiness'
 
 function User(props) {
 
@@ -17,6 +19,56 @@ function User(props) {
         let thisLvStartExp = 100 * Math.pow(lvl, 2)
         return 100 * (props.exp - thisLvStartExp) / (nextLvlExp - thisLvStartExp)
     }, [props.exp])
+
+    // 升级了
+    if (level !== props.lvlBonus) {
+        let lvlUponList = []
+        for (let i = props.lvlBonus + 1; i <= level; i++) {
+            lvlUponList.push(i)
+        }
+        Modal.success({
+            title: `恭喜您提升等级至lv.${level}~`,
+            content: (
+                <div className="user_bonus_w">
+                    <p>升级奖励：</p>
+                    {lvlUponList.map(lvlUpon => {
+                        let bonus = config.levelBonus[lvlUpon]
+                        return (
+                            <div className="user_bonus" key={lvlUpon}>
+                                {bonus.maxStove && (<p>最大炉位 +{bonus.maxStove}</p>)}
+                                {bonus.bagSlotNum && (<p>换卡箱卡位解锁 +{bonus.bagSlotNum}</p>)}
+                                {bonus.chestSlotNum && (<p>保险箱箱卡位解锁 +{bonus.chestSlotNum}</p>)}
+                                {bonus.gold && (<p>金币 +{bonus.gold}</p>)}
+                                {bonus.power && (<p>魔力 +{bonus.power}</p>)}
+                            </div>
+                        )
+                    })}
+                </div>),
+            onOk() {
+            }
+        });
+        lvlUponList.forEach(lvlUpon => {
+            let bonus = config.levelBonus[lvlUpon]
+            if (bonus.maxStove) {
+                dpa.addMaxStove(bonus.maxStove)
+            }
+            if (bonus.bagSlotNum) {
+                dpa.addBagSlotNum(bonus.bagSlotNum)
+            }
+            if (bonus.chestSlotNum) {
+                dpa.addChestSlotNum(bonus.chestSlotNum)
+            }
+            if (bonus.gold) {
+                dpa.addGold(bonus.gold)
+            }
+            if (bonus.power) {
+                dpa.addPower(bonus.power)
+            }
+        })
+        dpa.setLevelBonusGot(level)
+        // todo 如果更新了炉位上限  要更新stoveList的toStartRefine
+    }
+
     return (
         <>
             <div className="user_w">
@@ -53,7 +105,8 @@ const mapStateToProps = (state) => {
         avatar: state.avatar,
         exp: state.exp,
         gold: state.gold,
-        power: state.power
+        power: state.power,
+        lvlBonus: state.lvlBonus
     }
 }
 const mapDispatchToProps = (dispatch) => {

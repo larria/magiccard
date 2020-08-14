@@ -115,3 +115,45 @@ export function showThemeInMiniShop(showThemeId) {
         })
     }, 200)
 }
+
+// 设置已获得的等级奖励
+export function setLevelBonusGot(level) {
+    level = parseInt(level, 10)
+    store.dispatch({
+        type: 'lvl_bonus/gotBonus',
+        level
+    })
+}
+
+// 增加炉位上限
+export function addMaxStove(slotNum) {
+    slotNum = parseInt(slotNum, 10)
+    store.dispatch({
+        type: 'stove_stat/addSlotsNum',
+        slotNum
+    })
+}
+
+// 增加换卡箱卡位上限
+export function addBagSlotNum(slotNum) {
+    store.dispatch({
+        type: 'addBagSlot',
+        slotNum
+    })
+}
+
+// 增加保险箱卡位上限
+export function addChestSlotNum(slotNum) {
+    store.dispatch({
+        type: 'addChestSlot',
+        slotNum
+    })
+}
+
+// 增加保险箱卡位上限
+export function addPower(power) {
+    store.dispatch({
+        type: 'addPower',
+        power
+    })
+}

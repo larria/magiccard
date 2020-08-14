@@ -13,4 +13,30 @@ export const BaseUserData = {
     bonus: []
 }
 
+// 升级奖励
+export const levelBonus = function () {
+    return (new Array(1000)).fill(1).map((item, index) => {
+        if (index === 5 || index === 10) {
+            return {
+                'maxStove': 1
+            }
+        }
+        if (index % 4 === 0 && index < 81) {
+            return {
+                'bagSlotNum': 1
+            }
+        }
+        if (index % 4 === 2 && index < 83) {
+            return {
+                'chestSlotNum': 1
+            }
+        } else {
+            return {
+                'gold': index * 1000,
+                'power': index * 10
+            }
+        }
+    })
+}()
+
 export const defaultMiniThemeIdList = ['40', '45', '166', '177']

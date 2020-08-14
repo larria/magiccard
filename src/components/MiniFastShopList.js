@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Modal, Button } from 'antd'
+import { Modal, Button, Tooltip } from 'antd'
 
 import './MiniFastShopList.css'
 import getData from '../getData'
@@ -12,7 +12,7 @@ import DiffStar from './DiffStar'
 import ThemePreview from './ThemePreview'
 
 function MiniFastShopList(props) {
-    let currentShowThemeId = props.showThemeId
+    let currentShowThemeId = props.minifastshop.showThemeId || props.showThemeId
     let currentShowThemeData = getData.getThemeById(currentShowThemeId)
     let currentShowCardsOfTheme = getData.getCardsByThemeId(currentShowThemeId)
     let currentCardsSortByPrice = getData.getCardsByThemeIdAndSortByPrice(currentShowThemeId)
@@ -113,10 +113,10 @@ function MiniFastShopList(props) {
                     newBagList.splice(cardIndexInBagList, 1)
                 }
             })
-            if(newBagList.length !== props.bagList.length){
+            if (newBagList.length !== props.bagList.length) {
                 dpa.updateBagList(newBagList)
             }
-            if(newChestList.length !== props.chestList.length){
+            if (newChestList.length !== props.chestList.length) {
                 dpa.updateChestList(newChestList)
             }
         } else {
@@ -151,21 +151,23 @@ function MiniFastShopList(props) {
 
         return (
             <li key={cardData.id}>
-                <span className="minifastshop_list_card_w">
-                    <Card id={cardData.id} isSmall={true} />
-                    {cardNums.numsInRep !== 0 && (
-                        <>
-                            <span className="minifastshop_list_card_rep_num">{cardNums.numsInRep}</span>
-                            <span className="minifastshop_list_card_rep_num_bg"></span>
-                        </>
-                    )}
-                    {cardNums.numsInStove !== 0 && (
-                        <span className="minifastshop_list_card_mask">合成中</span>
-                    )}
-                    {cardNums.numsInRep === 0 && cardNums.numsInStove === 0 && (
-                        <span className="minifastshop_list_card_mask"></span>
-                    )}
-                </span>
+                <Tooltip title={cardData.name}>
+                    <span className="minifastshop_list_card_w">
+                        <Card id={cardData.id} isSmall={true} />
+                        {cardNums.numsInRep !== 0 && (
+                            <>
+                                <span className="minifastshop_list_card_rep_num">{cardNums.numsInRep}</span>
+                                <span className="minifastshop_list_card_rep_num_bg"></span>
+                            </>
+                        )}
+                        {cardNums.numsInStove !== 0 && (
+                            <span className="minifastshop_list_card_mask">合成中</span>
+                        )}
+                        {cardNums.numsInRep === 0 && cardNums.numsInStove === 0 && (
+                            <span className="minifastshop_list_card_mask"></span>
+                        )}
+                    </span>
+                </Tooltip>
                 {showBuyBtn && (
                     <Button
                         type="primary"

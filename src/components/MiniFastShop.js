@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo } from 'react'
 import { connect } from 'react-redux'
 import { Tooltip } from 'antd'
 
@@ -9,7 +9,13 @@ import getData from '../getData'
 import { defaultMiniThemeIdList } from '../config'
 
 function MiniFastShop(props) {
-    const recommendedThemesList = getRecommendedThemesList(defaultMiniThemeIdList)
+    // const recommendedThemesList = getRecommendedThemesList(defaultMiniThemeIdList)
+    // props.setShowThemeId(recommendedThemesList[0])
+    const recommendedThemesList = useMemo(() => {
+        let res = getRecommendedThemesList(defaultMiniThemeIdList)
+        props.setShowThemeId(res[0])
+        return res
+    }, [])
 
     function getRecommendedThemesList(defaultThemeList) {
         let resSet = new Set()
@@ -55,8 +61,6 @@ function MiniFastShop(props) {
         }
         return [...resSet].slice(0, 4)
     }
-    // todo 从换卡箱和保险箱查看主题bug
-    const [showThemeId, setShowThemeId] = useState(recommendedThemesList[0])
 
     return (
         <>
@@ -71,7 +75,7 @@ function MiniFastShop(props) {
                                 return (
                                     <span className="minifastshop_themelogo_w" key={themeId}>
                                         <Tooltip title={getData.getThemeById(themeId).name}>
-                                            <span onClick={e => setShowThemeId(themeId)}>
+                                            <span onClick={e => props.setShowThemeId(themeId)}>
                                                 <ThemeLogo key={themeId} theme_id={themeId} />
                                             </span>
                                         </Tooltip>
@@ -80,7 +84,7 @@ function MiniFastShop(props) {
                             })}
                         </div>
                     </div>
-                    <MiniFastShopList showThemeId={showThemeId} />
+                    <MiniFastShopList />
                     <span className="minifastshop_close_btn" onClick={props.handleClickClose}>关闭</span>
                 </div>
             )}
@@ -104,6 +108,13 @@ const mapDispatchToProps = (dispatch) => {
             let action = {
                 type: 'minifastshop/setShow',
                 isShow: false
+            }
+            dispatch(action);
+        },
+        setShowThemeId: (showThemeId) => {
+            let action = {
+                type: 'minifastshop/setShowTheme',
+                showThemeId
             }
             dispatch(action);
         }

@@ -4,6 +4,7 @@ import { Progress, Modal } from 'antd'
 
 import './User.css'
 import * as config from '../config'
+import * as utils from '../utils'
 import * as dpa from '../dispatchActionWithBusiness'
 
 function User(props) {
@@ -50,6 +51,9 @@ function User(props) {
         lvlUponList.forEach(lvlUpon => {
             let bonus = config.levelBonus[lvlUpon]
             if (bonus.maxStove) {
+                // 如果更新了炉位上限  要更新stoveList的toStartRefine
+                let stoveList = utils.getUpdatedStoveListByMaxStove(props.stoveList, props.stoveStat.maxStove + bonus.maxStove)
+                dpa.updateStoveList(stoveList)
                 dpa.addMaxStove(bonus.maxStove)
             }
             if (bonus.bagSlotNum) {
@@ -66,7 +70,6 @@ function User(props) {
             }
         })
         dpa.setLevelBonusGot(level)
-        // todo 如果更新了炉位上限  要更新stoveList的toStartRefine
     }
 
     return (
@@ -106,7 +109,9 @@ const mapStateToProps = (state) => {
         exp: state.exp,
         gold: state.gold,
         power: state.power,
-        lvlBonus: state.lvlBonus
+        lvlBonus: state.lvlBonus,
+        stoveStat: state.stoveStat,
+        stoveList: state.stoveList,
     }
 }
 const mapDispatchToProps = (dispatch) => {

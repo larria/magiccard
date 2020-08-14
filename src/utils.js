@@ -116,7 +116,7 @@ export function getStartToRefineAt(slotsList, maxStove) {
         // 没有剩余的活跃炉子了，则要找出排队之后最早能开始的时间点
         refiningRefinedAtList.sort((a, b) => a - b)
         queueCostList.sort((a, b) => a - b)
-        while(queueCostList.length > 0) {
+        while (queueCostList.length > 0) {
             let earliestQueueCost = queueCostList.shift()
             // 早完成的炉子用来炼制先等待的卡
             refiningRefinedAtList[0] += earliestQueueCost
@@ -128,9 +128,44 @@ export function getStartToRefineAt(slotsList, maxStove) {
 }
 
 // 当同时炼卡的炉子数量上限改变（升级解锁了炉子、租了炉子、租的炉子到期）时，更新炉子数据列表（其中的开始炼制的时间startToRefineAt）
-// todo
-export function getUpdatedStoveListByMaxStove(slotsList, fromMaxStove, toMaxStove) {
-    return
+export function getUpdatedStoveListByMaxStove(slotsList, toMaxStove) {
+    let theSlotsList = JSON.parse(JSON.stringify(slotsList))
+    let count = parseInt(toMaxStove, 10)
+    // 已有数据列表按开始炼制的时间排序
+    theSlotsList.sort((a, b) => a.startToRefineAt - b.startToRefineAt)
+    let nowSamp = Date.now()
+
+    let willFinishRefineSampList = []
+    theSlotsList.forEach(slot => {
+        let costTime = parseInt(getData.getCombineRuleByCardId(slot.cardId).time) * 1000
+        if (slot.startToRefineAt < nowSamp) {
+            // 原先已经开始炼，则检查是否炼完
+            let refinedTime = slot.startToRefineAt + costTime
+            if (refinedTime < nowSamp) {
+                // 已经炼完，不需要处理
+            } else {
+                // 没有炼完，占用一个炉位
+                willFinishRefineSampList.push(refinedTime)
+                count--
+            }
+        } else {
+            // 原先还没开始炼，判断炉子数量增加后是否可以马上开始
+            if (count > 0) {
+                // 占用一个炉位，马上开始
+                slot.startToRefineAt = nowSamp
+                let refinedTime = slot.startToRefineAt + costTime
+                willFinishRefineSampList.push(refinedTime)
+                count--
+            } else {
+                // 没有炉子了，要继续等待，更新炉子上限变化后可以开始炼制的时间
+                // 用之前最早完成的炉子接下来炼制
+                willFinishRefineSampList.sort((a, b) => a - b)
+                let startToRefineAt = willFinishRefineSampList.shift()
+                slot.startToRefineAt = startToRefineAt
+            }
+        }
+    })
+    return theSlotsList
 }
 
 // 检查是否合成了主题

@@ -23,7 +23,8 @@ function PanelSettings(props) {
                 <p onClick={handleClick}>设置好友数量: {friendsNum}</p>
                 <p>下载个人数据</p>
                 <button onClick={e => props.addExp(100)}>增加经验值</button>
-                <button onClick={e => props.setExp(0)}>经验值清零</button>
+                <button onClick={e => props.setExp(3251)}>升级到lv. 5</button>
+                <button onClick={e => props.setExp(10001)}>升级到lv. 10</button>
                 <button onClick={e => props.setUserName('Larria' + Date.now().toString().slice(9))}>点击改名</button>
                 <button onClick={e => dpa.updateBagListWithATheme()}>换卡箱变成一套</button>
                 <button onClick={e => dpa.addAThemeToBook()}>集齐册放一套卡</button>

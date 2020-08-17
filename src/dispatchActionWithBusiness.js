@@ -150,7 +150,7 @@ export function addChestSlotNum(slotNum) {
     })
 }
 
-// 增加保险箱卡位上限
+// 增加魔力
 export function addPower(power) {
     store.dispatch({
         type: 'addPower',

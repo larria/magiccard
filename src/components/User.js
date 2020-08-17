@@ -38,7 +38,7 @@ function User(props) {
                             <div className="user_bonus" key={lvlUpon}>
                                 {bonus.maxStove && (<p>最大炉位 +{bonus.maxStove}</p>)}
                                 {bonus.bagSlotNum && (<p>换卡箱卡位解锁 +{bonus.bagSlotNum}</p>)}
-                                {bonus.chestSlotNum && (<p>保险箱箱卡位解锁 +{bonus.chestSlotNum}</p>)}
+                                {bonus.chestSlotNum && (<p>保险箱卡位解锁 +{bonus.chestSlotNum}</p>)}
                                 {bonus.gold && (<p>金币 +{bonus.gold}</p>)}
                                 {bonus.power && (<p>魔力 +{bonus.power}</p>)}
                             </div>

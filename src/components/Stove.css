@@ -15,6 +15,31 @@
     transition: all ease 0.3s;
     zoom: 1;
 }
+
+.stove_icon:before {
+    position: absolute;
+    z-index: 6;
+    left: 50px;
+    top: 165px;
+    content: ' ';
+    width: 170px;
+    height: 170px;
+    background: url(https://larria.github.io/magiccard/assets/style/imgs/luzi_work_lbg_ani.png) 0px 0px no-repeat;
+    zoom: 0.8
+}
+
+.stove_icon:after {
+    position: absolute;
+    z-index: 7;
+    left: 40px;
+    top: 140px;
+    content: ' ';
+    width: 145px;
+    height: 145px;
+    background: url(https://larria.github.io/magiccard/assets/style/imgs/luzi_work_light_ani.png) 0px 0px no-repeat;
+    opacity: 0.9;
+}
+
 .stove_icon:nth-of-type(2) {
     position: relative;
     left: -400px;
@@ -22,6 +47,7 @@
     z-index: 4;
     zoom: 0.8;
 }
+
 .stove_icon:nth-of-type(3) {
     position: relative;
     left: -307px;

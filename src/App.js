@@ -80,7 +80,7 @@ class App extends React.Component {
                                     <Menu.Item key="/home" icon={<DesktopOutlined />}>
                                         <Link to="/home">我的</Link>
                                     </Menu.Item>
-                                    <SubMenu key="/friends" icon={<UserOutlined />} title="好友">
+                                    {/* <SubMenu key="/friends" icon={<UserOutlined />} title="好友">
                                         <Menu.Item key="3">心月</Menu.Item>
                                         <Menu.Item key="4">泠泠弦上</Menu.Item>
                                         <Menu.Item key="5">Lynn</Menu.Item>
@@ -96,7 +96,7 @@ class App extends React.Component {
                                         <Menu.Item key={Math.random()}>3646785450</Menu.Item>
                                         <Menu.Item key={Math.random()}>3646785450</Menu.Item>
                                         <Menu.Item key={Math.random()}>3646785450</Menu.Item>
-                                    </SubMenu>
+                                    </SubMenu> */}
                                     <Menu.Item key="/museum" icon={<FileOutlined />}>
                                         <Link to="/museum">博物馆</Link>
                                     </Menu.Item>

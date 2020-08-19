@@ -119,12 +119,12 @@ class App extends React.Component {
                                                 <Menu.Item key="/home/change">
                                                     <Link to="/home/change">变卡</Link>
                                                 </Menu.Item>
-                                                <Menu.Item key="/home/bonus">
+                                                {/* <Menu.Item key="/home/bonus">
                                                     <Link to="/home/bonus">道具</Link>
                                                 </Menu.Item>
                                                 <Menu.Item key="/home/user">
                                                     <Link to="/home/user">个人信息</Link>
-                                                </Menu.Item>
+                                                </Menu.Item> */}
                                             </Menu>
                                         </Header>
                                     </Route>
@@ -132,7 +132,7 @@ class App extends React.Component {
                                     </Route>
                                 </Switch>
                                 <Content style={{ margin: '0 16px' }}>
-                                    <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
+                                    <div className="site-layout-background" style={{ padding: '24px 8px', minHeight: 'calc(100vh - 64px)' }}>
                                         <Switch>
                                             <Route exact path="/">
                                                 <Redirect to="/home" />

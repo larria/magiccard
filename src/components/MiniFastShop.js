@@ -1,21 +1,27 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { connect } from 'react-redux'
-import { Tooltip } from 'antd'
+import { Tooltip, Modal, Button } from 'antd'
+import { SearchOutlined } from '@ant-design/icons';
 
 import './MiniFastShop.css'
 import MiniFastShopList from './MiniFastShopList'
 import ThemeLogo from './ThemeLogo'
 import getData from '../getData'
 import { defaultMiniThemeIdList } from '../config'
+import PanelSearchWithUser from './PanelSearchWithUser'
 
 function MiniFastShop(props) {
     // const recommendedThemesList = getRecommendedThemesList(defaultMiniThemeIdList)
     // props.setShowThemeId(recommendedThemesList[0])
+
+    // 推荐主题列表
     const recommendedThemesList = useMemo(() => {
         let res = getRecommendedThemesList(defaultMiniThemeIdList)
         props.setShowThemeId(res[0])
         return res
     }, [])
+
+    const [searchModelVisible, setSearchModelVisible] = useState(false)
 
     function getRecommendedThemesList(defaultThemeList) {
         let resSet = new Set()
@@ -36,7 +42,7 @@ function MiniFastShop(props) {
                 let themeData = getData.getThemeByCardId(repCardId)
                 let themeId = themeData.id
                 // 限制主题类型，不能是活动卡
-                if(themeData.type !== '2') {
+                if (themeData.type !== '2') {
                     if (themeId in repThemeObj) {
                         repThemeObj[themeId] += cardPrice
                     } else {
@@ -62,6 +68,12 @@ function MiniFastShop(props) {
         return [...resSet].slice(0, 4)
     }
 
+    // 关闭搜索框并显示主题
+    function onSearchResultClicked(themeId) {
+        setSearchModelVisible(false)
+        props.setShowThemeId(themeId)
+    }
+
     return (
         <>
             {props.minifastshop.isShow && (<div className="minifastshop_mask"></div>)}
@@ -82,6 +94,20 @@ function MiniFastShop(props) {
                                     </span>
                                 )
                             })}
+                            <span className="minifastshop_search">
+                                <Button type="primary" icon={<SearchOutlined />} size="small" onClick={e => setSearchModelVisible(true)}>查找主题</Button>
+                            </span>
+                            <Modal
+                                title="搜索卡片主题"
+                                visible={searchModelVisible}
+                                width={650}
+                                centered
+                                footer={null}
+                                onOk={e => setSearchModelVisible(false)}
+                                onCancel={e => setSearchModelVisible(false)}
+                            >
+                                <PanelSearchWithUser handleClickResultTheme={onSearchResultClicked} />
+                            </Modal>
                         </div>
                     </div>
                     <MiniFastShopList />

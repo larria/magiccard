@@ -27,6 +27,11 @@
 .minifastshop_ctrl {
     margin: 0 10px;
     display: flex;
+    align-items: center;
+}
+
+.minifastshop_search{
+    margin-left: 30px;
 }
 
 .minifastshop_head{

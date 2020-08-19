@@ -85,8 +85,8 @@
 
 .minifastshop_list_card_rep_num{
     position: absolute;
-    left: 0;
-    top: 0;
+    left: 2px;
+    top: 2px;
     z-index: 33;
     display: flex;
     width: 12px;
@@ -100,8 +100,8 @@
 
 .minifastshop_list_card_rep_num_bg{
     position: absolute;
-    left: 0;
-    top: 0;
+    left: 2px;
+    top: 2px;
     z-index: 32;
     content: ' ';
     width: 0;

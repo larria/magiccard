@@ -112,6 +112,7 @@ function StoveList(props) {
                                         slotIndex={index}
                                         cardId={slotsRenderState[index].cardId}
                                         state={slotsRenderState[index].state}
+                                        totalTime={parseInt(getData.getCombineRuleByCardId(slotsRenderState[index].cardId).time, 10)}
                                         restTime={slotsRenderState[index].restTime}
                                         onGetCard={_ => { getACardFromSlot(index) }}
                                         onCardRefined={_ => { handleCardRefined(index) }} />

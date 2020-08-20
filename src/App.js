@@ -6,8 +6,8 @@ import { Layout, Menu } from 'antd';
 import {
     DesktopOutlined,
     FileOutlined,
-    TeamOutlined,
-    UserOutlined,
+    // TeamOutlined,
+    // UserOutlined,
     SettingOutlined,
 } from '@ant-design/icons';
 
@@ -31,7 +31,7 @@ import PanelBook from './components/PanelBook'
 import PanelSettings from './components/PanelSettings'
 
 const { Header, Content, Sider } = Layout;
-const { SubMenu } = Menu;
+// const { SubMenu } = Menu;
 
 class App extends React.Component {
     state = {

@@ -17,6 +17,13 @@ export function getTimeFormat(endTime) {
     return result
 }
 
+// 百分比
+export function getPercent(objVal, totalVal, toFixedNum = 1) {
+    let res = 100 * parseFloat(objVal) / parseFloat(totalVal)
+    res = res.toFixed(toFixedNum)
+    return res
+}
+
 // 换算成等级
 export function getlvl(exp) {
     let res = Math.floor(Math.pow(exp / 10, 1 / 3))

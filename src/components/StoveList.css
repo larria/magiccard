@@ -3,7 +3,7 @@
     display: flex;
 }
 
-.stovelist li{
+.stovelist li {
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -36,6 +36,47 @@
 
 .stovelist li .stoveslot.stoveslot_card {}
 
+.stoveslot_card_mask {
+    position: absolute;
+    z-index: 6;
+    left: 0;
+    top: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    flex-direction: column;
+    align-items: center;
+}
+
+.stoveslot_card_state {
+    position: absolute;
+    z-index: 7;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    line-height: 30px;
+    color: #fff;
+    text-align: center;
+}
+
+.stoveslot_card_refining {
+    animation: twinkling 2.1s infinite ease-in-out;
+}
+
+.stoveslot_card_progress {
+    margin-top: 25px;
+}
+
+.stoveslot_card_mask .ant-progress-text {
+    color: #fff;
+}
+
+.stovelist li .stoveslot_ctrl {
+    min-height: 32px;
+    line-height: 32px;
+}
+
 .stovelist li .stoveslot.stoveslot_blank:after {
     position: absolute;
     z-index: 1;
@@ -60,19 +101,40 @@
     background: url(https://larria.github.io/magiccard/assets/style/imgs/card_frames.png) -366px -322px no-repeat;
 }
 
-.stoveslot_card_cont{
+.stoveslot_card_cont {
     position: relative;
     z-index: 5;
 }
 
-.stoveslot_locked_inner{
+.stoveslot_locked_inner {
     position: relative;
     z-index: 5;
     font-size: 18px;
     color: #fff;
 }
 
-.stovelist li .ant-statistic-content-value, .stovelist li .ant-statistic {
+.stovelist li .ant-statistic-content-value,
+.stovelist li .ant-statistic {
     line-height: 20px;
     font-size: 14px;
+}
+
+@keyframes twinkling {
+    0% {
+        opacity: 0.2;
+        filter: alpha(opacity=20);
+        -webkit-transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        filter: alpha(opacity=50);
+        -webkit-transform: scale(1.12);
+    }
+
+    100% {
+        opacity: 0.3;
+        filter: alpha(opacity=20);
+        -webkit-transform: scale(1);
+    }
 }

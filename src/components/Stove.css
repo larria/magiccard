@@ -16,7 +16,7 @@
     zoom: 1;
 }
 
-.stove_icon:before {
+/* .stove_icon:before {
     position: absolute;
     z-index: 6;
     left: 50px;
@@ -38,7 +38,7 @@
     height: 145px;
     background: url(https://larria.github.io/magiccard/assets/style/imgs/luzi_work_light_ani.png) 0px 0px no-repeat;
     opacity: 0.9;
-}
+} */
 
 .stove_icon:nth-of-type(2) {
     position: relative;

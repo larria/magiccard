@@ -8,7 +8,6 @@ import * as utils from '../utils'
 import * as dpa from '../dispatchActionWithBusiness'
 
 function User(props) {
-
     // 用户等级
     const level = useMemo(() => {
         return Math.floor(Math.pow(props.exp / 100, 1 / 2))

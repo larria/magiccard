@@ -116,8 +116,8 @@ class App extends React.Component {
                                                 <Menu.Item key="/home">
                                                     <Link to="/home">卡片合成</Link>
                                                 </Menu.Item>
-                                                <Menu.Item key="/home/change">
-                                                    <Link to="/home/change">变卡</Link>
+                                                <Menu.Item key="/home/alter">
+                                                    <Link to="/home/alter">变卡</Link>
                                                 </Menu.Item>
                                                 {/* <Menu.Item key="/home/bonus">
                                                     <Link to="/home/bonus">道具</Link>

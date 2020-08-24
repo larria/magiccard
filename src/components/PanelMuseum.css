@@ -1,3 +1,19 @@
-.cardlist_search{
+.museum_hd {
+    display: flex;
+    align-items: center;
+}
+
+.museum_hd .museum_state {
+    margin: 0 0 0 20px;
+}
+
+.museum_state_num {
+    color: #1890ff;
+    font-size: 16px;
+    margin: 0 5px;
+    font-weight: bold;
+}
+
+.cardlist_search {
     margin-left: 20px;
 }

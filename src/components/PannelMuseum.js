@@ -38,25 +38,28 @@ function PanelMuseum(props) {
 
   return (
     <>
-      <Radio.Group onChange={onShowTypeChange} defaultValue={showType}>
-        <Radio.Button value="byList"><UnorderedListOutlined /></Radio.Button>
-        <Radio.Button value="byBlock"><FileImageOutlined /></Radio.Button>
-      </Radio.Group>
-      <span className="cardlist_search">
-        <Tooltip title="搜索">
-          <Button type="primary" shape="circle" icon={<SearchOutlined />} onClick={onClickSearchButton} />
-        </Tooltip>
-      </span>
-      <Modal
-        title="搜索卡片主题"
-        visible={searchModelVisible}
-        width={650}
-        footer={null}
-        onOk={handleSearchOk}
-        onCancel={handleSearchCancel}
-      >
-        <PanelSearch></PanelSearch>
-      </Modal>
+      <div className="museum_hd">
+        <Radio.Group onChange={onShowTypeChange} defaultValue={showType}>
+          <Radio.Button value="byList"><UnorderedListOutlined /></Radio.Button>
+          <Radio.Button value="byBlock"><FileImageOutlined /></Radio.Button>
+        </Radio.Group>
+        <span className="cardlist_search">
+          <Tooltip title="搜索">
+            <Button type="primary" shape="circle" icon={<SearchOutlined />} onClick={onClickSearchButton} />
+          </Tooltip>
+        </span>
+        <Modal
+          title="搜索卡片主题"
+          visible={searchModelVisible}
+          width={650}
+          footer={null}
+          onOk={handleSearchOk}
+          onCancel={handleSearchCancel}
+        >
+          <PanelSearch></PanelSearch>
+        </Modal>
+        <p className="museum_state">卡片主题<span className="museum_state_num">{props.themesList.length}</span>套</p>
+      </div>
       <ThemeList showType={showType}></ThemeList>
     </>
   );

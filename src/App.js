@@ -29,6 +29,7 @@ import PageRegister from './components/PageRegister'
 import PanelHome from './components/PanelHome'
 import PanelBook from './components/PanelBook'
 import PanelSettings from './components/PanelSettings'
+import PanelAlter from './components/PanelAlter';
 
 const { Header, Content, Sider } = Layout;
 // const { SubMenu } = Menu;
@@ -74,7 +75,7 @@ class App extends React.Component {
                         <Layout style={{ minHeight: '100vh' }}>
                             <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
                                 <div className="logo_main">
-                                    <img src="logo_small.jpeg" alt="" />
+                                    <img src="logo.png" alt="" />
                                 </div>
                                 <Menu theme="dark" defaultSelectedKeys={[pathName]} mode="inline">
                                     <Menu.Item key="/home" icon={<DesktopOutlined />}>
@@ -142,6 +143,9 @@ class App extends React.Component {
                                             </Route>
                                             <Route exact path="/home/book">
                                                 <PanelBook />
+                                            </Route>
+                                            <Route exact path="/home/alter">
+                                                <PanelAlter />
                                             </Route>
                                             <Route exact path="/home/user">
                                                 <PageRegister checkRegistered={false} />

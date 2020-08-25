@@ -20,12 +20,12 @@ code {
 .logo_main {
   height: 60px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
 }
 
 .logo_main img {
-  width: 40px;
+  width: 50px;
   border-radius: 10px;
 }
 

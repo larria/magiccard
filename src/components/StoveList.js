@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { connect } from 'react-redux'
-import { Button, Modal } from 'antd';
+import { Button, Modal } from 'antd'
 
 import getData from '../getData'
 // import * as time from '../time'

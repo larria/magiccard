@@ -26,7 +26,7 @@ function RepertoryBox(props) {
                         <Button
                             type="primary"
                             shape="circle"
-                            icon={<MoneyCollectOutlined />}
+                            icon={<MoneyCollectOutlined rotate={180} />}
                             onClick={e => toSellACardFromBag(bagCardIndex)}
                         />
                     </Tooltip>

@@ -6,6 +6,11 @@
     margin: 20px;
 }
 
+.book_num {
+    font-weight: normal;
+    opacity: 0.8;
+}
+
 /* .booklist{
     display: flex;
 }

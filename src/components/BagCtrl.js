@@ -206,7 +206,7 @@ function BagCtrl(props) {
                 {props.drawStat.lastDrawNumLeft < 16 && <span className="repertory_draw_time"> 下一张卡：{canDrawLeftTime}</span>}
             </div>
             <span style={{ flex: '1' }}></span>
-            <Button className="repertory_bag_btn repertory_bag_btn_sell_all" type="primary" icon={<MoneyCollectOutlined />} size="small" onClick={sellAllNormalCards}>一键卖普卡</Button>
+            <Button className="repertory_bag_btn repertory_bag_btn_sell_all" type="primary" icon={<MoneyCollectOutlined rotate={180} />} size="small" onClick={sellAllNormalCards}>一键卖普卡</Button>
         </>
     )
 }

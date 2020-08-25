@@ -25,7 +25,7 @@ function PanelBook(props) {
                 <Tabs
                     defaultActiveKey="gotten"
                     tabBarStyle={{ marginLeft: '20px', marginBottom: '0', fontWeight: 'bolder' }}>
-                    <TabPane tab="已集齐" key="gotten">
+                    <TabPane tab={<>已收集<span className="book_num">（{collectedThemeList.collected.length} / {collectedThemeList.collected.length + collectedThemeList.unCollected.length})</span></>} key="gotten">
                         <div className="booklist_w">
                             {
                                 collectedThemeList.collected.length > 0 ? (
@@ -36,7 +36,7 @@ function PanelBook(props) {
                             }
                         </div>
                     </TabPane>
-                    <TabPane tab="待收集" key="ungotten">
+                    <TabPane tab={<>待收集<span className="book_num">（{collectedThemeList.unCollected.length}）</span></>} key="ungotten">
                         <div className="booklist_w">
                             {
                                 collectedThemeList.unCollected.length > 0 ? (

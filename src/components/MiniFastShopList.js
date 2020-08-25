@@ -1,4 +1,4 @@
-import React, {useState, useMemo} from 'react'
+import React, { useState, useMemo } from 'react'
 import { connect } from 'react-redux'
 import { Modal, Button, Tooltip } from 'antd'
 
@@ -85,7 +85,7 @@ function MiniFastShopList(props) {
                     });
                     dpa.updateBagList(themeCollected.bagCardIds)
                     dpa.updateChestList(themeCollected.chestCardIds)
-                    // 集齐获得经验和金币
+                    // 集齐获得经验、金币、魔力
                     let gold = 0
                     let exp = 0
                     themeCollected.collectedThemeIds.forEach(themeId => {
@@ -97,6 +97,7 @@ function MiniFastShopList(props) {
                     })
                     dpa.addGold(gold)
                     dpa.addExp(exp)
+                    dpa.addPower(parseInt(gold / 10))
                 } else {
                     props.addACardToBag(cardId)
                 }
@@ -179,7 +180,7 @@ function MiniFastShopList(props) {
         return (
             <li key={cardData.id}>
                 <Tooltip title={cardData.name}>
-                    <span className="minifastshop_list_card_w" onClick={e => setSelectedCardId(cardData.id)} style={ getCardStyle(cardData.id) }>
+                    <span className="minifastshop_list_card_w" onClick={e => setSelectedCardId(cardData.id)} style={getCardStyle(cardData.id)}>
                         <Card id={cardData.id} isSmall={true} />
                         {cardNums.numsInRep !== 0 && (
                             <>

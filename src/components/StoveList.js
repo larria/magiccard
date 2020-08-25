@@ -79,9 +79,11 @@ function StoveList(props) {
                 })
                 dpa.addGold(gold)
                 dpa.addExp(exp)
+                dpa.addPower(parseInt(gold / 10))
             } else {
-                // 没有合成主题，只增加经验
+                // 没有合成主题，只增加经验和魔力
                 dpa.addExp(exp)
+                dpa.addPower(parseInt(exp / 40))
                 // 将卡片加入换卡箱
                 dpa.addACardToBagList(cardId)
             }
@@ -121,7 +123,7 @@ function StoveList(props) {
                             return (
                                 <li key={Math.random()}>
                                     <StoveSlot slotType="blank" />
-                                    {firstBlankIndex === index && <Button type="primary" shape="round" onClick={e => {props.showMiniShop()}}>炼卡</Button>}
+                                    {firstBlankIndex === index && <Button type="primary" shape="round" onClick={e => { props.showMiniShop() }}>炼卡</Button>}
                                 </li>)
                         }
                     } else {

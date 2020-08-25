@@ -71,6 +71,7 @@ function BagCtrl(props) {
                     });
                     dpa.updateBagList(themeCollected.bagCardIds)
                     dpa.updateChestList(themeCollected.chestCardIds)
+                    // 集齐获得经验、金币、魔力
                     let gold = 0
                     let exp = 0
                     themeCollected.collectedThemeIds.forEach(themeId => {
@@ -135,6 +136,7 @@ function BagCtrl(props) {
                 });
                 dpa.updateBagList(themeCollected.bagCardIds)
                 dpa.updateChestList(themeCollected.chestCardIds)
+                // 集齐获得经验、金币、魔力
                 let gold = 0
                 let exp = 0
                 themeCollected.collectedThemeIds.forEach(themeId => {
@@ -146,6 +148,7 @@ function BagCtrl(props) {
                 })
                 dpa.addGold(gold)
                 dpa.addExp(exp)
+                dpa.addPower(parseInt(exp / 40))
             } else {
                 // 将卡片加入换卡箱
                 props.addCardsToBag(cardList)

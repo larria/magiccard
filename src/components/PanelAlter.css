@@ -36,6 +36,11 @@
     justify-content: center;
 }
 
+.alter_box_card .card_wrap {
+    position: relative;
+    z-index: 5;
+}
+
 .alter_box_card:before {
     position: absolute;
     z-index: 2;
@@ -67,6 +72,7 @@
     cursor: pointer;
     background: url(https://larria.github.io/magiccard/assets/style/imgs/panel.png) -541px -588px no-repeat;
     transition: all ease 0.3s;
+    user-select: none;
 }
 
 .alter_arr:hover {

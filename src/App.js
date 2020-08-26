@@ -111,7 +111,7 @@ class App extends React.Component {
                                     <Route path="/home">
                                         <Header className="site-layout-background" style={{ padding: 0 }}>
                                             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={pathName.includes('/home') ? [pathName] : ['/home']}>
-                                                < Menu.Item key="/home/book" >
+                                                <Menu.Item key="/home/book" >
                                                     <Link to="/home/book">集卡册</Link>
                                                 </Menu.Item>
                                                 <Menu.Item key="/home">

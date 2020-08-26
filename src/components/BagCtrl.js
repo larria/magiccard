@@ -16,7 +16,7 @@ function BagCtrl(props) {
     // 抽卡间隔/秒
     const DRAW_INTERVAL = 1800
     // 抽卡剩余时间
-    const [canDrawLeftTime, setCanDrawLeftTime] = useState(utils.getTimeFormat(Math.max(0, DRAW_INTERVAL - ((Date.now() - props.drawStat.lastResetTimeAtSamp) / 1000))))
+    const [canDrawLeftTime, setCanDrawLeftTime] = useState(utils.getTimeFormat(DRAW_INTERVAL - ((Date.now() - props.drawStat.lastResetTimeAtSamp) / 1000 % DRAW_INTERVAL)))
     useEffect(() => {
         // 更新可抽卡的状态
         time.addTask({
@@ -24,12 +24,13 @@ function BagCtrl(props) {
             handle: function (now) {
                 if (props.drawStat.lastDrawNumLeft < 16) {
                     let drawNumFromTime = (now - props.drawStat.lastResetTimeAtSamp) / (DRAW_INTERVAL * 1000)
-                    // 时间到了
                     if (drawNumFromTime > 1) {
+                        // 时间到了
                         props.updateDrawStatFromTime(parseInt(drawNumFromTime, 10))
                     }
-                    setCanDrawLeftTime(utils.getTimeFormat(Math.max(0, DRAW_INTERVAL - ((Date.now() - props.drawStat.lastResetTimeAtSamp) / 1000))))
+                    setCanDrawLeftTime(utils.getTimeFormat(DRAW_INTERVAL - ((Date.now() - props.drawStat.lastResetTimeAtSamp) / 1000 % DRAW_INTERVAL)))
                 } else {
+                    // 可抽的卡数量满了16张，不需再计时
                     time.removeTask('countDrawNum')
                 }
             }

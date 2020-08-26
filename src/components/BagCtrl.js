@@ -78,7 +78,7 @@ function BagCtrl(props) {
                     themeCollected.collectedThemeIds.forEach(themeId => {
                         let diffNum = parseInt(getData.getThemeById(themeId).diff)
                         gold += (diffNum * diffNum * 100)
-                        exp += (diffNum * diffNum * 10)
+                        exp += (diffNum * diffNum * 100)
                         // 将合成的主题放入集卡册
                         dpa.addAThemeToBook(themeId)
                     })
@@ -143,7 +143,7 @@ function BagCtrl(props) {
                 themeCollected.collectedThemeIds.forEach(themeId => {
                     let diffNum = parseInt(getData.getThemeById(themeId).diff)
                     gold += (diffNum * diffNum * 100)
-                    exp += (diffNum * diffNum * 10)
+                    exp += (diffNum * diffNum * 100)
                     // 将合成的主题放入集卡册
                     dpa.addAThemeToBook(themeId)
                 })

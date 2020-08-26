@@ -72,21 +72,21 @@ const mapDispatchToProps = (dispatch) => {
         setUserName: (name) => {
             let action = {
                 type: 'setUserName',
-                name: name
+                name
             }
             dispatch(action);
         },
         addExp: (exp) => {
             let action = {
                 type: 'addExp',
-                exp: exp
+                exp
             }
             dispatch(action);
         },
         setExp: (exp) => {
             let action = {
                 type: 'setExp',
-                exp: exp
+                exp
             }
             dispatch(action);
         }

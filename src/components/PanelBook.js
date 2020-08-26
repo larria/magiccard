@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 import { Tabs } from 'antd';
 
 import ThemeList from './ThemeList'

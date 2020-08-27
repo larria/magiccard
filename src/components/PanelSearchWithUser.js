@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { createHashHistory } from 'history';
-import { Input, Radio, Rate, Result, Divider } from 'antd';
-import { SearchOutlined, LoadingOutlined } from '@ant-design/icons';
+import { createHashHistory } from 'history'
+import { Input, Radio, Rate, Result, Divider } from 'antd'
+import { SearchOutlined, LoadingOutlined } from '@ant-design/icons'
 
 import getData from '../getData'
 import ThemeList from './ThemeList'

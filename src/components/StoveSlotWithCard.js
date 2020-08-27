@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Progress } from 'antd';
+import { Button, Progress } from 'antd'
 
 import Card from './Card'
 

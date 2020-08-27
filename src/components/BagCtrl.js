@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Button, Modal } from 'antd';
+import { Button, Modal } from 'antd'
 import { MoneyCollectOutlined, ExclamationCircleOutlined, DownloadOutlined } from '@ant-design/icons';
 
 import getData from '../getData'
@@ -31,6 +31,7 @@ function BagCtrl(props) {
                     setCanDrawLeftTime(utils.getTimeFormat(DRAW_INTERVAL - ((Date.now() - props.drawStat.lastResetTimeAtSamp) / 1000 % DRAW_INTERVAL)))
                 } else {
                     // 可抽的卡数量满了16张，不需再计时
+                    setCanDrawLeftTime(utils.getTimeFormat(DRAW_INTERVAL))
                     time.removeTask('countDrawNum')
                 }
             }
@@ -39,7 +40,7 @@ function BagCtrl(props) {
             // 组件卸载
             time.removeTask('countDrawNum')
         }
-    });
+    })
 
     // 抽一张卡进换卡箱
     function drawACardToBag() {

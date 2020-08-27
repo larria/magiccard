@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react'
 import { connect } from 'react-redux'
-import { Tabs } from 'antd';
+import { Tabs } from 'antd'
 
 import ThemeList from './ThemeList'
 import getData from '../getData'
 
 import './PanelBook.css'
 
-const { TabPane } = Tabs;
+const { TabPane } = Tabs
 
 function PanelBook(props) {
     const collectedThemeList = useMemo(() => {

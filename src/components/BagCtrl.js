@@ -15,6 +15,8 @@ const { confirm } = Modal;
 function BagCtrl(props) {
     // 抽卡间隔/秒
     const DRAW_INTERVAL = 1800
+    // const DRAW_INTERVAL = 20
+    // console.log('init', Date.now(), props.drawStat.lastResetTimeAtSamp, utils.getTimeFormat(DRAW_INTERVAL - ((Date.now() - props.drawStat.lastResetTimeAtSamp) / 1000 % DRAW_INTERVAL)))
     // 抽卡剩余时间
     const [canDrawLeftTime, setCanDrawLeftTime] = useState(utils.getTimeFormat(DRAW_INTERVAL - ((Date.now() - props.drawStat.lastResetTimeAtSamp) / 1000 % DRAW_INTERVAL)))
     useEffect(() => {
@@ -25,10 +27,15 @@ function BagCtrl(props) {
                 if (props.drawStat.lastDrawNumLeft < 16) {
                     let drawNumFromTime = (now - props.drawStat.lastResetTimeAtSamp) / (DRAW_INTERVAL * 1000)
                     if (drawNumFromTime > 1) {
-                        // 时间到了
-                        props.updateDrawStatFromTime(parseInt(drawNumFromTime, 10))
+                        // 可抽卡累积到了1张以上
+                        // 兼顾两种情况：
+                        // 页面打开时自然计时累积到了1张，或隔一段时间后重新开页面累积到了1或多张）
+                        // 重设时间
+                        let newLastResetTimeAtSamp = now - (now - props.drawStat.lastResetTimeAtSamp) % (DRAW_INTERVAL * 1000)
+                        props.updateDrawStatFromTime(parseInt(drawNumFromTime, 10), newLastResetTimeAtSamp)
                     }
                     setCanDrawLeftTime(utils.getTimeFormat(DRAW_INTERVAL - ((Date.now() - props.drawStat.lastResetTimeAtSamp) / 1000 % DRAW_INTERVAL)))
+                    // console.log('secondchange', Date.now(), props.drawStat.lastResetTimeAtSamp, utils.getTimeFormat(DRAW_INTERVAL - ((Date.now() - props.drawStat.lastResetTimeAtSamp) / 1000 % DRAW_INTERVAL)))
                 } else {
                     // 可抽的卡数量满了16张，不需再计时
                     setCanDrawLeftTime(utils.getTimeFormat(DRAW_INTERVAL))
@@ -172,8 +179,8 @@ function BagCtrl(props) {
         props.bagList.forEach(card_id => {
             let cardInfo = getData.getCardById(card_id)
             let themeInfo = getData.getThemeById(cardInfo.theme_id)
-            // 面值为10，且属于普通卡
             if (cardInfo.price === '10' && themeInfo.type === '0') {
+                // 面值为10，且属于普通卡
                 toSoldCardsList.push(card_id)
                 soldGold += parseInt(cardInfo.price, 10)
             } else {
@@ -260,12 +267,12 @@ const mapDispatchToProps = (dispatch) => {
                 cardList
             });
         },
-        updateDrawStatFromTime: (numFromTime) => {
+        updateDrawStatFromTime: (numFromTime, newLastResetTimeAtSamp) => {
             // 定时更新可抽卡的状态
             dispatch({
                 type: 'draw/updateDrawStat',
                 addDrawNumFromTime: numFromTime,
-                time: Date.now()
+                time: newLastResetTimeAtSamp
             });
         },
         updateDrawStatFromDrawCards: (num, toReSetDrawTime) => {

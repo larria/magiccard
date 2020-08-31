@@ -1,8 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import './App.css';
+import React from 'react'
+import { connect } from 'react-redux'
+import './App.css'
 import 'antd/dist/antd.css'
-import { Layout, Menu } from 'antd';
+import { Layout, Menu } from 'antd'
 import {
     DesktopOutlined,
     FileOutlined,

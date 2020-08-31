@@ -25,6 +25,11 @@
     transition: all ease 0.3s;
 }
 
+.cardlist_by_block ul li.collected {
+    color: #1890ff;
+    background-color: rgba(25, 144, 255, 0.1);
+}
+
 .cardlist_by_block ul li:hover {
     transform: scale(1.1, 1.1)
 }
@@ -41,8 +46,14 @@
     margin-bottom: 10px;
     /* display: inline-block; */
     min-width: 180px;
+    align-items: center;
     cursor: pointer;
     transition: all ease 0.3s;
+}
+
+.cardlist_by_list ul li.collected {
+    color: #1890ff;
+    background-color: rgba(25, 144, 255, 0.1);
 }
 
 .cardlist_by_list ul li:hover {

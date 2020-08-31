@@ -8,7 +8,7 @@ import MiniFastShopList from './MiniFastShopList'
 import ThemeLogo from './ThemeLogo'
 import getData from '../getData'
 import { defaultMiniThemeIdList } from '../config'
-import PanelSearchWithUser from './PanelSearchWithUser'
+import PanelSearch from './PanelSearch'
 
 function MiniFastShop(props) {
     // const recommendedThemesList = getRecommendedThemesList(defaultMiniThemeIdList)
@@ -106,7 +106,10 @@ function MiniFastShop(props) {
                                 onOk={e => setSearchModelVisible(false)}
                                 onCancel={e => setSearchModelVisible(false)}
                             >
-                                <PanelSearchWithUser handleClickResultTheme={onSearchResultClicked} />
+                                <PanelSearch
+                                    themesColectedInfo={props.bookStat}
+                                    handleClickResultTheme={onSearchResultClicked}
+                                />
                             </Modal>
                         </div>
                     </div>
@@ -125,7 +128,8 @@ const mapStateToProps = (state) => {
         bagList: state.bagList,
         chestList: state.chestList,
         stoveList: state.stoveList,
-        minifastshop: state.minifastshop
+        minifastshop: state.minifastshop,
+        bookStat: state.bookStat
     }
 }
 const mapDispatchToProps = (dispatch) => {

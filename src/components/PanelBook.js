@@ -17,7 +17,7 @@ function PanelBook(props) {
         }
     }, [props.bookStat])
 
-    console.log('已收集列表' + collectedThemeList)
+    // console.log('已收集列表' + collectedThemeList)
     return (
         <>
             <div className="book_w">
@@ -31,7 +31,9 @@ function PanelBook(props) {
                                 collectedThemeList.collected.length > 0 ? (
                                     <ThemeList
                                         showType='byBlock'
-                                        themesList={collectedThemeList.collected} />) :
+                                        themesList={collectedThemeList.collected}
+                                        themesColectedInfo={props.bookStat}
+                                    />) :
                                     (<p>您还没有集齐任何主题</p>)
                             }
                         </div>
@@ -42,8 +44,9 @@ function PanelBook(props) {
                                 collectedThemeList.unCollected.length > 0 ? (
                                     <ThemeList
                                         showType='byBlock'
-                                        themesList={collectedThemeList.unCollected} />) :
-                                    (<p>您已经没有需要集齐的主题</p>)
+                                        themesList={collectedThemeList.unCollected}
+                                    />) :
+                                    (<p>您已集齐了全部主题</p>)
                             }
                         </div>
                     </TabPane>

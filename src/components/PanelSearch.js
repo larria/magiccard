@@ -102,15 +102,24 @@ function PanelSearch(props) {
                     // title="暂未找到匹配卡牌"
                     subTitle="暂未找到匹配卡牌"
                 />}
-                {searchResultThemeList.length !== 0 && <ThemeList themesList={searchResultThemeList} handleThemeLogoClick={props.handleClickResultTheme} />}
+                {searchResultThemeList.length !== 0 && (
+                    <ThemeList
+                        themesList={searchResultThemeList}
+                        themesColectedInfo={props.themesColectedInfo}
+                        handleThemeLogoClick={props.handleClickResultTheme}
+                    />
+                )}
             </div>
         </>
     )
 }
 
 PanelSearch.defaultProps = {
-    withUserInfo: false,
+    // 搜索范围主题列表
     themesList: getData.getThemeList(),
+    // 用户已搜集的主题列表
+    themesColectedInfo: null,
+    // 点击搜索结果的回调
     handleClickResultTheme: (theme_id) => {
         let history = createHashHistory();
         history.push(`/theme_card/${theme_id}`)

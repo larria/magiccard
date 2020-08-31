@@ -147,11 +147,8 @@ function getThemeByCardId(id) {
 }
 
 // 获取条件之内的卡片列表
-function getThemesInclude(includeThemeIdObj, themeList) {
+function getThemesInclude(includeThemeIdObj, themeList = getThemeList()) {
     let res = []
-    if (!themeList) {
-        themeList = getThemeList()
-    }
     res = themeList.filter(themeItem => {
         return themeItem.id in includeThemeIdObj
     })
@@ -159,11 +156,8 @@ function getThemesInclude(includeThemeIdObj, themeList) {
 }
 
 // 获取排除条件之外的卡片列表
-function getThemesExclude(excludeThemeIdObj, themeList) {
+function getThemesExclude(excludeThemeIdObj, themeList = getThemeList()) {
     let res = []
-    if (!themeList) {
-        themeList = getThemeList()
-    }
     res = themeList.filter(themeItem => {
         return !(themeItem.id in excludeThemeIdObj)
     })

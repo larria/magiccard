@@ -1,8 +1,9 @@
 import React, { useState, useMemo } from 'react'
 import { connect } from 'react-redux'
-import { Button, Tooltip } from 'antd'
+import { Button, Modal, Tooltip } from 'antd'
 
 import Card from './Card'
+import PanelSearch from './PanelSearch'
 import getData from '../getData'
 
 import './PanelAlter.css'
@@ -10,12 +11,19 @@ import './PanelAlter.css'
 function PanelAlter(props) {
     const [fromCardId, setFromCardId] = useState(props.fromCardId)
     const [toCardId, setToCardId] = useState(props.toCardId)
+    const [searchModelVisible, setSearchModelVisible] = useState(false)
     const alterInfoTxt = useMemo(() => {
         if (fromCardId && toCardId) {
             return fromCardId + ' ' + toCardId
         }
         return '请选择消耗卡与目标卡'
     }, [fromCardId, toCardId])
+
+    // 关闭搜索框并显示主题
+    function onSearchResultClicked(themeId) {
+        setSearchModelVisible(false)
+    }
+
     return (
         <>
             <div className="alter_w">
@@ -25,7 +33,7 @@ function PanelAlter(props) {
                         <div className="alter_box_card">
                             {fromCardId && (
                                 <>
-                                    <Card />
+                                    <Card id={fromCardId} />
                                 </>
                             )}
                         </div>
@@ -39,15 +47,26 @@ function PanelAlter(props) {
                         <div className="alter_box_card">
                             {toCardId && (
                                 <>
-                                    <Card />
+                                    <Card id={toCardId} />
                                 </>
                             )}
                         </div>
-                        <Button type="primary" shape="round" onClick={e => { setToCardId('1234') }}>选择目标卡</Button>
+                        <Button type="primary" shape="round" onClick={e => { setSearchModelVisible(true) }}>选择目标卡</Button>
                     </div>
                 </div>
                 <p className="alter_info">{alterInfoTxt}</p>
             </div>
+            <Modal
+                title="搜索卡片主题"
+                visible={searchModelVisible}
+                width={650}
+                centered
+                footer={null}
+                onOk={e => setSearchModelVisible(false)}
+                onCancel={e => setSearchModelVisible(false)}
+            >
+                <PanelSearch handleClickResultTheme={onSearchResultClicked} />
+            </Modal>
         </>
     )
 }

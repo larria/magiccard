@@ -113,7 +113,7 @@ function MiniFastShop(props) {
                             </Modal>
                         </div>
                     </div>
-                    <MiniFastShopList />
+                    <MiniFastShopList listType="minishopAll" />
                     <span className="minifastshop_close_btn" onClick={props.handleClickClose}>关闭</span>
                 </div>
             )}

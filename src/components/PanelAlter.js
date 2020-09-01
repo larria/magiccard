@@ -4,6 +4,8 @@ import { Button, Modal, Tooltip } from 'antd'
 
 import Card from './Card'
 import PanelSearch from './PanelSearch'
+import PanelMiniResp from './PanelMiniResp'
+import MiniFastShopList from './MiniFastShopList'
 import getData from '../getData'
 
 import './PanelAlter.css'
@@ -11,7 +13,15 @@ import './PanelAlter.css'
 function PanelAlter(props) {
     const [fromCardId, setFromCardId] = useState(props.fromCardId)
     const [toCardId, setToCardId] = useState(props.toCardId)
+    // 目标卡搜索主题弹窗是否显示
     const [searchModelVisible, setSearchModelVisible] = useState(false)
+    // 目标卡所在主题列表弹窗是否显示
+    const [themeModelVisible, setThemeModelVisible] = useState(false)
+    // 目标卡所在主题id
+    const [toCardThemeId, setToCardThemeId] = useState(null)
+    // 选择消耗卡弹窗是否可见
+    const [respModelVisible, setRespModelVisible] = useState(false)
+    // 变卡提示信息
     const alterInfoTxt = useMemo(() => {
         if (fromCardId && toCardId) {
             return fromCardId + ' ' + toCardId
@@ -22,6 +32,14 @@ function PanelAlter(props) {
     // 关闭搜索框并显示主题
     function onSearchResultClicked(themeId) {
         setSearchModelVisible(false)
+        setThemeModelVisible(true)
+        setToCardThemeId(themeId)
+    }
+
+    // 点击选择列表中的目标卡
+    function handleToCardClick(cardId) {
+        setToCardId(cardId)
+        setThemeModelVisible(false)
     }
 
     return (
@@ -33,7 +51,7 @@ function PanelAlter(props) {
                         <div className="alter_box_card">
                             {fromCardId && (
                                 <>
-                                    <Card id={fromCardId} />
+                                    <Card id={fromCardId} showPrice={true} showNameInBigCard={true} />
                                 </>
                             )}
                         </div>
@@ -47,7 +65,7 @@ function PanelAlter(props) {
                         <div className="alter_box_card">
                             {toCardId && (
                                 <>
-                                    <Card id={toCardId} />
+                                    <Card id={toCardId} showPrice={true} showNameInBigCard={true} />
                                 </>
                             )}
                         </div>
@@ -57,6 +75,17 @@ function PanelAlter(props) {
                 <p className="alter_info">{alterInfoTxt}</p>
             </div>
             <Modal
+                title="请选择用以消耗的卡片"
+                visible={respModelVisible}
+                width={650}
+                centered
+                footer={null}
+                onOk={e => setRespModelVisible(false)}
+                onCancel={e => setRespModelVisible(false)}
+            >
+                <PanelMiniResp />
+            </Modal>
+            <Modal
                 title="搜索卡片主题"
                 visible={searchModelVisible}
                 width={650}
@@ -65,7 +94,21 @@ function PanelAlter(props) {
                 onOk={e => setSearchModelVisible(false)}
                 onCancel={e => setSearchModelVisible(false)}
             >
-                <PanelSearch handleClickResultTheme={onSearchResultClicked} />
+                <PanelSearch
+                    themesColectedInfo={props.bookStat}
+                    handleClickResultTheme={onSearchResultClicked}
+                />
+            </Modal>
+            <Modal
+                title="请选择要变的卡片"
+                visible={themeModelVisible}
+                width={650}
+                centered
+                footer={null}
+                onOk={e => setThemeModelVisible(false)}
+                onCancel={e => setThemeModelVisible(false)}
+            >
+                <MiniFastShopList listType="alter" showThemeId={toCardThemeId} onCardClick={handleToCardClick} />
             </Modal>
         </>
     )

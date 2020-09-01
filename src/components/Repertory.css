@@ -12,6 +12,7 @@
     cursor: pointer;
     transition: all ease 0.3s;
     zoom: 1;
+    filter: drop-shadow(2px 4px 6px #000);
 }
 
 .repertory_icon:hover {

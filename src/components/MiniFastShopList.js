@@ -55,6 +55,15 @@ function MiniFastShopList(props) {
         }
     }
 
+    function handleClickCard(cardId) {
+        if (props.listType.includes('minishop')) {
+            setSelectedCardId(cardId)
+        } else {
+            props.onCardClick && props.onCardClick(cardId)
+        }
+    }
+
+    // 购买素材卡
     function handleBuyCard(cardId) {
         let cardData = getData.getCardById(cardId)
         if (props.gold >= cardData.price) {
@@ -116,6 +125,7 @@ function MiniFastShopList(props) {
         }
     }
 
+    // 炼这张卡
     function handleRefineCard(cardId) {
         if (props.stoveList.length < props.stoveStat.maxStove + 2) {
             // 将卡片加入炉位
@@ -158,19 +168,26 @@ function MiniFastShopList(props) {
     // 每张卡片的jsx
     function getListCardJSX(cardData) {
         let cardNums = getCardInfoInRepAndStove(cardData.id)
-        // 仅普通卡的10面值卡支持购买
-        let showBuyBtn = currentShowThemeData.type === '0' && cardData.price === '10'
+        // 普通卡的10面值卡支持购买
+        let showBuyBtn =  currentShowThemeData.type === '0' && cardData.price === '10'
 
         // 是否显示合成按钮
         let showCombBtn = true
         let combData = getData.getCombineRuleByCardId(cardData.id)
-        if (combData) {
-            let fromCardIdList = combData.from.split(',')
-            for (let i = 0; i < fromCardIdList.length; i++) {
-                let fromCardId = fromCardIdList[i]
-                if (!props.bagList.includes(fromCardId) && !props.chestList.includes(fromCardId)) {
-                    showCombBtn = false
-                    break
+        if (combData && props.listType.includes('minishop')) {
+            // 如果可合成及炼卡类型
+            if (props.listType === 'minishopLv2' && cardData.price !== '40') {
+                // 如果是偷炉炼卡类型，非40面值的卡不显示合成按钮
+                showCombBtn = false
+            } else {
+                // 普通炼卡类型，检查合成的材料卡是否齐备，否则不显示合成按钮
+                let fromCardIdList = combData.from.split(',')
+                for (let i = 0; i < fromCardIdList.length; i++) {
+                    let fromCardId = fromCardIdList[i]
+                    if (!props.bagList.includes(fromCardId) && !props.chestList.includes(fromCardId)) {
+                        showCombBtn = false
+                        break
+                    }
                 }
             }
         } else {
@@ -180,7 +197,7 @@ function MiniFastShopList(props) {
         return (
             <li key={cardData.id}>
                 <Tooltip title={cardData.name}>
-                    <span className="minifastshop_list_card_w" onClick={e => setSelectedCardId(cardData.id)} style={getCardStyle(cardData.id)}>
+                    <span className="minifastshop_list_card_w" onClick={e => handleClickCard(cardData.id)} style={getCardStyle(cardData.id)}>
                         <Card id={cardData.id} isSmall={true} />
                         {cardNums.numsInRep !== 0 && (
                             <>
@@ -246,7 +263,14 @@ function MiniFastShopList(props) {
 }
 
 MiniFastShopList.defaultProps = {
-    showThemeId: '40'
+    showThemeId: '40',
+    // 该列表的使用场景：
+    // 1. 'minishopAll' - 炼卡时用，可购买素材卡，合成所有可合成卡片
+    // 1. 'minishopLv2' - 炼卡时用，可购买素材卡，只能合成底层素材卡可合成的卡片，用于偷炉
+    // 2. 'alter' - 变卡时用，可购买素材卡。合成卡片
+    listType: 'minishopAll',
+    // 每张卡片的点击回调，目前仅变卡（listType为'alter'）时可用
+    onCardClick: () => {}
 }
 const mapStateToProps = (state) => {
     return {

@@ -58,6 +58,7 @@ class Card extends React.Component {
                 <div className="card_wrap_small" onClick={this.props.onCardClick} style={this._getHighlightStyle()}>
                     <div className="card_small">
                         <img className="card_img_small" src={getURL.getCardSmall(this.props.id)} alt="" />
+                        {this.props.showPrice && <span className="card_price_small">{cardInfo.price}</span>}
                     </div>
                     {this.props.showName && <span className="card_name_small">{cardInfo.name}</span>}
                 </div>

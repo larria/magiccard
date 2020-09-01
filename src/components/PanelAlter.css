@@ -36,6 +36,10 @@
     justify-content: center;
 }
 
+.alter_to_box_card {
+    opacity: 0.5;
+}
+
 .alter_box_card .card_wrap {
     position: relative;
     z-index: 5;
@@ -65,25 +69,38 @@
     background: url(https://larria.github.io/magiccard/assets/style/imgs/card_frames.png) -122px -176px no-repeat;
 }
 
-.alter_arr {
+.alter_ctrl {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.alter_arr {
+    margin-bottom: 30px;
     width: 45px;
     height: 63px;
-    cursor: pointer;
+    /* cursor: pointer; */
     background: url(https://larria.github.io/magiccard/assets/style/imgs/panel.png) -541px -588px no-repeat;
     transition: all ease 0.3s;
     user-select: none;
 }
 
-.alter_arr:hover {
+/* .alter_arr:hover {
     transform: scale(1.1, 1.1)
-}
+} */
 
-.alter_arr:active {
+/* .alter_arr:active {
     transform: scale(1.3, 1.3)
-}
+} */
 
 .alter_info {
-    font-size: 14px;
+    margin-top: 30px;
+    font-size: 16px;
     text-align: center;
+}
+
+.alter_info_em {
+    padding: 0 2px;
+    font-weight: bold;
+    color: #1890ff;
 }

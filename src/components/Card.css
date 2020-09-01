@@ -1,4 +1,5 @@
 .card_wrap {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 120px;
@@ -7,6 +8,7 @@
 }
 
 .card_wrap_small {
+    position: relative;
     display: flex;
     align-items: center;
     max-width: 200px;
@@ -75,6 +77,16 @@
 .card_name_small {
     display: flex;
     margin-left: 10px;
+}
+
+.card_price_small{
+    position: absolute;
+    bottom: 1px;
+    left: 1px;
+    padding: 0 3px;
+    font-size: 12px;
+    background-color: #fff;
+    border-radius: 5px;
 }
 
 @keyframes shakeTopx {

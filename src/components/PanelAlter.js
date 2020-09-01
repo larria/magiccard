@@ -36,8 +36,11 @@ function PanelAlter(props) {
             if (parseInt(fromCardData.price, 10) < parseInt(toCardData.price, 10)) {
                 return (<>消耗卡面值（<span className="alter_info_em">{fromCardData.price}</span>）需大于目标卡面值（<span className="alter_info_em">{toCardData.price}</span>）</>)
             }
+            if (fromCardId === toCardId) {
+                return (<><span className="alter_info_em">消耗卡</span>与<span className="alter_info_em">目标卡</span>不能是同一张卡</>)
+            }
             let costPower = Math.ceil(parseInt(toCardData.price) / 50)
-            return (<>目标卡面值<span className="alter_info_em">{toCardData.price}，此次变卡需消耗魔力{costPower}</span></>)
+            return (<>目标卡面值<span className="alter_info_em">{toCardData.price}</span>，此次变卡需消耗魔力<span className="alter_info_em">{costPower}</span></>)
         } else if (fromCardId) {
             return (<>请选择<span className="alter_info_em">目标卡</span></>)
         } else if (toCardId) {
@@ -46,12 +49,15 @@ function PanelAlter(props) {
         return (<>请选择<span className="alter_info_em">消耗卡</span>与<span className="alter_info_em">目标卡</span></>)
     }, [fromCardId, toCardId])
 
-    // 变卡提示信息
+    // 变卡按钮是否可点击
     const isAlterBtnAble = useMemo(() => {
         if (fromCardId && toCardId) {
             let fromCardData = getData.getCardById(fromCardId)
             let toCardData = getData.getCardById(toCardId)
             if (parseInt(fromCardData.price, 10) < parseInt(toCardData.price, 10)) {
+                return false
+            }
+            if (fromCardId === toCardId) {
                 return false
             }
             return true
@@ -105,7 +111,7 @@ function PanelAlter(props) {
                 title: `您变出了 ${toCardData.name}`,
                 content: (
                     <>
-                        <Card id={toCardId} />
+                        <Card id={toCardId} showPrice={true} showNameInBigCard={true} />
                     </>),
                 onOk() { },
             });

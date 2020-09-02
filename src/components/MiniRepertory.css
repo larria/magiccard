@@ -18,10 +18,9 @@ ul.minirespertory li {
     z-index: 31;
     width: 56px;
     height: 56px;
-    background-color: rgba(0, 0, 0, .7);
+    background-color: rgba(0, 0, 0, .6);
     color: #fff;
     justify-items: center;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
 }

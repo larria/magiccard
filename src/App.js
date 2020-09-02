@@ -29,7 +29,8 @@ import PageRegister from './components/PageRegister'
 import PanelHome from './components/PanelHome'
 import PanelBook from './components/PanelBook'
 import PanelSettings from './components/PanelSettings'
-import PanelAlter from './components/PanelAlter';
+import PanelAlter from './components/PanelAlter'
+import User from './components/User'
 
 const { Header, Content, Sider } = Layout;
 // const { SubMenu } = Menu;
@@ -134,6 +135,9 @@ class App extends React.Component {
                                 </Switch>
                                 <Content style={{ margin: '0 16px' }}>
                                     <div className="site-layout-background" style={{ padding: '24px 8px', minHeight: 'calc(100vh - 64px)' }}>
+                                        <Route path="/home">
+                                            <User />
+                                        </Route>
                                         <Switch>
                                             <Route exact path="/">
                                                 <Redirect to="/home" />

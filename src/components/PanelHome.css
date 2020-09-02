@@ -1,16 +1,8 @@
 .home_w {
     display: flex;
-    flex-direction: column;
     position: relative;
-    z-index: 1;
-    height: calc(100vh - 112px);
-}
-
-.home_cont {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex: 1;
     justify-content: space-around;
     align-items: center;
+    z-index: 1;
+    min-height: calc(100vh - 182px);
 }

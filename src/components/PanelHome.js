@@ -11,12 +11,9 @@ function PanelHome(props) {
     return (
         <>
             <div className="home_w">
-                <User />
-                <div className="home_cont">
-                    <Stove />
-                    <Repertory />
-                    <MiniFastShop />
-                </div>
+                <Stove />
+                <Repertory />
+                <MiniFastShop />
             </div>
         </>
     );

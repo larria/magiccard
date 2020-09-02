@@ -41,4 +41,4 @@ ThemeLogo.defaultProps = {
     }
 }
 
-export default ThemeLogo;
+export default ThemeLogo

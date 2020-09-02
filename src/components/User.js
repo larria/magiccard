@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { connect } from 'react-redux'
-import { Progress, Modal } from 'antd'
+import { Progress, Modal, Tooltip } from 'antd'
 
 import './User.css'
 import * as config from '../config'
@@ -85,14 +85,18 @@ function User(props) {
                     <span className="user_exp_icon"></span>
                     <span className="user_state_text">经验值：{props.exp}</span>
                 </div> */}
-                <div className="user_gold_w">
-                    <span className="user_gold_icon"></span>
-                    <span className="user_state_text">{props.gold}</span>
-                </div>
-                <div className="user_power_w">
-                    <span className="user_power_icon"></span>
-                    <span className="user_state_text">{props.power}</span>
-                </div>
+                <Tooltip title="金币，可用以购买卡片">
+                    <div className="user_gold_w">
+                        <span className="user_gold_icon"></span>
+                        <span className="user_state_text">{props.gold}</span>
+                    </div>
+                </Tooltip>
+                <Tooltip title="魔力，变卡时消耗">
+                    <div className="user_power_w">
+                        <span className="user_power_icon"></span>
+                        <span className="user_state_text">{props.power}</span>
+                    </div>
+                </Tooltip>
             </div>
         </>
     )

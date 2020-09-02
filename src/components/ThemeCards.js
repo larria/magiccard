@@ -1,6 +1,6 @@
-import React from 'react';
-import { message } from 'antd';
-import * as utils from '../utils';
+import React from 'react'
+import { message } from 'antd'
+import * as utils from '../utils'
 import getData from '../getData'
 import Card from './Card'
 import DiffStar from './DiffStar'
@@ -79,7 +79,7 @@ class ThemeCards extends React.Component {
         // 3：特殊卡套（可合成，基础牌只能抽取，正在运作）
         // 5：绝版卡套
         // 9：闪卡套
-        console.log(this.props.theme_id, themeData, themeData.type)
+        // console.log(this.props.theme_id, themeData, themeData.type)
         switch (themeData.type) {
             case '0':
                 typeName = '普通卡'
@@ -106,16 +106,18 @@ class ThemeCards extends React.Component {
 
         return (
             <>
-                <h2 className="cards_of_theme_title">
-                    <img className="cards_of_theme_logo" src={getURL.getThemeLogo(themeData.id)} alt=""/>
-                    {themeData.name}
-                </h2>
-                <span className="cards_of_theme_diff">
-                    <DiffStar diff={themeData.diff}></DiffStar>
-                </span>
-                <span className="cards_of_theme_type">
-                    类型：{typeName} {themeData.type}
-                </span>
+                <div className="cards_of_theme_hd">
+                    <h2 className="cards_of_theme_title">
+                        <img className="cards_of_theme_logo" src={getURL.getThemeLogo(themeData.id)} alt="" />
+                        {themeData.name}
+                    </h2>
+                    <span className="cards_of_theme_diff">
+                        <DiffStar diff={themeData.diff}></DiffStar>
+                    </span>
+                    <span className="cards_of_theme_type">
+                        类型：{typeName} {themeData.type}
+                    </span>
+                </div>
                 <ul className="cards_w">
                     {this.state.cardsSortByPrice.map(item => {
                         return (

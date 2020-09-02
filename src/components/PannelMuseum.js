@@ -56,9 +56,9 @@ function PanelMuseum(props) {
           onOk={handleSearchOk}
           onCancel={handleSearchCancel}
         >
-          <PanelSearch></PanelSearch>
+          <PanelSearch />
         </Modal>
-        <p className="museum_state">卡片主题<span className="museum_state_num">{props.themesList.length}</span>套</p>
+        <p className="museum_state">主题共<span className="museum_state_num">{props.themesList.length}</span>套</p>
       </div>
       <ThemeList showType={showType}></ThemeList>
     </>

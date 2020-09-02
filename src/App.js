@@ -78,7 +78,7 @@ class App extends React.Component {
                                 <div className="logo_main">
                                     <img src="logo.png" alt="" />
                                 </div>
-                                <Menu theme="dark" defaultSelectedKeys={[pathName]} mode="inline">
+                                <Menu theme="dark" defaultSelectedKeys={pathName.includes('/home') ? ['/home']:[pathName]} mode="inline">
                                     <Menu.Item key="/home" icon={<DesktopOutlined />}>
                                         <Link to="/home">我的</Link>
                                     </Menu.Item>

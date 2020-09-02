@@ -22,7 +22,7 @@ class ThemePreview extends React.Component {
         return (
             <>
                 <div className="theme_preview_w">
-                    <img className="theme_preview" src={getURL.getThemeMuseum(this.props.theme_id)} onClick={this.onCardThemeClick} alt="" />
+                    <img className="theme_preview" src={getURL.getThemeMuseum(this.props.theme_id)} onClick={e => this.onCardThemeClick()} alt="" />
                     {this.props.showName && (<span className="theme_preview_name">{this.props.showName}</span>)}
                 </div>
             </>

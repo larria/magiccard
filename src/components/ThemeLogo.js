@@ -21,7 +21,7 @@ class ThemeLogo extends React.Component {
         if (!this.props.isBigLogo) {
             return (
                 <>
-                    <div className="theme_logo_w" onClick={this.onThemeLogoClick} >
+                    <div className="theme_logo_w" onClick={e => this.onThemeLogoClick()} >
                         <img className="theme_logo" src={getURL.getThemeLogo(this.props.theme_id)}alt="" />
                         {this.props.showName && (<span className="theme_logo_name">{this.props.showName}</span>)}
                     </div>
@@ -30,7 +30,7 @@ class ThemeLogo extends React.Component {
         } else {
             return (
                 <>
-                    <div className="theme_logo_big_w" onClick={this.onThemeLogoClick}>
+                    <div className="theme_logo_big_w" onClick={e => this.onThemeLogoClick()}>
                         <img className="theme_logo_big" src={getURL.getThemeBigLogo(this.props.theme_id)} alt="" />
                         {this.props.showName && (<span className="theme_logo_name">{this.props.showName}</span>)}
                     </div>

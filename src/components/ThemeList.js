@@ -46,9 +46,9 @@ function CardListByBlock(props) {
                                         <li key={item.id} className={collected ? 'collected' : ''}>
                                             <ThemePreview
                                                 theme_id={item.id}
-                                                onCardThemeClick={props.handleThemeLogoClick.bind(this, item.id)}
-                                                showName={item.name}>
-                                            </ThemePreview>
+                                                onCardThemeClick={e => props.handleThemeLogoClick(item.id)}
+                                                showName={item.name}
+                                            />
                                         </li>
                                     )
                                 })}
@@ -83,9 +83,10 @@ function CardListByList(props) {
                                             <ThemeLogo
                                                 theme_id={item.id}
                                                 isBigLogo={false}
-                                                onThemeLogoClick={props.handleThemeLogoClick.bind(this, item.id)}
+                                                // onThemeLogoClick={props.handleThemeLogoClick.bind(this, item.id)}
+                                                onThemeLogoClick={e => props.handleThemeLogoClick(item.id)}
                                                 showName={item.name}
-                                            ></ThemeLogo>
+                                            />
                                             {collected && (
                                                 <CheckOutlined style={{ marginLeft: 5, fontSize: 16, color: '#1890ff' }} />
                                             )}

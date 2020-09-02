@@ -251,6 +251,7 @@ function PanelAlter(props) {
             </Modal>
         </>
     )
+    // todo bug 不刷新，第二次点击PanelSearch的主题无法前往对应主题
 }
 
 PanelAlter.defaultProps = {

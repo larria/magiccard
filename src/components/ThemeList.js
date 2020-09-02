@@ -46,7 +46,7 @@ function CardListByBlock(props) {
                                         <li key={item.id} className={collected ? 'collected' : ''}>
                                             <ThemePreview
                                                 theme_id={item.id}
-                                                onCardThemeClick={e => props.handleThemeLogoClick(item.id)}
+                                                onCardThemeClick={props.handleThemeLogoClick}
                                                 showName={item.name}
                                             />
                                         </li>
@@ -84,7 +84,7 @@ function CardListByList(props) {
                                                 theme_id={item.id}
                                                 isBigLogo={false}
                                                 // onThemeLogoClick={props.handleThemeLogoClick.bind(this, item.id)}
-                                                onThemeLogoClick={e => props.handleThemeLogoClick(item.id)}
+                                                onThemeLogoClick={props.handleThemeLogoClick}
                                                 showName={item.name}
                                             />
                                             {collected && (

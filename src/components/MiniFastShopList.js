@@ -10,16 +10,17 @@ import * as dpa from '../dispatchActionWithBusiness'
 import Card from './Card'
 import DiffStar from './DiffStar'
 import ThemePreview from './ThemePreview'
+import ThemeLogo from './ThemeLogo'
 
 function MiniFastShopList(props) {
-    let currentShowThemeId = props.minifastshop.showThemeId || props.showThemeId
-    let currentShowThemeData = getData.getThemeById(currentShowThemeId)
-    let currentShowCardsOfTheme = getData.getCardsByThemeId(currentShowThemeId)
-    let currentCardsSortByPrice = getData.getCardsByThemeIdAndSortByPrice(currentShowThemeId)
+    let themeData = getData.getThemeById(props.showThemeId)
+    let cardsOfTheme = getData.getCardsByThemeId(props.showThemeId)
+    let cardsSortByPrice = getData.getCardsByThemeIdAndSortByPrice(props.showThemeId)
 
     // 点击选中的卡片
     const [selectedCardId, setSelectedCardId] = useState(null)
 
+    // 选中卡片的合成信息
     let fromSelectCardIdList = useMemo(() => {
         if (selectedCardId) {
             let combData = getData.getCombineRuleByCardId(selectedCardId)
@@ -169,7 +170,7 @@ function MiniFastShopList(props) {
     function getListCardJSX(cardData) {
         let cardNums = getCardInfoInRepAndStove(cardData.id)
         // 普通卡的10面值卡支持购买
-        let showBuyBtn =  currentShowThemeData.type === '0' && cardData.price === '10'
+        let showBuyBtn =  themeData.type === '0' && cardData.price === '10'
 
         // 是否显示合成按钮
         let showCombBtn = true
@@ -234,13 +235,14 @@ function MiniFastShopList(props) {
         <>
             <div className="minifastshop_list_w">
                 <div className="minifastshop_list_head">
-                    <h4 className="minifastshop_list_title">{currentShowThemeData.name}</h4>
-                    <DiffStar diff={currentShowThemeData.diff} size={14} />
-                    <p className="minifastshop_list_info">共{currentShowCardsOfTheme.length}张卡片</p>
+                    <ThemeLogo theme_id={themeData.id} />
+                    <h4 className="minifastshop_list_title">{themeData.name}</h4>
+                    <DiffStar diff={themeData.diff} size={14} />
+                    <p className="minifastshop_list_info">共{cardsOfTheme.length}张卡片</p>
                 </div>
                 <ul className="minifastshop_list">
                     {
-                        currentCardsSortByPrice.map(cardsByPriceObj => {
+                        cardsSortByPrice.map(cardsByPriceObj => {
                             return (
                                 <li className="minifastshop_list_price_lvl" key={cardsByPriceObj.price}>
                                     <p className="minifastshop_list_price_lvl_info">
@@ -281,8 +283,7 @@ const mapStateToProps = (state) => {
         bagList: state.bagList,
         chestList: state.chestList,
         stoveList: state.stoveList,
-        stoveStat: state.stoveStat,
-        minifastshop: state.minifastshop
+        stoveStat: state.stoveStat
     }
 }
 const mapDispatchToProps = (dispatch) => {

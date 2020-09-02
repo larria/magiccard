@@ -11,23 +11,15 @@ import { defaultMiniThemeIdList } from '../config'
 import PanelSearch from './PanelSearch'
 
 function MiniFastShop(props) {
-    // const recommendedThemesList = getRecommendedThemesList(defaultMiniThemeIdList)
-    // props.setShowThemeId(recommendedThemesList[0])
-
-    // 推荐主题列表
-    const recommendedThemesList = useMemo(() => {
-        let res = getRecommendedThemesList(defaultMiniThemeIdList)
-        props.setShowThemeId(res[0])
-        return res
-    }, [])
-
+    // 是否显示搜索主题对话框
     const [searchModelVisible, setSearchModelVisible] = useState(false)
+    // MiniFastShopList显示的主题id
+    // 推荐主题列表
+    let recommendedThemesList = getRecommendedThemesList(defaultMiniThemeIdList)
+    const [showThemeId, setShowThemeId] = useState(props.defaultThemeId || recommendedThemesList[0])
 
     function getRecommendedThemesList(defaultThemeList) {
         let resSet = new Set()
-        if (props.minifastshop.showThemeId) {
-            resSet.add(props.minifastshop.showThemeId)
-        }
         // 优先match炉子中有的主题
         props.stoveList.forEach(slotData => {
             resSet.add(getData.getThemeByCardId(slotData.cardId).id)
@@ -71,57 +63,54 @@ function MiniFastShop(props) {
     // 关闭搜索框并显示主题
     function onSearchResultClicked(themeId) {
         setSearchModelVisible(false)
-        props.setShowThemeId(themeId)
+        setShowThemeId(themeId)
     }
 
     return (
         <>
-            {props.minifastshop.isShow && (<div className="minifastshop_mask"></div>)}
-            {props.minifastshop.isShow && (
-                <div className="minifastshop_w">
-                    <div className="minifastshop_head">
-                        <h3 className="minifastshop_title">炼卡攻略</h3>
-                        <div className="minifastshop_ctrl">
-                            <span className="minifastshop_themelogo_txt">推荐主题</span>
-                            {recommendedThemesList.map(themeId => {
-                                return (
-                                    <span className="minifastshop_themelogo_w" key={themeId}>
-                                        <Tooltip title={getData.getThemeById(themeId).name}>
-                                            <span onClick={e => props.setShowThemeId(themeId)}>
-                                                <ThemeLogo key={themeId} theme_id={themeId} />
-                                            </span>
-                                        </Tooltip>
-                                    </span>
-                                )
-                            })}
-                            <span className="minifastshop_search">
-                                <Button type="primary" icon={<SearchOutlined />} size="small" onClick={e => setSearchModelVisible(true)}>查找主题</Button>
-                            </span>
-                            <Modal
-                                title="搜索卡片主题"
-                                visible={searchModelVisible}
-                                width={650}
-                                centered
-                                footer={null}
-                                onOk={e => setSearchModelVisible(false)}
-                                onCancel={e => setSearchModelVisible(false)}
-                            >
-                                <PanelSearch
-                                    themesColectedInfo={props.bookStat}
-                                    handleClickResultTheme={onSearchResultClicked}
-                                />
-                            </Modal>
-                        </div>
+            <div className="minifastshop_w">
+                <div className="minifastshop_head">
+                    <h3 className="minifastshop_title">炼卡攻略</h3>
+                    <div className="minifastshop_ctrl">
+                        <span className="minifastshop_themelogo_txt">推荐主题</span>
+                        {recommendedThemesList.map(themeId => {
+                            return (
+                                <span className="minifastshop_themelogo_w" key={themeId}>
+                                    <Tooltip title={getData.getThemeById(themeId).name}>
+                                        <span onClick={e => setShowThemeId(themeId)}>
+                                            <ThemeLogo key={themeId} theme_id={themeId} />
+                                        </span>
+                                    </Tooltip>
+                                </span>
+                            )
+                        })}
+                        <span className="minifastshop_search">
+                            <Button type="primary" icon={<SearchOutlined />} size="small" onClick={e => setSearchModelVisible(true)}>查找主题</Button>
+                        </span>
+                        <Modal
+                            title="搜索卡片主题"
+                            visible={searchModelVisible}
+                            width={650}
+                            centered
+                            footer={null}
+                            onOk={e => setSearchModelVisible(false)}
+                            onCancel={e => setSearchModelVisible(false)}
+                        >
+                            <PanelSearch
+                                themesColectedInfo={props.bookStat}
+                                handleClickResultTheme={onSearchResultClicked}
+                            />
+                        </Modal>
                     </div>
-                    <MiniFastShopList listType="minishopAll" />
-                    <span className="minifastshop_close_btn" onClick={props.handleClickClose}>关闭</span>
                 </div>
-            )}
+                <MiniFastShopList showThemeId={showThemeId} listType="minishopAll" />
+            </div>
         </>
     )
 }
 
 MiniFastShop.defaultProps = {
+    defaultThemeId: null
 }
 const mapStateToProps = (state) => {
     return {
@@ -134,20 +123,6 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        handleClickClose: () => {
-            let action = {
-                type: 'minifastshop/setShow',
-                isShow: false
-            }
-            dispatch(action);
-        },
-        setShowThemeId: (showThemeId) => {
-            let action = {
-                type: 'minifastshop/setShowTheme',
-                showThemeId
-            }
-            dispatch(action);
-        }
     }
 }
 

@@ -1,11 +1,13 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { connect } from 'react-redux'
-import { Tabs, Button, Tooltip, Modal } from 'antd';
-import { SearchOutlined, MoneyCollectOutlined, LoginOutlined, LogoutOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { Tabs, Button, Tooltip, Modal } from 'antd'
+import { SearchOutlined, MoneyCollectOutlined, LoginOutlined, LogoutOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
+
 import Card from './Card'
 import BagCtrl from './BagCtrl'
 import BagList from './BagList'
 import ChestList from './ChestList'
+import MiniFastShop from './MiniFastShop'
 
 import getData from '../getData'
 import * as dpa from '../dispatchActionWithBusiness'
@@ -16,6 +18,10 @@ const { TabPane } = Tabs;
 const { confirm } = Modal;
 
 function RepertoryBox(props) {
+    // 是否显示炼卡快捷弹窗
+    const [miniFastShopModelVisible, setMiniFastShopModelVisible] = useState(false)
+    // 炼卡快捷弹窗显示的卡片主题
+    const [miniFastShopThemeId, setMiniFastShopThemeId] = useState(null)
 
     // 换卡箱内卡片鼠标移入时添加
     function addBagHoverBtns(bagCardIndex) {
@@ -97,7 +103,8 @@ function RepertoryBox(props) {
         let cardId = cardList[bagCardIndex]
         let cardInfo = getData.getCardById(cardId)
         let themeId = getData.getThemeById(cardInfo.theme_id).id
-        dpa.showThemeInMiniShop(themeId)
+        setMiniFastShopThemeId(themeId)
+        setMiniFastShopModelVisible(true)
     }
 
     // 从换卡箱卖一张卡
@@ -184,6 +191,18 @@ function RepertoryBox(props) {
                     </TabPane>
                 </Tabs>
             </div>
+            <Modal
+                title={null}
+                visible={miniFastShopModelVisible}
+                width={'70%'}
+                centered
+                footer={null}
+                onOk={_ => setMiniFastShopModelVisible(false)}
+                onCancel={_ => setMiniFastShopModelVisible(false)}
+                destroyOnClose={true}
+            >
+                <MiniFastShop defaultThemeId={miniFastShopThemeId} />
+            </Modal>
         </>
     )
 }

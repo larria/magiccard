@@ -15,10 +15,9 @@ const { confirm } = Modal;
 function BagCtrl(props) {
     // 抽卡间隔/秒
     const DRAW_INTERVAL = 1800
-    // const DRAW_INTERVAL = 20
-    // console.log('init', Date.now(), props.drawStat.lastResetTimeAtSamp, utils.getTimeFormat(DRAW_INTERVAL - ((Date.now() - props.drawStat.lastResetTimeAtSamp) / 1000 % DRAW_INTERVAL)))
     // 抽卡剩余时间
     const [canDrawLeftTime, setCanDrawLeftTime] = useState(utils.getTimeFormat(DRAW_INTERVAL - ((Date.now() - props.drawStat.lastResetTimeAtSamp) / 1000 % DRAW_INTERVAL)))
+
     useEffect(() => {
         // 更新可抽卡的状态
         time.addTask({

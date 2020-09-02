@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useState, useMemo } from 'react'
 import { connect } from 'react-redux'
 import { Button, Modal } from 'antd'
 
@@ -8,11 +8,14 @@ import * as utils from '../utils'
 import * as dpa from '../dispatchActionWithBusiness'
 
 import './StoveList.css'
-import StoveSlotWithCard from './StoveSlotWithCard';
-import StoveSlot from './StoveSlot';
-import ThemePreview from './ThemePreview';
+import StoveSlotWithCard from './StoveSlotWithCard'
+import StoveSlot from './StoveSlot'
+import ThemePreview from './ThemePreview'
+import MiniFastShop from './MiniFastShop'
 
 function StoveList(props) {
+    // 是否显示炼卡快捷弹窗
+    const [miniFastShopModelVisible, setMiniFastShopModelVisible] = useState(false)
     // 当前共解锁了多少炉位
     const slotsNum = useMemo(() => {
         return props.stoveStat.maxStove + 2
@@ -102,6 +105,11 @@ function StoveList(props) {
         dpa.updateStoveList(props.stoveList)
     }
 
+    // 显示弹窗
+    function showMiniShop() {
+        setMiniFastShopModelVisible(true)
+    }
+
     return (
         <>
             <ul className="stovelist">
@@ -123,7 +131,7 @@ function StoveList(props) {
                             return (
                                 <li key={Math.random()}>
                                     <StoveSlot slotType="blank" />
-                                    {firstBlankIndex === index && <Button type="primary" shape="round" onClick={e => { props.showMiniShop() }}>炼卡</Button>}
+                                    {firstBlankIndex === index && <Button type="primary" shape="round" onClick={e => { showMiniShop() }}>炼卡</Button>}
                                 </li>)
                         }
                     } else {
@@ -134,6 +142,18 @@ function StoveList(props) {
                     }
                 })}
             </ul>
+            <Modal
+                title={null}
+                visible={miniFastShopModelVisible}
+                width={'70%'}
+                centered
+                footer={null}
+                onOk={_ => setMiniFastShopModelVisible(false)}
+                onCancel={_ => setMiniFastShopModelVisible(false)}
+                destroyOnClose={true}
+            >
+                <MiniFastShop />
+            </Modal>
         </>
     )
 }
@@ -153,12 +173,6 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        showMiniShop: function () {
-            dispatch({
-                type: 'minifastshop/setShow',
-                isShow: true
-            })
-        },
     }
 }
 

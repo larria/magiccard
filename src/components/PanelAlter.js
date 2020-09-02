@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react'
 import { connect } from 'react-redux'
-import { Button, Modal, Tooltip } from 'antd'
+import { Button, Modal } from 'antd'
 
 import getData from '../getData'
 import * as utils from '../utils'

@@ -10,7 +10,6 @@ import ChestList from './ChestList'
 import MiniFastShop from './MiniFastShop'
 
 import getData from '../getData'
-import * as dpa from '../dispatchActionWithBusiness'
 
 import './RepertoryBox.css'
 

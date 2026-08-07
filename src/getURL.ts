@@ -1,4 +1,5 @@
-const BaseURL = '/assets'
+// 跟随 Vite base：dev 为 '/assets'，GitHub Pages 子路径为 '/magiccard/assets'
+const BaseURL = `${import.meta.env.BASE_URL}assets`
 const fix = '.png'
 
 function getCardSmall(cardId: string | number): string {

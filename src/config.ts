@@ -1,4 +1,5 @@
-const BaseURL = '/assets'
+// 跟随 Vite base：dev 为 '/assets'，GitHub Pages 子路径为 '/magiccard/assets'
+const BaseURL = `${import.meta.env.BASE_URL}assets`
 
 export const avatarsURLList: string[] = new Array(18).fill(1).map((_, index) => {
   return `${BaseURL}/other/avatar/avatar${index + 1}.svg`

@@ -70,7 +70,7 @@ export default function PageRegister({ checkRegistered = true }: PageRegisterPro
     <div className="register_w">
       <img
         className="register_welcome_img"
-        src="/assets/style/imgs/moka_girl.png"
+        src={`${import.meta.env.BASE_URL}assets/style/imgs/moka_girl.png`}
         alt=""
       />
       <div className="register_form">

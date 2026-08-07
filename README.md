@@ -2,6 +2,8 @@
 
 魔法卡牌 —— 纯前端卡牌收集 / 合成 / 变卡游戏（数据本地持久化，无后端）。
 
+线上地址：https://larria.github.io/magiccard/
+
 ## 技术栈
 
 - **构建**：Vite 7 + `@vitejs/plugin-react`
@@ -9,7 +11,20 @@
 - **状态管理**：Zustand 5（`persist` 中间件，localStorage 持久化）
 - **路由**：React Router 7（HashRouter 模式）
 - **UI**：Ant Design 5（CSS-in-JS，`ConfigProvider` + `App`）
+- **PWA**：vite-plugin-pwa（可安装、离线可用）
 - **数据**：卡牌数据预编译为 JSON（`src/data/gameData.json`），运行时直接查询
+
+## 开发文档
+
+完整开发文档见 [`docs/`](./docs/)：
+
+- [架构总览](./docs/ARCHITECTURE.md) — 技术栈、分层架构、目录结构、数据流、核心设计决策
+- [状态管理](./docs/STATE.md) — Zustand store、持久化、dpa 业务门面、StrictMode 注意事项
+- [路由](./docs/ROUTING.md) — 路由表、嵌套布局、编程式导航、与 v5 差异
+- [数据层](./docs/DATA.md) — XML→JSON 预编译、类型定义、查询函数、预建索引
+- [UI 组件](./docs/COMPONENTS.md) — 组件清单、antd5 适配要点、深色背景进度条
+- [PWA 与部署](./docs/PWA_DEPLOY.md) — vite-plugin-pwa 配置、GitHub Pages 部署、base 路径
+- [开发规范](./docs/CONVENTIONS.md) — TypeScript、组件、状态管理、antd5、常见坑
 
 ## 开发
 

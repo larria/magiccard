@@ -31,7 +31,7 @@
     display: block;
     width: 145px;
     height: 175px;
-    background: url(https://larria.github.io/magiccard/assets/style/imgs/card_frames.png) -146px 2px no-repeat;
+    background: url(/assets/style/imgs/card_frames.png) -146px 2px no-repeat;
 }
 
 .stovelist li .stoveslot.stoveslot_card {}
@@ -86,7 +86,7 @@
     content: ' ';
     width: 120px;
     height: 150px;
-    background: url(https://larria.github.io/magiccard/assets/style/imgs/card_frames.png) -122px -176px no-repeat;
+    background: url(/assets/style/imgs/card_frames.png) -122px -176px no-repeat;
 }
 
 .stovelist li .stoveslot.stoveslot_locked:after {
@@ -98,7 +98,7 @@
     content: ' ';
     width: 120px;
     height: 150px;
-    background: url(https://larria.github.io/magiccard/assets/style/imgs/card_frames.png) -366px -322px no-repeat;
+    background: url(/assets/style/imgs/card_frames.png) -366px -322px no-repeat;
 }
 
 .stoveslot_card_cont {

@@ -8,7 +8,7 @@
     display: inline-block;
     width: 204px;
     height: 221px;
-    background: url(https://larria.github.io/magiccard/assets/style/imgs/main_view.png) -220px -346px no-repeat;
+    background: url(/assets/style/imgs/main_view.png) -220px -346px no-repeat;
     cursor: pointer;
     transition: all ease 0.3s;
     zoom: 1;

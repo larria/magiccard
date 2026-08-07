@@ -30,6 +30,6 @@ code {
 }
 
 #root .site-layout {
-  background: url(https://larria.github.io/magiccard/assets/style/imgs/rep_bg1.png) 0 0 no-repeat;
+  background: url(/assets/style/imgs/rep_bg1.png) 0 0 no-repeat;
   background-size: 100% 100%;
 }

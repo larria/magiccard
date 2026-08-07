@@ -55,7 +55,7 @@
     display: block;
     width: 145px;
     height: 175px;
-    background: url(https://larria.github.io/magiccard/assets/style/imgs/card_frames.png) -146px 2px no-repeat;
+    background: url(/assets/style/imgs/card_frames.png) -146px 2px no-repeat;
 }
 
 .alter_box_card:after {
@@ -67,7 +67,7 @@
     content: ' ';
     width: 120px;
     height: 150px;
-    background: url(https://larria.github.io/magiccard/assets/style/imgs/card_frames.png) -122px -176px no-repeat;
+    background: url(/assets/style/imgs/card_frames.png) -122px -176px no-repeat;
 }
 
 .alter_ctrl {
@@ -81,7 +81,7 @@
     width: 45px;
     height: 63px;
     /* cursor: pointer; */
-    background: url(https://larria.github.io/magiccard/assets/style/imgs/panel.png) -541px -588px no-repeat;
+    background: url(/assets/style/imgs/panel.png) -541px -588px no-repeat;
     transition: all ease 0.3s;
     user-select: none;
 }

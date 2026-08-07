@@ -38,7 +38,7 @@ img.user_avatar {
     display: inline-block;
     width: 52px;
     height: 52px;
-    background: url(https://larria.github.io/magiccard/assets/style/imgs/icon.png) -60px -64px no-repeat;
+    background: url(/assets/style/imgs/icon.png) -60px -64px no-repeat;
     zoom: 1;
 }
 
@@ -46,7 +46,7 @@ img.user_avatar {
     display: inline-block;
     width: 50px;
     height: 50px;
-    background: url(https://larria.github.io/magiccard/assets/style/imgs/money_icon.png) -5px -6px no-repeat;
+    background: url(/assets/style/imgs/money_icon.png) -5px -6px no-repeat;
     zoom: 1;
 }
 
@@ -54,7 +54,7 @@ img.user_avatar {
     display: inline-block;
     width: 50px;
     height: 50px;
-    background: url(https://larria.github.io/magiccard/assets/style/imgs/money_icon.png) -65px -6px no-repeat;
+    background: url(/assets/style/imgs/money_icon.png) -65px -6px no-repeat;
     zoom: 1;
 }
 

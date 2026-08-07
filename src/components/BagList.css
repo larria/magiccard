@@ -40,5 +40,5 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url(https://larria.github.io/magiccard/assets/style/imgs/card_frames.png) -0px -176px no-repeat;
+    background: url(/assets/style/imgs/card_frames.png) -0px -176px no-repeat;
 }

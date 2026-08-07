@@ -66,13 +66,15 @@ python3 scripts/convert_data.py
 
 ### GitHub Pages 部署
 
-使用 `gh-pages` 包，本地执行 `npm run deploy` 即可：自动以 `BASE_PATH=/magiccard/` 构建（适配 `https://larria.github.io/magiccard/` 子路径），并将 `dist` 推送到远程 `gh-pages` 分支。
+执行 `npm run deploy`（即 `scripts/deploy.sh`）：以 `BASE_PATH=/magiccard/` 构建，在 `dist` 内初始化独立 git 仓库并推送到远程 `gh-pages` 分支。
 
 ```bash
 npm run deploy
 ```
 
-**首次部署前需在仓库 Settings → Pages → Build and deployment → Source 选择 "Deploy from a branch"，分支选 `gh-pages`、目录选 `/ (root)`。**
+> 不使用 `gh-pages` npm 包：本项目 `dist` 含近 4 万个文件（卡牌图），`gh-pages` 包的 `git rm` 阶段会触发 `spawn E2BIG`（命令行参数超限），故改用脚本直接 git 推送。
+
+**首次部署需在仓库 Settings → Pages → Build and deployment → Source 选择 "Deploy from a branch"，分支选 `gh-pages`、目录选 `/ (root)`。**
 
 本地预览生产构建（模拟 GitHub Pages 路径）：
 
